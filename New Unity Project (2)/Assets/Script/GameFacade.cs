@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+[RequireComponent(typeof(PlayerController))]
+
 
 public class GameFacade : MonoBehaviour {
 
     private static GameFacade instance;
   
-    public GameFacade GetInstance()
+    public static GameFacade GetInstance()
     {
         if (instance == null)
         {
@@ -22,21 +24,24 @@ public class GameFacade : MonoBehaviour {
 
     #region Controller
 
+    public PlayerController playerController;
+
     #endregion
 
 
     #region Models
-    public PlayerStageData playerStageData;
+    
+    public PlayerStageData[] playerStageData;  
+    public GameStageData gameStageData;
 
     #endregion
 
-
-
     private void Initialize()
     {
+        playerController = GetComponent<PlayerController>();
 
-        playerStageData = new PlayerStageData();
-
+        gameStageData = new GameStageData();
+        
     }
 
     private void Awake()

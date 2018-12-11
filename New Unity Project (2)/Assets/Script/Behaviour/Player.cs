@@ -4,14 +4,24 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    private GameStageData gameStageData;
 
-	// Use this for initialization
-	void Start () {
-		
+    private void Awake()
+    {
+        gameStageData = GameFacade.GetInstance().gameStageData;
+    }
+
+    void Start ()
+    {
+       
+      
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
 		
+
+
 	}
 }
