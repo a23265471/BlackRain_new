@@ -4,8 +4,20 @@ using UnityEngine;
 
 public abstract class Character : MonoBehaviour
 {
-    protected virtual void MovementAnimationControll()
+    private Animator animator;
+    private AudioSource audioSource;
+    private ParticleSystem particleSystem;
+
+    private void Initialize(Animator CharacterAnimator,AudioSource CharacterAudioSource, ParticleSystem CharacterParticleSystem)
     {
+        animator = CharacterAnimator;
+        audioSource = CharacterAudioSource;
+        particleSystem = CharacterParticleSystem;
+    }
+
+    protected virtual void AnimationBlendTreeControll()
+    {
+        
 
     } 
 
