@@ -8,16 +8,22 @@ public abstract class Character : MonoBehaviour
     private AudioSource audioSource;
     private ParticleSystem particleSystem;
 
-    private void Initialize(Animator CharacterAnimator,AudioSource CharacterAudioSource, ParticleSystem CharacterParticleSystem)
+   /* protected void Initialize(Animator CharacterAnimator,AudioSource CharacterAudioSource)
     {
         animator = CharacterAnimator;
         audioSource = CharacterAudioSource;
-        particleSystem = CharacterParticleSystem;
-    }
-
-    protected virtual void AnimationBlendTreeControll()
-    {
         
+    }*/
+
+    protected virtual void AnimationBlendTreeControll(Animator animator,string parameterName, float targetValue, ref float controllValue)
+    {
+
+
+        controllValue = Mathf.Lerp(controllValue, targetValue, 0.1f);
+        
+        controllValue = Mathf.Clamp(controllValue, controllValue, targetValue);
+        animator.SetFloat(parameterName, controllValue);
+
 
     } 
 
