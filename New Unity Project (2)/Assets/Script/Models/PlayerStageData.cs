@@ -5,6 +5,6 @@ using UnityEngine;
 [CreateAssetMenu]
 public class PlayerStageData : ScriptableObject
 {
-    public PlayerData[] playerData;
+    public PlayerData playerData;
 
 }

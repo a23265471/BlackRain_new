@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 [RequireComponent(typeof(PlayerController))]
-
+[RequireComponent(typeof(GameStageController))]
 
 public class GameFacade : MonoBehaviour {
 
@@ -22,23 +22,32 @@ public class GameFacade : MonoBehaviour {
         return instance;
     }
 
-    #region Controller
 
+
+    #region Controller
     public PlayerController playerController;
+    public GameStageController gameStageController;
 
     #endregion
 
 
-    #region Models
-    
+    #region Models   
     public PlayerStageData[] playerStageData;  
     public GameStageData gameStageData;
+
+    #endregion
+
+    #region Behaviour
+    public PlayerBehaviour playerBehaviour;
 
     #endregion
 
     private void Initialize()
     {
         playerController = GetComponent<PlayerController>();
+        gameStageController = GetComponent<GameStageController>();
+
+       
 
         gameStageData = new GameStageData();
         
@@ -48,5 +57,10 @@ public class GameFacade : MonoBehaviour {
     {
         GetInstance();
 
+    }
+
+    private void Start()
+    {
+        
     }
 }

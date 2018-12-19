@@ -52,4 +52,5 @@ public class PlayerData
     }
 
     public PlayerParameter playerParameter;
+    public GameObject Player;
 }
