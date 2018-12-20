@@ -19,6 +19,11 @@ public abstract class Character : MonoBehaviour
     {
         controllValue = Mathf.Lerp(controllValue, targetValue, animationSpeed * Time.deltaTime);
 
+        if (controllValue<=(targetValue+0.1f) && controllValue >= (targetValue - 0.1f))
+        {
+            controllValue = targetValue;
+        }
+
         if (targetValue > controllValue)
         {
             controllValue = Mathf.Clamp(controllValue, controllValue, targetValue);

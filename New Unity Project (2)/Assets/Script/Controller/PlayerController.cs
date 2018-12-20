@@ -27,13 +27,13 @@ public class PlayerController : MonoBehaviour {
     {
         gameStageData = GameFacade.GetInstance().gameStageData;
         gameStageController = GameFacade.GetInstance().gameStageController;
-        playerBehaviour = gameStageController.playerBehaviour;
+       
     }
 
     void Start ()
     {
-       
 
+        playerBehaviour = gameStageController.playerBehaviour;
 
 
     }

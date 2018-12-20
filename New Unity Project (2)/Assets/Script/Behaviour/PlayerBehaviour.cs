@@ -4,6 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(AudioSource))]
+[RequireComponent(typeof(CapsuleCollider))]
 
 public class PlayerBehaviour : Character
 {
@@ -38,7 +39,7 @@ public class PlayerBehaviour : Character
 	// Update is called once per frame
 	void Update ()
     {
-       // playerController.Move(this);
+       //       playerController.Move(this);
         
 
 
@@ -46,9 +47,15 @@ public class PlayerBehaviour : Character
 
     public void PlayerMove(float moveDirection_Vertical,float moveDirection_Horizontal)
     {
+
         AnimationBlendTreeControll(animator, "Vertical", moveDirection_Vertical, ref moveAnimation_Vertical, MoveAnimationSmoothSpeed);
         AnimationBlendTreeControll(animator, "Horizontal", moveDirection_Horizontal, ref moveAnimation_Horizontal, MoveAnimationSmoothSpeed);
 
+        float MoveX = Input.GetAxis("Horizontal") * Time.deltaTime * gameStageData.CurPlayerStageData.playerData.playerParameter.moveParameter.RunSpeed;
+        float MoveZ = Input.GetAxis("Vertical") * Time.deltaTime * gameStageData.CurPlayerStageData.playerData.playerParameter.moveParameter.RunSpeed;
+
+        //Debug.Log(Input.GetAxis("Horizontal"));
+        transform.Translate(MoveX, 0, MoveZ);
     }
 
 

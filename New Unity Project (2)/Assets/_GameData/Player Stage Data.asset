@@ -28,4 +28,4 @@ MonoBehaviour:
       normalAttack: []
       specialAttack: []
       changeAttack: []
-    Player: {fileID: 1279586009047690, guid: e24b8ff5d92bdbf4fbeee71fae8f27b7, type: 2}
+    Player: {fileID: 1973415817257212, guid: 2165c8a69503db9488c6eb6775697dfa, type: 2}
