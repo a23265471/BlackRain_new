@@ -17,14 +17,14 @@ public abstract class Character : MonoBehaviour
 
     protected virtual void AnimationBlendTreeControll(Animator animator,string parameterName, float targetValue,ref float controllValue,float animationSpeed)
     {
-        controllValue = Mathf.Lerp(controllValue, targetValue, animationSpeed * Time.deltaTime);
+        controllValue = Mathf.Lerp(controllValue, targetValue, animationSpeed);
 
         if (controllValue<=(targetValue+0.1f) && controllValue >= (targetValue - 0.1f))
         {
             controllValue = targetValue;
         }
 
-        if (targetValue > controllValue)
+        /*if (targetValue > controllValue)
         {
             controllValue = Mathf.Clamp(controllValue, controllValue, targetValue);
         }
@@ -33,7 +33,7 @@ public abstract class Character : MonoBehaviour
             controllValue = Mathf.Clamp(controllValue, targetValue, controllValue);
 
         }
-
+        */
        
         animator.SetFloat(parameterName, controllValue);
 

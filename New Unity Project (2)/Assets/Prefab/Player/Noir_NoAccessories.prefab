@@ -867,6 +867,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1869364899944682
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4127468138458264}
+  m_Layer: 0
+  m_Name: CameraLookAt
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1875755622768498
 GameObject:
   m_ObjectHideFlags: 1
@@ -1081,6 +1096,19 @@ Transform:
   - {fileID: 4612604128165224}
   m_Father: {fileID: 4422174704112184}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4127468138458264
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1869364899944682}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1, y: 2.08, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4460746209344996}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4135794930168894
 Transform:
@@ -1333,6 +1361,7 @@ Transform:
   m_Children:
   - {fileID: 4515144935962012}
   - {fileID: 4825125672416028}
+  - {fileID: 4127468138458264}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2099,7 +2128,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48984eef8ea34764d8a93b59a73a6109, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoveAnimationSmoothSpeed: 10
+  cameraLookAt: {fileID: 0}
+  MoveAnimationSmoothSpeed: 0.1
+  physicsCollider: {fileID: 0}
 --- !u!136 &136272365968025632
 CapsuleCollider:
   m_ObjectHideFlags: 1

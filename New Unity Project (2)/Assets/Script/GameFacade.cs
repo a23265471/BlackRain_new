@@ -47,7 +47,7 @@ public class GameFacade : MonoBehaviour {
         playerController = GetComponent<PlayerController>();
         gameStageController = GetComponent<GameStageController>();
 
-       
+        
 
         gameStageData = new GameStageData();
         

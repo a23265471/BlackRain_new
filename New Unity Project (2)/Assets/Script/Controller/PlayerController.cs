@@ -32,8 +32,8 @@ public class PlayerController : MonoBehaviour {
 
     void Start ()
     {
-
         playerBehaviour = gameStageController.playerBehaviour;
+
 
 
     }
@@ -42,6 +42,11 @@ public class PlayerController : MonoBehaviour {
 	void Update ()
     {
 
+        
+
+    }
+    private void FixedUpdate()
+    {
         Move(playerBehaviour);
 
     }
@@ -51,31 +56,32 @@ public class PlayerController : MonoBehaviour {
         float moveDirection_Vertical;
         float moveDirection_Horizontal;
 
-        if(Input.GetAxis("Vertical") == 0)
-        {
-            moveDirection_Vertical = 0;
-        }
-        else if (Input.GetAxis("Vertical") > 0)
+        
+        if (Input.GetAxis("Vertical") > 0)
         {
             moveDirection_Vertical = 1;
         }
-        else
+        else if(Input.GetAxis("Vertical") < 0)
         {
             moveDirection_Vertical = -1;
 
         }
-
-        if (Input.GetAxis("Horizontal") == 0)
+        else
         {
-            moveDirection_Horizontal = 0;
+            moveDirection_Vertical = 0;
         }
-        else if (Input.GetAxis("Horizontal") > 0)
+
+        if (Input.GetAxis("Horizontal") > 0)
         {
             moveDirection_Horizontal = 1;
         }
-        else
+        else if (Input.GetAxis("Horizontal") < 0)
         {
             moveDirection_Horizontal = -1;
+        }
+        else
+        {
+            moveDirection_Horizontal = 0;
         }
 
         player.PlayerMove(moveDirection_Vertical, moveDirection_Horizontal);
