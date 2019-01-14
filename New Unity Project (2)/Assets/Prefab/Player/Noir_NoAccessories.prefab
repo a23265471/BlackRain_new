@@ -1000,6 +1000,7 @@ GameObject:
   - component: {fileID: 82629826815989912}
   - component: {fileID: 136272365968025632}
   - component: {fileID: 114161194625199638}
+  - component: {fileID: 114976038100174930}
   m_Layer: 0
   m_Name: Noir_NoAccessories
   m_TagString: Untagged
@@ -1104,7 +1105,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1869364899944682}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: 2.08, z: 0}
+  m_LocalPosition: {x: 1.16, y: 2.279, z: -0.23}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4460746209344996}
@@ -2111,7 +2112,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: c63efbf3d8add824b829ca8c4b66a370, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
@@ -2131,6 +2132,19 @@ MonoBehaviour:
   cameraLookAt: {fileID: 0}
   MoveAnimationSmoothSpeed: 0.1
   physicsCollider: {fileID: 0}
+  groundedDis: 0
+--- !u!114 &114976038100174930
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1973415817257212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a368e1790c201624f9c23af221200cde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionState: {fileID: 11400000, guid: 9564ca38dcc4714409a0446023d253d0, type: 2}
 --- !u!136 &136272365968025632
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -2143,7 +2157,7 @@ CapsuleCollider:
   m_Radius: 0.31
   m_Height: 2.31
   m_Direction: 1
-  m_Center: {x: 0, y: 1.3, z: 0}
+  m_Center: {x: 0, y: 1.27, z: 0}
 --- !u!137 &137818177036377714
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

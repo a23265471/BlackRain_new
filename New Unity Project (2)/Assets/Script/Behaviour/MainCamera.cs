@@ -98,8 +98,8 @@ public class MainCamera : MonoBehaviour
 
        
 
-        /*Debug.DrawLine(PlayerController.playerController.PlayerCollider[1].bounds.center, transform.position, Color.green);
-        Debug.DrawLine(transform.position, transform.position - new Vector3(0, 1, 0), Color.red);*/
+        /*Debug.DrawLine(PlayerController.playerController.PlayerCollider[1].bounds.center, transform.position, Color.green);*/
+        Debug.DrawLine(transform.position, transform.position - new Vector3(0, 1, 0), Color.red);
     }
     private void Rotaion()
     {

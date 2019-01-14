@@ -8,37 +8,98 @@ public abstract class Character : MonoBehaviour
     private AudioSource audioSource;
     private ParticleSystem particleSystem;
 
-   /* protected void Initialize(Animator CharacterAnimator,AudioSource CharacterAudioSource)
+    private IEnumerator moveControl;
+    
+    private Vector3 preTransform;
+    float moveDis; 
+
+    private void Awake()
     {
-        animator = CharacterAnimator;
-        audioSource = CharacterAudioSource;
-        
-    }*/
+        moveControl = null;
+       
+
+    }
 
     protected virtual void AnimationBlendTreeControll(Animator animator,string parameterName, float targetValue,ref float controllValue,float animationSpeed)
     {
         controllValue = Mathf.Lerp(controllValue, targetValue, animationSpeed);
 
-        if (controllValue<=(targetValue+0.1f) && controllValue >= (targetValue - 0.1f))
+        if (controllValue<=(targetValue+0.04f) && controllValue >= (targetValue - 0.04f))
         {
             controllValue = targetValue;
-        }
-
-        /*if (targetValue > controllValue)
-        {
-            controllValue = Mathf.Clamp(controllValue, controllValue, targetValue);
-        }
-        else if(targetValue < controllValue)
-        {
-            controllValue = Mathf.Clamp(controllValue, targetValue, controllValue);
-
-        }
-        */
-       
+        }   
+        
         animator.SetFloat(parameterName, controllValue);
-
-
     } 
+
+    protected virtual void AnimationTrigger(Animator animator, string parameterName)
+    {
+        animator.SetTrigger(parameterName);
+    }
+
+    protected virtual void Displacement(Transform CharactorTransform, float speed,float maxDistance,int moveDirection_Vertical,int moveDirection_Horizontal)
+    {
+        preTransform = CharactorTransform.position;
+        moveControl = MoveControl(CharactorTransform, speed,maxDistance,moveDirection_Vertical,moveDirection_Horizontal);
+        
+        StopCoroutine(moveControl);
+        StartCoroutine(moveControl);
+    }
+
+    IEnumerator MoveControl(Transform CharactorTransform,float speed,float maxDis,int moveDirection_Vertical,int moveDirection_Horizontal)
+    {
+        float MoveZ = moveDirection_Vertical * speed * Time.deltaTime;
+        float MoveX = moveDirection_Horizontal * speed * Time.deltaTime;
+        moveDis += speed * Time.deltaTime;
+
+        CharactorTransform.Translate(MoveX, 0, MoveZ);
+       /* Debug.Log(preTransform);
+        Debug.Log(moveDis);
+        */
+        yield return new WaitForSeconds(0.01f);
+       
+        if (moveDis >= maxDis)
+        {
+            moveDis = 0;
+            StopCoroutine(moveControl);
+        }
+        else
+        {
+            moveControl = MoveControl(CharactorTransform,speed, maxDis, moveDirection_Vertical, moveDirection_Horizontal); 
+            StopCoroutine(moveControl);
+            StartCoroutine(moveControl);
+          //  Debug.Log(CharactorTransform.position);
+
+        }
+    }
+
+    IEnumerator MovePosition(float maxDis,float speed)
+    {
+        moveDis += speed * Time.deltaTime;
+       
+        yield return new WaitForSeconds(0.001f);
+
+        if (moveDis >= maxDis)
+        {
+            moveDis = maxDis;
+        }
+
+        transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + moveDis);
+        
+        if (moveDis == maxDis)
+        {
+            moveDis = 0;
+            StopCoroutine(moveControl);
+            Debug.Log("stop");
+        }
+        else
+        {
+            
+            StartCoroutine(moveControl);
+            Debug.Log(moveDis);
+        }
+        
+    }
 
 
 }

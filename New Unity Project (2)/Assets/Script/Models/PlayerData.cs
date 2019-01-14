@@ -39,7 +39,7 @@ public class PlayerData
         public Vector3 ParticleDistanceFormPlayer;
     }
     [System.Serializable]
-    public struct PlayerParameter
+    public class PlayerParameter
     {
         public MoveParameter moveParameter;
         public AvoidParameter avoidParameter;
