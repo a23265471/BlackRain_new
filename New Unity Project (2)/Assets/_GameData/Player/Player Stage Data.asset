@@ -18,7 +18,7 @@ MonoBehaviour:
         FastRunSpeed: 0
         RotateSpeed: 60
       avoidParameter:
-        AvoidSpeed: 15
+        AvoidSpeed: 13
         AvoidDistance: 5
       damageParameter:
         GetupTime: 0

@@ -15,9 +15,7 @@ public abstract class Character : MonoBehaviour
 
     private void Awake()
     {
-        moveControl = null;
-       
-
+        moveControl = null;     
     }
 
     protected virtual void AnimationBlendTreeControll(Animator animator,string parameterName, float targetValue,ref float controllValue,float animationSpeed)
@@ -53,9 +51,7 @@ public abstract class Character : MonoBehaviour
         moveDis += speed * Time.deltaTime;
 
         CharactorTransform.Translate(MoveX, 0, MoveZ);
-       /* Debug.Log(preTransform);
-        Debug.Log(moveDis);
-        */
+      
         yield return new WaitForSeconds(0.01f);
        
         if (moveDis >= maxDis)
@@ -67,39 +63,8 @@ public abstract class Character : MonoBehaviour
         {
             moveControl = MoveControl(CharactorTransform,speed, maxDis, moveDirection_Vertical, moveDirection_Horizontal); 
             StopCoroutine(moveControl);
-            StartCoroutine(moveControl);
-          //  Debug.Log(CharactorTransform.position);
-
+            StartCoroutine(moveControl);        
         }
     }
-
-    IEnumerator MovePosition(float maxDis,float speed)
-    {
-        moveDis += speed * Time.deltaTime;
-       
-        yield return new WaitForSeconds(0.001f);
-
-        if (moveDis >= maxDis)
-        {
-            moveDis = maxDis;
-        }
-
-        transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + moveDis);
-        
-        if (moveDis == maxDis)
-        {
-            moveDis = 0;
-            StopCoroutine(moveControl);
-            Debug.Log("stop");
-        }
-        else
-        {
-            
-            StartCoroutine(moveControl);
-            Debug.Log(moveDis);
-        }
-        
-    }
-
 
 }

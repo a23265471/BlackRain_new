@@ -14,7 +14,7 @@ public class PlayerBehaviour : Character
         Dash,
         Jump,
         Attack,
-        Avoid,
+        Avoid,          
         Damage,
         GetDown,
         GetUp,
@@ -22,6 +22,8 @@ public class PlayerBehaviour : Character
     }
 
     public PlayerState playerState;
+    public static PlayerBehaviour playerBehaviour;
+
     private GameStageData gameStageData;
     private PlayerController playerController;
     private Animator playerAnimator;
@@ -30,6 +32,9 @@ public class PlayerBehaviour : Character
     private PlayerData.PlayerParameter playerParameter;
     private AnimationHash animationHash;
     private float avoidSpeed;
+
+    int x;
+    int z;
 
     #region 圖層
     int floorMask;
@@ -62,6 +67,7 @@ public class PlayerBehaviour : Character
 
     private void Awake()
     {
+        playerBehaviour = this;
         playerAnimator = GetComponent<Animator>();
         playerAudioSource = GetComponent<AudioSource>();
         physicsCollider = GetComponent<CapsuleCollider>();
@@ -79,6 +85,7 @@ public class PlayerBehaviour : Character
         moveAnimation_Vertical = 0;
         moveAnimation_Horizontal = 0;
         cameraLookAt= gameObject.transform.Find("CameraLookAt");
+       
     }
      
     void Update()
@@ -126,16 +133,16 @@ public class PlayerBehaviour : Character
         transform.Translate(MoveX, 0, MoveZ);
     }
 
-    public void Avoid(int moveDirection_Vertical,int moveDirection_Horizontal)
+    public void Avoid()
     {       
         string xDirection;
         string zDirection;
 
-        if (moveDirection_Vertical == 1)
+        if (playerController.moveDirection_Vertical == 1)
         {
             zDirection = "Forward";
         }
-        else if (moveDirection_Vertical == -1) 
+        else if (playerController.moveDirection_Vertical == -1) 
         {
             zDirection = "Back";
         }
@@ -144,11 +151,11 @@ public class PlayerBehaviour : Character
             zDirection = "";
         }
 
-        if (moveDirection_Horizontal == 1)
+        if (playerController.moveDirection_Horizontal == 1)
         {
             xDirection = "Right";
         }
-        else if (moveDirection_Horizontal == -1)
+        else if (playerController.moveDirection_Horizontal == -1)
         {
             xDirection = "Left";
         }
@@ -156,22 +163,28 @@ public class PlayerBehaviour : Character
         {
             xDirection = "";
         }
-        AvoidAnimatorTrigger(xDirection, zDirection);
 
-        if (moveAnimation_Vertical == 0 || moveAnimation_Horizontal == 0)
-        {
-            avoidSpeed = Mathf.Sqrt((Mathf.Pow(avoidSpeed, 2) * 2));
-        }
-        Displacement(transform, playerParameter.avoidParameter.AvoidSpeed, playerParameter.avoidParameter.AvoidDistance, moveDirection_Vertical, moveDirection_Horizontal);
-        
+        AvoidAnimatorTrigger(xDirection, zDirection);               
+       
     }
 
     private void AvoidAnimatorTrigger(string Horizontal_Direction, string Vertical_Direction)
     {
-        playerAnimator.SetTrigger("Avoid" + Vertical_Direction + Horizontal_Direction);
-        
-       
+        playerAnimator.ResetTrigger("Avoid" + Vertical_Direction + Horizontal_Direction);
+        playerAnimator.SetTrigger("Avoid" + Vertical_Direction + Horizontal_Direction);             
     }
 
-    
+
+    #region AnimationEvent
+    public void AvoidState()
+    {
+        playerState = PlayerState.Avoid;
+        Displacement(transform, playerParameter.avoidParameter.AvoidSpeed, playerParameter.avoidParameter.AvoidDistance, playerController.moveDirection_Vertical, playerController.moveDirection_Horizontal);
+    }
+
+    public void IdleState()
+    {
+        playerState = PlayerState.Move;
+    }
+    #endregion
 }

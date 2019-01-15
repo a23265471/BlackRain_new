@@ -8,8 +8,8 @@ public class PlayerController : MonoBehaviour {
     private PlayerBehaviour playerBehaviour;
     private GameStageData gameStageData;
 
-    int moveDirection_Vertical;
-    int moveDirection_Horizontal;
+    public int moveDirection_Vertical;
+    public int moveDirection_Horizontal;
     string keepKeyCode;
 
     IEnumerator cleanKeepKeyCode;
@@ -41,36 +41,42 @@ public class PlayerController : MonoBehaviour {
         PlayerDirectionControl();
         if (playerBehaviour.isGround)
         {
-            
-           // Move(playerBehaviour);
+           
             Avoid(playerBehaviour);
+            
+            Move(playerBehaviour);
+           
+            
+            
+           
         }
        // Debug.Log("Vertical " + moveDirection_Vertical + "Horizontal " + moveDirection_Horizontal);
     }
 
     public void Move(PlayerBehaviour player)
     {
-         
-        player.PlayerMove(moveDirection_Vertical, moveDirection_Horizontal);
+        if ((int)playerBehaviour.playerState == (int)PlayerBehaviour.PlayerState.Move)
+        {
+            player.PlayerMove(moveDirection_Vertical, moveDirection_Horizontal);
+            Debug.Log("walk");
+        }
+            
 
-
+        
     }
 
     public void Avoid(PlayerBehaviour player)
     {
-        if ((moveDirection_Vertical != 0 || moveDirection_Horizontal != 0) && Input.GetKeyDown(KeyCode.LeftShift)) 
+        if ((moveDirection_Vertical != 0 || moveDirection_Horizontal != 0) && Input.GetKeyDown(KeyCode.LeftShift) && (int)playerBehaviour.playerState < (int)PlayerBehaviour.PlayerState.Avoid)  
         {
-           
-            player.Avoid(moveDirection_Vertical, moveDirection_Horizontal);
+            Debug.Log("hhhh");
+            player.Avoid();
            // Debug.Log(moveDirection_Vertical);
         } 
-
-
     }
 
     private void PlayerDirectionControl()
-    {
-       
+    {     
         if (Input.GetAxis("Vertical") > 0 && (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)))
         {
             moveDirection_Vertical = 1;

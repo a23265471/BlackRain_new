@@ -2129,6 +2129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48984eef8ea34764d8a93b59a73a6109, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerState: 0
   cameraLookAt: {fileID: 0}
   MoveAnimationSmoothSpeed: 0.1
   physicsCollider: {fileID: 0}
