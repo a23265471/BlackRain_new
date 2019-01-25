@@ -33,9 +33,6 @@ public class PlayerBehaviour : Character
     private AnimationHash animationHash;
     private float avoidSpeed;
 
-    int x;
-    int z;
-
     #region 圖層
     int floorMask;
     #endregion
@@ -51,6 +48,8 @@ public class PlayerBehaviour : Character
     private float moveAnimation_Vertical;
     private float moveAnimation_Horizontal;
     public float MoveAnimationSmoothSpeed;
+    private int avoidDirection_Horizontal;
+    private int avoidDirection_Verticalz;
     #endregion
 
     #region 物理碰撞   
@@ -89,15 +88,11 @@ public class PlayerBehaviour : Character
     }
      
     void Update()
-    {
-        Rotaion();
+    {        
+        Rotaion();        
     }
 
-    private void FixedUpdate()
-    {
-       
-    }
-
+    #region 移動
     private void Rotaion()
     {
         rotation_Horizontal += Input.GetAxis("Mouse X") * Time.deltaTime * playerParameter.moveParameter.RotateSpeed;
@@ -111,7 +106,10 @@ public class PlayerBehaviour : Character
             rotation_Horizontal += 360;
         }
 
-        transform.rotation = Quaternion.Euler(0, rotation_Horizontal, 0);
+        /*if ((int)playerState < 4)
+        {*/
+            transform.rotation = Quaternion.Euler(0, rotation_Horizontal, 0);
+        //}
     }
 
     public void PlayerMove(float moveDirection_Vertical, float moveDirection_Horizontal)
@@ -132,11 +130,16 @@ public class PlayerBehaviour : Character
         float MoveZ = moveAnimation_Vertical * Time.deltaTime * curMoveSpeed;
         transform.Translate(MoveX, 0, MoveZ);
     }
+    #endregion
 
+    #region 迴避
     public void Avoid()
     {       
         string xDirection;
         string zDirection;
+
+        avoidDirection_Horizontal = playerController.moveDirection_Horizontal;
+        avoidDirection_Verticalz = playerController.moveDirection_Vertical;
 
         if (playerController.moveDirection_Vertical == 1)
         {
@@ -173,18 +176,25 @@ public class PlayerBehaviour : Character
         playerAnimator.ResetTrigger("Avoid" + Vertical_Direction + Horizontal_Direction);
         playerAnimator.SetTrigger("Avoid" + Vertical_Direction + Horizontal_Direction);             
     }
+    #endregion
+
+    public void Jump()
+    {
+        AddVerticalForce(playerRigidbody, playerParameter.jumpParameter.JumpHigh);
+    }
 
 
     #region AnimationEvent
     public void AvoidState()
     {
         playerState = PlayerState.Avoid;
-        Displacement(transform, playerParameter.avoidParameter.AvoidSpeed, playerParameter.avoidParameter.AvoidDistance, playerController.moveDirection_Vertical, playerController.moveDirection_Horizontal);
+        Displacement(transform, playerParameter.avoidParameter.AvoidSpeed, playerParameter.avoidParameter.AvoidDistance, avoidDirection_Verticalz, avoidDirection_Horizontal);
     }
 
     public void IdleState()
     {
         playerState = PlayerState.Move;
+        Debug.Log("walk");
     }
     #endregion
 }

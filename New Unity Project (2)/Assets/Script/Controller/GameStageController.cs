@@ -20,11 +20,31 @@ public class GameStageController : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
-		
-	}
+       
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = false;
+
+    }
 	
 	// Update is called once per frame
-	void Update () {
-		
-	}
+	void Update ()
+    {
+        CursorControl();
+
+    }
+
+    private void CursorControl()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftControl) && Cursor.visible) 
+        {
+            Cursor.visible = false;
+
+        }
+        else if(Input.GetKeyDown(KeyCode.LeftControl) && !Cursor.visible)
+        {
+            Cursor.visible = true;
+        }
+
+    }
+
 }

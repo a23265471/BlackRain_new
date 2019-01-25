@@ -72,6 +72,8 @@
     <Compile Include="Assets\Script\GameFacade.cs" />
     <Compile Include="Assets\Script\Models\ActionState.cs" />
     <Compile Include="Assets\Script\Models\GameStageData.cs" />
+    <Compile Include="Assets\Script\Models\InputKey.cs" />
+    <Compile Include="Assets\Script\Models\InputSetting.cs" />
     <Compile Include="Assets\Script\Models\PlayerAniamtionHash.cs" />
     <Compile Include="Assets\Script\Models\PlayerData.cs" />
     <Compile Include="Assets\Script\Models\PlayerStageData.cs" />

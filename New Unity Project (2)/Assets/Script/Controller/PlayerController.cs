@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour {
 
     public int moveDirection_Vertical;
     public int moveDirection_Horizontal;
+
+    public KeyCode dd;
     string keepKeyCode;
 
     IEnumerator cleanKeepKeyCode;
@@ -29,50 +31,49 @@ public class PlayerController : MonoBehaviour {
 
     }
 	
-	// Update is called once per frame
-	void Update ()
-    {
-      
-        
-
-    }
     private void FixedUpdate()
     {
         PlayerDirectionControl();
         if (playerBehaviour.isGround)
         {
-           
-            Avoid(playerBehaviour);
             
-            Move(playerBehaviour);
-           
+            if (Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                Avoid(playerBehaviour);
+               
+            }
+            else
+            {                   
+                Move(playerBehaviour);
+            }
             
-            
-           
         }
-       // Debug.Log("Vertical " + moveDirection_Vertical + "Horizontal " + moveDirection_Horizontal);
+        Debug.Log(Input.inputString.GetHashCode());
     }
 
     public void Move(PlayerBehaviour player)
     {
         if ((int)playerBehaviour.playerState == (int)PlayerBehaviour.PlayerState.Move)
         {
-            player.PlayerMove(moveDirection_Vertical, moveDirection_Horizontal);
-            Debug.Log("walk");
-        }
+              player.PlayerMove(moveDirection_Vertical, moveDirection_Horizontal);
             
-
-        
+        }
+                   
     }
 
     public void Avoid(PlayerBehaviour player)
     {
-        if ((moveDirection_Vertical != 0 || moveDirection_Horizontal != 0) && Input.GetKeyDown(KeyCode.LeftShift) && (int)playerBehaviour.playerState < (int)PlayerBehaviour.PlayerState.Avoid)  
-        {
-            Debug.Log("hhhh");
+        if ((moveDirection_Vertical != 0 || moveDirection_Horizontal != 0) && (int)playerBehaviour.playerState < (int)PlayerBehaviour.PlayerState.Avoid)  
+        {           
             player.Avoid();
            // Debug.Log(moveDirection_Vertical);
         } 
+    }
+
+    public void Jump(PlayerBehaviour player)
+    {
+        player.Jump();
+
     }
 
     private void PlayerDirectionControl()
@@ -101,13 +102,11 @@ public class PlayerController : MonoBehaviour {
         else
         {
             moveDirection_Horizontal = 0;
-        }
-
-
-
-           
+        }       
     }
     
+
+
     private void DoKeepCode(ref string keepString,string KeyCode)
     {
         if (keepString == "")

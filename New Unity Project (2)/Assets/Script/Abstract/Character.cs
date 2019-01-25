@@ -67,4 +67,11 @@ public abstract class Character : MonoBehaviour
         }
     }
 
+    protected void AddVerticalForce(Rigidbody rigidbody,float force)
+    {
+        rigidbody.AddForce(0, force, 0, ForceMode.Impulse);
+
+
+    }
+
 }

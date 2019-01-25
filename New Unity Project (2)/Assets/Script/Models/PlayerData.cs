@@ -13,6 +13,13 @@ public class PlayerData
         public float RotateSpeed;
     }
     [System.Serializable]
+    public struct JumpParameter
+    {
+        public float JumpHigh;
+        public float JumpMoveSpeed;      
+    }
+
+    [System.Serializable]
     public struct AvoidParameter
     {
         public float AvoidSpeed;
@@ -42,6 +49,7 @@ public class PlayerData
     public class PlayerParameter
     {
         public MoveParameter moveParameter;
+        public JumpParameter jumpParameter;
         public AvoidParameter avoidParameter;
         public DamageParameter damageParameter;
         public DieParameter dieParameter;

@@ -26,8 +26,7 @@ public class AnimationHash : MonoBehaviour
 
     private void Update()
     {
-      /*  GetAnimationState("AvoidForward");
-        GetAnimationTime();*/
+    
     }
 
     private void Initialize()
