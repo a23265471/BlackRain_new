@@ -10,9 +10,11 @@ public class PlayerBehaviour : Character
 {
     public enum PlayerState
     {
+        //如更改順序,記得到該動作animation更改ChangePlayerState的int
         Move,
-        Dash,
         Jump,
+        DoubleJump,
+        Dash,        
         Attack,
         Avoid,          
         Damage,
@@ -27,7 +29,7 @@ public class PlayerBehaviour : Character
     private GameStageData gameStageData;
     private PlayerController playerController;
     private Animator playerAnimator;
-    private Rigidbody playerRigidbody;
+   
     private AudioSource playerAudioSource;
     private PlayerData.PlayerParameter playerParameter;
     private AnimationHash animationHash;
@@ -53,6 +55,7 @@ public class PlayerBehaviour : Character
     #endregion
 
     #region 物理碰撞   
+    private Rigidbody playerRigidbody;
     public CapsuleCollider physicsCollider;
     public float groundedDis;
     public bool isGround
@@ -71,6 +74,7 @@ public class PlayerBehaviour : Character
         playerAudioSource = GetComponent<AudioSource>();
         physicsCollider = GetComponent<CapsuleCollider>();
         animationHash = GetComponent<AnimationHash>();
+        playerRigidbody = GetComponent<Rigidbody>();
 
         gameStageData = GameFacade.GetInstance().gameStageData;
         playerController = GameFacade.GetInstance().playerController;
@@ -88,7 +92,8 @@ public class PlayerBehaviour : Character
     }
      
     void Update()
-    {        
+    {
+        physicsCollider.height = playerAnimator.GetFloat("ColliderHeight");
         Rotaion();        
     }
 
@@ -180,11 +185,35 @@ public class PlayerBehaviour : Character
 
     public void Jump()
     {
-        AddVerticalForce(playerRigidbody, playerParameter.jumpParameter.JumpHigh);
+        playerAnimator.SetTrigger("Jump");
     }
 
 
     #region AnimationEvent
+
+    public void ChangePlayerState(int ChangePlayerState)
+    {     
+        switch (ChangePlayerState)
+        {
+            case (int)PlayerState.Move:
+                playerState = PlayerState.Move;
+                break;
+            case (int)PlayerState.Jump:
+                playerState = PlayerState.Jump;
+                break;
+            case (int)PlayerState.DoubleJump:
+                playerState = PlayerState.DoubleJump;
+                break;
+            case (int)PlayerState.Avoid:
+                playerState = PlayerState.Avoid;
+                Displacement(transform, playerParameter.avoidParameter.AvoidSpeed, playerParameter.avoidParameter.AvoidDistance, avoidDirection_Verticalz, avoidDirection_Horizontal);        
+                break;
+            
+        }
+    } 
+
+
+
     public void AvoidState()
     {
         playerState = PlayerState.Avoid;
@@ -196,5 +225,35 @@ public class PlayerBehaviour : Character
         playerState = PlayerState.Move;
         Debug.Log("walk");
     }
+
+    public void JumpState()
+    {
+        playerState = PlayerState.Jump;
+    }
+
+    public void DoubleJumpState()
+    {
+        playerState = PlayerState.DoubleJump;
+        
+       
+    }
+
+    public void AddForce(int JumpState)
+    {
+        switch (JumpState)
+        {
+            case (int)PlayerState.Jump:
+                AddVerticalForce(playerRigidbody, playerParameter.jumpParameter.JumpHigh);
+                break;
+            case (int)PlayerState.DoubleJump:
+                playerRigidbody.mass = 10;
+                playerRigidbody.velocity = Vector3.zero;
+                playerRigidbody.mass = 500;
+                AddVerticalForce(playerRigidbody, playerParameter.jumpParameter.DoubleJumpHigh);
+                break;
+        }
+       
+    }
+
     #endregion
 }

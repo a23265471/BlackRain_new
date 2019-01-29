@@ -4,17 +4,12 @@ using UnityEngine;
 
 [System.Serializable]
 public class InputKey
-{
-    [System.Serializable]
-    public class MoveKey
-    {
-        public KeyCode Forward;
-        public KeyCode Back;
-        public KeyCode Right;
-        public KeyCode Left;
-    }
-
-    public MoveKey moveKey;
+{    
+    public KeyCode Forward;
+    public KeyCode Back;
+    public KeyCode Right;
+    public KeyCode Left;
+    public KeyCode Jump;
     public KeyCode Avoid;
     public KeyCode Dash;
     

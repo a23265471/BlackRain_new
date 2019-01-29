@@ -34,13 +34,10 @@ public class GameFacade : MonoBehaviour {
     #region Models   
     public PlayerStageData[] playerStageData;  
     public GameStageData gameStageData;
-
+    public InputSetting inputSetting;
     #endregion
 
-    #region Behaviour
-    public PlayerBehaviour playerBehaviour;
-
-    #endregion
+    
 
     private void Initialize()
     {

@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Name: InputSetting
   m_EditorClassIdentifier: 
   inputKey:
-    moveKey:
-      Forward: 119
-      Back: 115
-      Right: 100
-      Left: 97
-    Avoid: 119
-    Dash: 304
-    NormalAttack: 39
-    Aim_Shoot: 0
+    Forward: 119
+    Back: 115
+    Right: 100
+    Left: 97
+    Jump: 32
+    Avoid: 304
+    Dash: 306
+    NormalAttack: 323
+    Aim_Shoot: 324

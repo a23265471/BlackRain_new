@@ -16,6 +16,7 @@ public class PlayerData
     public struct JumpParameter
     {
         public float JumpHigh;
+        public float DoubleJumpHigh;
         public float JumpMoveSpeed;      
     }
 
