@@ -37,15 +37,17 @@ public class PlayerController : MonoBehaviour {
     {
         PlayerDirectionControl();
         if (playerBehaviour.isGround)
-        {
-                         
-            Move(playerBehaviour);
-            
+        {                      
+            Move(playerBehaviour);          
             Avoid(playerBehaviour);
 
         }
+        else
+        {
+
+        }
         Jump(playerBehaviour);
-        Debug.Log(Input.inputString.GetHashCode());
+       // Debug.Log(Input.inputString.GetHashCode());
     }
 
     public void Move(PlayerBehaviour player)
@@ -69,7 +71,7 @@ public class PlayerController : MonoBehaviour {
 
     public void Jump(PlayerBehaviour player)
     {
-        if (Input.GetKeyDown(inputSetting.inputKey.Jump) && (int)playerBehaviour.playerState <= (int)PlayerBehaviour.PlayerState.Jump)
+        if (Input.GetKeyDown(inputSetting.inputKey.Jump) && ((int)playerBehaviour.playerState <= (int)PlayerBehaviour.PlayerState.Jump || (int)playerBehaviour.playerState == (int)PlayerBehaviour.PlayerState.Falling)) 
         {
             player.Jump();
         }

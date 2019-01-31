@@ -7,4 +7,60 @@ AvatarMask:
   m_PrefabInternal: {fileID: 0}
   m_Name: test
   m_Mask: 01000000000000000000000001000000010000000100000001000000000000000000000001000000010000000100000001000000
-  m_Elements: []
+  m_Elements:
+  - m_Path: 
+    m_Weight: 1
+  - m_Path: "\u5C3E\u5DF4\u88DD\u98FE"
+    m_Weight: 1
+  - m_Path: "\u9AA8\u76C6"
+    m_Weight: 1
+  - m_Path: "\u9AA8\u76C6/\u53F3\u908A\u9AA8\u76C6"
+    m_Weight: 1
+  - m_Path: "\u9AA8\u76C6/\u53F3\u908A\u9AA8\u76C6/\u53F3\u908A\u5927\u817F"
+    m_Weight: 1
+  - m_Path: "\u9AA8\u76C6/\u53F3\u908A\u9AA8\u76C6/\u53F3\u908A\u5927\u817F/\u53F3\u908A\u5C0F\u817F"
+    m_Weight: 1
+  - m_Path: "\u9AA8\u76C6/\u53F3\u908A\u9AA8\u76C6/\u53F3\u908A\u5927\u817F/\u53F3\u908A\u5C0F\u817F/\u53F3\u8173"
+    m_Weight: 1
+  - m_Path: "\u9AA8\u76C6/\u53F3\u908A\u9AA8\u76C6/\u53F3\u908A\u5927\u817F/\u53F3\u908A\u5C0F\u817F/\u53F3\u8173/end
+      1"
+    m_Weight: 1
+  - m_Path: "\u9AA8\u76C6/\u5DE6\u9AA8\u76C6"
+    m_Weight: 1
+  - m_Path: "\u9AA8\u76C6/\u5DE6\u9AA8\u76C6/\u5DE6\u5927\u817F"
+    m_Weight: 1
+  - m_Path: "\u9AA8\u76C6/\u5DE6\u9AA8\u76C6/\u5DE6\u5927\u817F/\u5DE6\u5C0F\u817F"
+    m_Weight: 1
+  - m_Path: "\u9AA8\u76C6/\u5DE6\u9AA8\u76C6/\u5DE6\u5927\u817F/\u5DE6\u5C0F\u817F/\u5DE6\u8173"
+    m_Weight: 1
+  - m_Path: "\u9AA8\u76C6/\u5DE6\u9AA8\u76C6/\u5DE6\u5927\u817F/\u5DE6\u5C0F\u817F/\u5DE6\u8173/end
+      2"
+    m_Weight: 1
+  - m_Path: "\u9AA8\u76C6/\u8170\u9AA8"
+    m_Weight: 1
+  - m_Path: "\u9AA8\u76C6/\u8170\u9AA8/\u53F3\u9396\u9AA8"
+    m_Weight: 1
+  - m_Path: "\u9AA8\u76C6/\u8170\u9AA8/\u53F3\u9396\u9AA8/\u53F3\u4E0A\u81C2"
+    m_Weight: 0
+  - m_Path: "\u9AA8\u76C6/\u8170\u9AA8/\u53F3\u9396\u9AA8/\u53F3\u4E0A\u81C2/\u53F3\u624B\u81C2"
+    m_Weight: 1
+  - m_Path: "\u9AA8\u76C6/\u8170\u9AA8/\u53F3\u9396\u9AA8/\u53F3\u4E0A\u81C2/\u53F3\u624B\u81C2/\u53F3\u624B"
+    m_Weight: 1
+  - m_Path: "\u9AA8\u76C6/\u8170\u9AA8/\u53F3\u9396\u9AA8/\u53F3\u4E0A\u81C2/\u53F3\u624B\u81C2/\u53F3\u624B/end
+      3"
+    m_Weight: 1
+  - m_Path: "\u9AA8\u76C6/\u8170\u9AA8/\u5DE6\u9396\u9AA8"
+    m_Weight: 1
+  - m_Path: "\u9AA8\u76C6/\u8170\u9AA8/\u5DE6\u9396\u9AA8/\u5DE6\u4E0A\u81C2"
+    m_Weight: 0
+  - m_Path: "\u9AA8\u76C6/\u8170\u9AA8/\u5DE6\u9396\u9AA8/\u5DE6\u4E0A\u81C2/\u5DE6\u624B\u81C2"
+    m_Weight: 1
+  - m_Path: "\u9AA8\u76C6/\u8170\u9AA8/\u5DE6\u9396\u9AA8/\u5DE6\u4E0A\u81C2/\u5DE6\u624B\u81C2/\u5DE6\u624B"
+    m_Weight: 1
+  - m_Path: "\u9AA8\u76C6/\u8170\u9AA8/\u5DE6\u9396\u9AA8/\u5DE6\u4E0A\u81C2/\u5DE6\u624B\u81C2/\u5DE6\u624B/end
+      4"
+    m_Weight: 1
+  - m_Path: "\u9AA8\u76C6/\u8170\u9AA8/\u982D\u90E8"
+    m_Weight: 1
+  - m_Path: "\u9AA8\u76C6/\u8170\u9AA8/\u982D\u90E8/end"
+    m_Weight: 1

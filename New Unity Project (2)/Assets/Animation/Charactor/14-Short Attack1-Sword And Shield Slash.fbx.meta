@@ -319,7 +319,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 1
       loopBlendPositionY: 1
@@ -331,47 +331,7 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events:
-      - time: 0
-        functionName: SetAttackState
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: ebab33dc366b3eb4fa1727db769c0568,
-          type: 3}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.33050847
-        functionName: AttackCollider_Open
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: ebab33dc366b3eb4fa1727db769c0568,
-          type: 3}
-        floatParameter: 0
-        intParameter: 1
-        messageOptions: 0
-      - time: 0.7097457
-        functionName: AttackCollider_Close
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: ebab33dc366b3eb4fa1727db769c0568,
-          type: 3}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.7788018
-        functionName: Attack
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: ebab33dc366b3eb4fa1727db769c0568,
-          type: 3}
-        floatParameter: 0
-        intParameter: 2
-        messageOptions: 0
-      - time: 1
-        functionName: EnemyChangToIdle
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: ebab33dc366b3eb4fa1727db769c0568,
-          type: 3}
-        floatParameter: 0.1
-        intParameter: 0
-        messageOptions: 0
+      events: []
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}

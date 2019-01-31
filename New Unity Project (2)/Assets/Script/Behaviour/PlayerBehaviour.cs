@@ -16,7 +16,8 @@ public class PlayerBehaviour : Character
         DoubleJump,
         Dash,        
         Attack,
-        Avoid,          
+        Avoid,
+        Falling,
         Damage,
         GetDown,
         GetUp,
@@ -212,8 +213,6 @@ public class PlayerBehaviour : Character
         }
     } 
 
-
-
     public void AvoidState()
     {
         playerState = PlayerState.Avoid;
@@ -223,7 +222,7 @@ public class PlayerBehaviour : Character
     public void IdleState()
     {
         playerState = PlayerState.Move;
-        Debug.Log("walk");
+        
     }
 
     public void JumpState()
@@ -233,9 +232,41 @@ public class PlayerBehaviour : Character
 
     public void DoubleJumpState()
     {
-        playerState = PlayerState.DoubleJump;
+        playerState = PlayerState.DoubleJump;    
         
-       
+    }
+
+    public void FallingState()
+    {
+        if (playerState != PlayerState.Falling)
+        {
+            playerState = PlayerState.Falling;
+            Debug.Log("start");
+            StartCoroutine("GroundedCheck");
+        }
+        
+    }
+
+    IEnumerator GroundedCheck()
+    {
+
+        yield return new WaitForSeconds(0.01f);
+        if (isGround)
+        {
+            Debug.Log("stop");
+            playerAnimator.SetTrigger("Idle");
+            
+            StopCoroutine("GroundedCheck");
+
+        }
+        else
+        {
+           
+            StartCoroutine("GroundedCheck");
+
+        }
+        
+
     }
 
     public void AddForce(int JumpState)
