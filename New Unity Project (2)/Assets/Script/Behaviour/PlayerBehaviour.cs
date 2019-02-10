@@ -1,29 +1,45 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+
+
+
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(AudioSource))]
 [RequireComponent(typeof(CapsuleCollider))]
-
 public class PlayerBehaviour : Character
 {
+
+    [Flags]
     public enum PlayerState
     {
         //如更改順序,記得到該動作animation更改ChangePlayerState的int
-        Move,
-        Jump,
-        DoubleJump,
-        Dash,        
-        Attack,
-        Avoid,
-        Falling,
+        Move = 0x01,
+        Jump = 0x02,
+        DoubleJump = Move|Jump|Fall,
+        Fall = 0x04,
+        Dash = Move|Attack|Jump,
+        Attack = 0x08,
+        Skill = Attack|Move,
+        Avoid = Move|Attack,
+
         Damage,
         GetDown,
         GetUp,
         Dead,
     }
 
+    [Flags]
+    public enum aa
+    {
+        ss=0x00,
+        dd=0x01,
+        qq=0x02,
+    }
+
+    // public PlayerState DoubleJump;
     public PlayerState playerState;
     public static PlayerBehaviour playerBehaviour;
 
@@ -68,6 +84,13 @@ public class PlayerBehaviour : Character
     }
     #endregion
 
+    static void main()
+    {
+
+
+    }
+
+
     private void Awake()
     {
         playerBehaviour = this;
@@ -82,6 +105,16 @@ public class PlayerBehaviour : Character
         playerParameter = gameStageData.CurPlayerStageData.playerData.playerParameter;
 
         floorMask = LayerMask.GetMask("Floor");
+
+        aa DoubleJump = aa.dd | aa.qq;
+        PlayerState sss = PlayerState.DoubleJump | PlayerState.Move;
+
+        
+        Debug.Log(DoubleJump);
+        Debug.Log(sss);
+       
+
+       
     }
 
     void Start()
@@ -95,7 +128,10 @@ public class PlayerBehaviour : Character
     void Update()
     {
         physicsCollider.height = playerAnimator.GetFloat("ColliderHeight");
-        Rotaion();        
+        Rotaion();      
+        
+        Debug.Log(animationHash.GetAnimationState("Jump"));
+
     }
 
     #region 移動
@@ -187,6 +223,7 @@ public class PlayerBehaviour : Character
     public void Jump()
     {
         playerAnimator.SetTrigger("Jump");
+
     }
 
 
@@ -228,15 +265,17 @@ public class PlayerBehaviour : Character
     public void JumpState()
     {
         playerState = PlayerState.Jump;
+       
     }
 
     public void DoubleJumpState()
     {
-        playerState = PlayerState.DoubleJump;    
+        playerState = PlayerState.DoubleJump;
+        
         
     }
 
-    public void FallingState()
+   /* public void FallingState()
     {
         if (playerState != PlayerState.Falling)
         {
@@ -244,30 +283,29 @@ public class PlayerBehaviour : Character
             Debug.Log("start");
             StartCoroutine("GroundedCheck");
         }
-        
-    }
+       
+    }*/
 
-    IEnumerator GroundedCheck()
+   /* IEnumerator GroundedCheck()
     {
-
         yield return new WaitForSeconds(0.01f);
         if (isGround)
         {
-            Debug.Log("stop");
-            playerAnimator.SetTrigger("Idle");
             
+            playerAnimator.SetTrigger("Idle");
+            if (playerState == PlayerState.Falling)
+            {
+                playerState = PlayerState.Move;
+            }
             StopCoroutine("GroundedCheck");
 
         }
         else
         {
-           
+            Debug.Log("Falling");
             StartCoroutine("GroundedCheck");
-
         }
-        
-
-    }
+    }*/
 
     public void AddForce(int JumpState)
     {

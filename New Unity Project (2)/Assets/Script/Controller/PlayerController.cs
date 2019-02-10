@@ -71,7 +71,7 @@ public class PlayerController : MonoBehaviour {
 
     public void Jump(PlayerBehaviour player)
     {
-        if (Input.GetKeyDown(inputSetting.inputKey.Jump) && ((int)playerBehaviour.playerState <= (int)PlayerBehaviour.PlayerState.Jump || (int)playerBehaviour.playerState == (int)PlayerBehaviour.PlayerState.Falling)) 
+        if (Input.GetKeyDown(inputSetting.inputKey.Jump) && (int)playerBehaviour.playerState <= (int)PlayerBehaviour.PlayerState.Jump) 
         {
             player.Jump();
         }

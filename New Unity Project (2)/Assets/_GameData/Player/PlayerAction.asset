@@ -15,8 +15,8 @@ MonoBehaviour:
   - Idle_Run
   - AvoidForward
   - AvoidBack
-  - 
-  - 
+  - Jump
+  - Falling
   - 
   - 
   - 
