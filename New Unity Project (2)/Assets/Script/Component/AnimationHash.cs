@@ -69,12 +69,12 @@ public class AnimationHash : MonoBehaviour
         {
             if (animationState == stateName)
             {
-                Debug.Log(stateName);
+              //  Debug.Log(stateName);
                 return true;
             }
             else
             {
-                Debug.Log(stateName);
+               // Debug.Log(stateName);
                 return false;
             }
             

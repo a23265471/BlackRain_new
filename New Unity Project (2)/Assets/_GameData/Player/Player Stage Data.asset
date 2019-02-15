@@ -19,7 +19,7 @@ MonoBehaviour:
         RotateSpeed: 60
       jumpParameter:
         JumpHigh: 3000
-        DoubleJumpHigh: 3000
+        DoubleJumpHigh: 5000
         JumpMoveSpeed: 10
       avoidParameter:
         AvoidSpeed: 13

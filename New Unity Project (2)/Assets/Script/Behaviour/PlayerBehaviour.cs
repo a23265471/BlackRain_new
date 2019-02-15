@@ -15,28 +15,19 @@ public class PlayerBehaviour : Character
     [Flags]
     public enum PlayerState
     {
-        //如更改順序,記得到該動作animation更改ChangePlayerState的int
+       
         Move = 0x01,
         Jump = 0x02,
-        DoubleJump = Move|Jump|Fall,
-        Fall = 0x04,
-        Dash = Move|Attack|Jump,
+        Landing = DoubleJump|Jump,
         Attack = 0x08,
-        Skill = Attack|Move,
-        Avoid = Move|Attack,
+        Damage=0x10,
+        GetDown=0x20,       
+        Dead=0x30,
+        DoubleJump = 0x04,
+        Dash = Move | Attack | Jump,
+        Skill = Attack | Move,
+        Avoid = Move | Attack | Jump,
 
-        Damage,
-        GetDown,
-        GetUp,
-        Dead,
-    }
-
-    [Flags]
-    public enum aa
-    {
-        ss=0x00,
-        dd=0x01,
-        qq=0x02,
     }
 
     // public PlayerState DoubleJump;
@@ -106,15 +97,6 @@ public class PlayerBehaviour : Character
 
         floorMask = LayerMask.GetMask("Floor");
 
-        aa DoubleJump = aa.dd | aa.qq;
-        PlayerState sss = PlayerState.DoubleJump | PlayerState.Move;
-
-        
-        Debug.Log(DoubleJump);
-        Debug.Log(sss);
-       
-
-       
     }
 
     void Start()
@@ -130,7 +112,7 @@ public class PlayerBehaviour : Character
         physicsCollider.height = playerAnimator.GetFloat("ColliderHeight");
         Rotaion();      
         
-        Debug.Log(animationHash.GetAnimationState("Jump"));
+       // Debug.Log(animationHash.GetAnimationState("Jump"));
 
     }
 
@@ -226,10 +208,20 @@ public class PlayerBehaviour : Character
 
     }
 
+    public void Landing()
+    {
+        playerAnimator.SetTrigger("Idle");
+        if (animationHash.GetAnimationState("Idle_Run"))
+        {
+            playerState = PlayerState.Move;
+        }
+
+    }
+
 
     #region AnimationEvent
 
-    public void ChangePlayerState(int ChangePlayerState)
+    /*public void ChangePlayerState(int ChangePlayerState)
     {     
         switch (ChangePlayerState)
         {
@@ -248,7 +240,7 @@ public class PlayerBehaviour : Character
                 break;
             
         }
-    } 
+    } */
 
     public void AvoidState()
     {
