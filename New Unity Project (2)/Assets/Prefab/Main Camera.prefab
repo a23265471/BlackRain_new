@@ -97,6 +97,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RotateSpeed_Y: 40
+  CameraLookAt_X: 0
   distence: 5
   Max_distence: 7
   Min_distence: 3

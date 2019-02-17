@@ -127,7 +127,9 @@
     <None Include="Assets\UnityChanTPK\Toon\Shader\ToonColor_ShadingGradeMap_TransClipping_StencilOut.shader" />
     <None Include="Assets\UnityChanTPK\Toon\Shader\Tess\UCTS_DoubleShadeWithFeather_tess.cginc" />
     <None Include="Assets\UnityChanTPK\Toon\Shader\Tess\Toon_ShadingGradeMap_AngelRing_Tess_Light_StencilOut.shader" />
+    <None Include="Assets\Ciconia Studio\Shaders\Double Sided Shaders\Double Sided Emissive Diffuse.shader" />
     <None Include="Assets\UnityChanTPK\Toon\Shader\ToonColor_DoubleShadeWithFeather_Clipping_StencilMask.shader" />
+    <None Include="Assets\Ciconia Studio\Shaders\Double Sided Shaders\Double Sided Transparent Diffuse Bump Cutout.shader" />
     <None Include="Assets\UnityChanTPK\Toon\Shader\Tess\Toon_DoubleShadeWithFeather_Tess_Light.shader" />
     <None Include="Assets\UnityChanTPK\Toon\Shader\Toon_DoubleShadeWithFeather_Mobile.shader" />
     <None Include="Assets\UnityChanTPK\Toon\Shader\Toon_DoubleShadeWithFeather_Clipping_StencilOut.shader" />
@@ -184,6 +186,7 @@
     <None Include="Assets\UnityChanTPK\Toon\Shader\Tess\ToonColor_ShadingGradeMap_Tess_StencilOut.shader" />
     <None Include="Assets\UnityChanTPK\Toon\Shader\Tess\Toon_ShadingGradeMap_Tess_Light_StencilMask.shader" />
     <None Include="Assets\UnityChanTPK\Toon\Shader\Tess\Toon_ShadingGradeMap_AngelRing_Tess_StencilOut.shader" />
+    <None Include="Assets\Ciconia Studio\Shaders\Double Sided Shaders\Double Sided Standard Diffuse Bump.shader" />
     <None Include="Assets\UnityChanTPK\Toon\Shader\ToonColor_ShadingGradeMap_StencilMask.shader" />
     <None Include="Assets\UnityChanTPK\Toon\Shader\Toon_ShadingGradeMap_Mobile_StencilMask.shader" />
     <None Include="Assets\UnityChanTPK\Toon\Shader\Tess\Toon_DoubleShadeWithFeather_Tess_StencilOut.shader" />
@@ -196,6 +199,7 @@
     <None Include="Assets\UnityChanTPK\Toon\Shader\Toon_ShadingGradeMap_AngelRing.shader" />
     <None Include="Assets\UnityChanTPK\Toon\Shader\Tess\ToonColor_DoubleShadeWithFeather_TransClipping_Tess_StencilMask.shader" />
     <None Include="Assets\UnityChanTPK\Toon\Shader\Tess\Toon_ShadingGradeMap_TransClipping_Tess.shader" />
+    <None Include="Assets\Ciconia Studio\Shaders\Double Sided Shaders\Double Sided Transparent Diffuse Bump.shader" />
     <None Include="Assets\UnityChanTPK\Toon\Shader\Toon_DoubleShadeWithFeather_StencilOut.shader" />
     <None Include="Assets\UnityChanTPK\Toon\Shader\Toon_DoubleShadeWithFeather_Mobile_StencilMask.shader" />
     <None Include="Assets\UnityChanTPK\Toon\Shader\Toon_ShadingGradeMap_StencilMask.shader" />

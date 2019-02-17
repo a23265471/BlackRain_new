@@ -62,4 +62,5 @@ public class PlayerData
 
     public PlayerParameter playerParameter;
     public GameObject Player;
+    public GameObject MainCamera;
 }

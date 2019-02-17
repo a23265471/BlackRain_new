@@ -60,7 +60,7 @@ public class AnimationHash : MonoBehaviour
         
     }
 
-    public bool GetAnimationState(string animationState)
+    public bool GetCurrentAnimationState(string animationState)
     {
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
               

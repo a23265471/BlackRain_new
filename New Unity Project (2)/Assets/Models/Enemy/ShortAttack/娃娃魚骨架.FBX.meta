@@ -1,0 +1,270 @@
+fileFormatVersion: 2
+guid: 02a4288ec25e0514a9fd17b5614dbe0f
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: "\u53F3\u8173"
+    100002: "\u53F3\u908A\u5927\u817F"
+    100004: "\u53F3\u908A\u5C0F\u817F"
+    100006: "\u53F3\u908A\u9AA8\u76C6"
+    100008: "\u53F3\u9AA8\u76C6"
+    100010: //RootNode
+    100012: "\u5C3E\u5DF4\u88DD\u98FE"
+    100014: "\u5DE6\u4E0A\u81C2"
+    100016: "\u5DE6\u4E0A\u81C2(mirrored)"
+    100018: "\u5DE6\u5927\u817F"
+    100020: "\u5DE6\u5C0F\u817F"
+    100022: "\u5DE6\u624B"
+    100024: "\u5DE6\u624B(mirrored)"
+    100026: "\u5DE6\u624B\u81C2"
+    100028: "\u5DE6\u624B\u81C2(mirrored)"
+    100030: "\u5DE6\u8173"
+    100032: "\u5DE6\u9396\u9AA8"
+    100034: "\u5DE6\u9396\u9AA8(mirrored)"
+    100036: "\u8170\u9AA8"
+    100038: "\u982D\u90E8"
+    100040: "\u9AA8\u76C6"
+    400000: "\u53F3\u8173"
+    400002: "\u53F3\u908A\u5927\u817F"
+    400004: "\u53F3\u908A\u5C0F\u817F"
+    400006: "\u53F3\u908A\u9AA8\u76C6"
+    400008: "\u53F3\u9AA8\u76C6"
+    400010: //RootNode
+    400012: "\u5C3E\u5DF4\u88DD\u98FE"
+    400014: "\u5DE6\u4E0A\u81C2"
+    400016: "\u5DE6\u4E0A\u81C2(mirrored)"
+    400018: "\u5DE6\u5927\u817F"
+    400020: "\u5DE6\u5C0F\u817F"
+    400022: "\u5DE6\u624B"
+    400024: "\u5DE6\u624B(mirrored)"
+    400026: "\u5DE6\u624B\u81C2"
+    400028: "\u5DE6\u624B\u81C2(mirrored)"
+    400030: "\u5DE6\u8173"
+    400032: "\u5DE6\u9396\u9AA8"
+    400034: "\u5DE6\u9396\u9AA8(mirrored)"
+    400036: "\u8170\u9AA8"
+    400038: "\u982D\u90E8"
+    400040: "\u9AA8\u76C6"
+    2100000: 01 - Default
+    4300000: "\u5C3E\u5DF4\u88DD\u98FE"
+    9500000: //RootNode
+    13700000: "\u5C3E\u5DF4\u88DD\u98FE"
+    2186277476908879412: ImportLogs
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human:
+    - boneName: "\u53F3\u9AA8\u76C6"
+      humanName: Hips
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: "\u5DE6\u5927\u817F"
+      humanName: LeftUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: "\u5DE6\u5C0F\u817F"
+      humanName: LeftLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: "\u5DE6\u8173"
+      humanName: LeftFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    skeleton:
+    - name: "\u5A03\u5A03\u9B5A\u9AA8\u67B6(Clone)"
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: "\u5C3E\u5DF4\u88DD\u98FE"
+      parentName: "\u5A03\u5A03\u9B5A\u9AA8\u67B6(Clone)"
+      position: {x: 3.7418096e-23, y: 2.4625704, z: -1.3194661}
+      rotation: {x: 0.9063079, y: 0.000000042752113, z: -0.000000020706329, w: -0.42261812}
+      scale: {x: 1.0000001, y: 1.0000001, z: 1.0000002}
+    - name: "\u5DE6\u9396\u9AA8"
+      parentName: "\u5A03\u5A03\u9B5A\u9AA8\u67B6(Clone)"
+      position: {x: -0.47641376, y: 4.2642565, z: 0.5318091}
+      rotation: {x: -0.03773948, y: -0.14970909, z: 0.018421294, w: 0.98783785}
+      scale: {x: 1.0000001, y: 1, z: 1}
+    - name: "\u5DE6\u4E0A\u81C2"
+      parentName: "\u5DE6\u9396\u9AA8"
+      position: {x: -1.0796802, y: -0.00000038757324, z: 0.00000058135987}
+      rotation: {x: 0.114429556, y: 0.09382046, z: 0.122066714, w: 0.9814292}
+      scale: {x: 0.9999997, y: 1.0000001, z: 1.0000001}
+    - name: "\u5DE6\u624B\u81C2"
+      parentName: "\u5DE6\u4E0A\u81C2"
+      position: {x: -0.32738563, y: -0.00000038757324, z: 0.000000024223327}
+      rotation: {x: -0.0683496, y: 0.18632917, z: -0.13069393, w: 0.9713542}
+      scale: {x: 1.0000002, y: 0.99999976, z: 0.99999976}
+    - name: "\u5DE6\u624B"
+      parentName: "\u5DE6\u624B\u81C2"
+      position: {x: -1.4222391, y: -0.000001550293, z: -0.0000008720398}
+      rotation: {x: -0.047087308, y: 0.1617993, z: 0.24290122, w: 0.9553025}
+      scale: {x: 1, y: 1.0000004, z: 1.0000001}
+    - name: "\u5DE6\u9396\u9AA8(mirrored)"
+      parentName: "\u5A03\u5A03\u9B5A\u9AA8\u67B6(Clone)"
+      position: {x: 0.4710851, y: 4.2642565, z: 0.5318091}
+      rotation: {x: 0.14970914, y: 0.037739597, z: 0.98783785, w: 0.018421205}
+      scale: {x: 1, y: 0.99999994, z: 0.99999994}
+    - name: "\u5DE6\u4E0A\u81C2(mirrored)"
+      parentName: "\u5DE6\u9396\u9AA8(mirrored)"
+      position: {x: -1.0796801, y: 0.00000038757324, z: 0.00000038757324}
+      rotation: {x: -0.11442962, y: 0.09382047, z: -0.12206655, w: 0.9814293}
+      scale: {x: 1.0000001, y: 1, z: 1.0000001}
+    - name: "\u5DE6\u624B\u81C2(mirrored)"
+      parentName: "\u5DE6\u4E0A\u81C2(mirrored)"
+      position: {x: -0.32738554, y: 0, z: 0.000000024223327}
+      rotation: {x: 0.06834952, y: 0.18632925, z: 0.13069372, w: 0.9713542}
+      scale: {x: 0.99999976, y: 1.0000002, z: 1.0000001}
+    - name: "\u5DE6\u624B(mirrored)"
+      parentName: "\u5DE6\u624B\u81C2(mirrored)"
+      position: {x: -1.4222395, y: 0.0000019378663, z: -0.00000075092316}
+      rotation: {x: 0.047087282, y: 0.16179933, z: -0.24290113, w: 0.9553025}
+      scale: {x: 0.9999999, y: 1.0000001, z: 1}
+    - name: "\u9AA8\u76C6"
+      parentName: "\u5A03\u5A03\u9B5A\u9AA8\u67B6(Clone)"
+      position: {x: -0.001360043, y: 2.1594975, z: -0.000000008406649}
+      rotation: {x: 0.0000026466791, y: -0.0000026947062, z: -0.7093005, w: 0.7049062}
+      scale: {x: 0.99999994, y: 0.99999994, z: 1}
+    - name: "\u8170\u9AA8"
+      parentName: "\u9AA8\u76C6"
+      position: {x: -0.5945639, y: -0.000000004541874, z: 2.3101165e-14}
+      rotation: {x: 2.4821142e-13, y: -3.99426e-15, z: -0.0017788861, w: 0.99999845}
+      scale: {x: 1, y: 1, z: 1}
+    - name: "\u53F3\u9AA8\u76C6"
+      parentName: "\u5A03\u5A03\u9B5A\u9AA8\u67B6(Clone)"
+      position: {x: 0.011145498, y: 2.1544864, z: -0.000000010194183}
+      rotation: {x: -0.16842349, y: 0.22435255, z: 0.3501566, w: 0.8936945}
+      scale: {x: 0.9999999, y: 1.0000001, z: 1}
+    - name: "\u5DE6\u5927\u817F"
+      parentName: "\u53F3\u9AA8\u76C6"
+      position: {x: -0.4630711, y: 0.0000007751465, z: 0.00000029067994}
+      rotation: {x: 0.022738041, y: -0.2097182, z: 0.40215325, w: 0.89093995}
+      scale: {x: 0.9999999, y: 1.0000001, z: 1.0000002}
+    - name: "\u5DE6\u5C0F\u817F"
+      parentName: "\u5DE6\u5927\u817F"
+      position: {x: -0.7928492, y: 0.000006128502, z: -0.00000019378662}
+      rotation: {x: -0.08637248, y: -0.10467005, z: 0.007981229, w: 0.99071705}
+      scale: {x: 1.0000001, y: 0.9999999, z: 0.99999964}
+    - name: "\u5DE6\u8173"
+      parentName: "\u5DE6\u5C0F\u817F"
+      position: {x: -0.84550655, y: 0.0000003391266, z: 0.0000001695633}
+      rotation: {x: -0.0009396427, y: 0.07891102, z: -0.005515888, w: 0.996866}
+      scale: {x: 1.0000002, y: 0.9999998, z: 1.0000002}
+    - name: "\u53F3\u908A\u9AA8\u76C6"
+      parentName: "\u5A03\u5A03\u9B5A\u9AA8\u67B6(Clone)"
+      position: {x: 0.011145498, y: 2.1544864, z: -0.000000010194183}
+      rotation: {x: -0.2243525, y: 0.16842353, z: 0.89369446, w: 0.3501566}
+      scale: {x: 1, y: 1, z: 1}
+    - name: "\u53F3\u908A\u5927\u817F"
+      parentName: "\u53F3\u908A\u9AA8\u76C6"
+      position: {x: -0.46307096, y: -0.0000008720398, z: 0.00000009689331}
+      rotation: {x: -0.022738473, y: -0.20971797, z: -0.40215337, w: 0.89093995}
+      scale: {x: 1, y: 1, z: 1}
+    - name: "\u53F3\u908A\u5C0F\u817F"
+      parentName: "\u53F3\u908A\u5927\u817F"
+      position: {x: -0.79284906, y: -0.0000060316083, z: 0}
+      rotation: {x: 0.0863728, y: -0.10467005, z: -0.007981145, w: 0.99071705}
+      scale: {x: 1, y: 1, z: 1}
+    - name: "\u53F3\u8173"
+      parentName: "\u53F3\u908A\u5C0F\u817F"
+      position: {x: -0.84550625, y: 0.000000024223327, z: 0.00000006055832}
+      rotation: {x: 0.0009411565, y: 0.078911036, z: 0.0055156443, w: 0.996866}
+      scale: {x: 1, y: 1, z: 1}
+    - name: "\u982D\u90E8"
+      parentName: "\u5A03\u5A03\u9B5A\u9AA8\u67B6(Clone)"
+      position: {x: -0.0038356185, y: 4.392473, z: 0.91510594}
+      rotation: {x: 0.34286228, y: 0.3515813, z: -0.615106, w: 0.6168312}
+      scale: {x: 1.0000001, y: 1, z: 0.9999999}
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 1
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 3
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

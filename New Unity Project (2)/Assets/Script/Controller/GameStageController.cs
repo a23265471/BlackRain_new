@@ -7,13 +7,19 @@ public class GameStageController : MonoBehaviour {
     private GameStageData gameStageData;
 
     public Transform playerStartPos;
-    public GameObject player;
+  //  public GameObject player;
     public PlayerBehaviour playerBehaviour;
+
+    public MainCamera mainCameraBehaviour;
 
     private void Awake()
     {
+        
         gameStageData = GameFacade.GetInstance().gameStageData;
-        player = Instantiate(gameStageData.CurPlayerStageData.playerData.Player, playerStartPos.position, playerStartPos.rotation);
+        GameObject mainCamera = Instantiate(gameStageData.CurPlayerStageData.playerData.MainCamera, new Vector3(0,0,0), playerStartPos.rotation);
+        GameObject player = Instantiate(gameStageData.CurPlayerStageData.playerData.Player, playerStartPos.position, playerStartPos.rotation);
+
+        mainCameraBehaviour = mainCamera.GetComponent<MainCamera>();
         playerBehaviour = player.GetComponent<PlayerBehaviour>();
         
     }

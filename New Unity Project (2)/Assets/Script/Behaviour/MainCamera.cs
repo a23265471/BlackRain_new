@@ -15,7 +15,7 @@ public class MainCamera : MonoBehaviour
     private Quaternion rotationEuler;
     private float cameraPreRotation_Y;
     public float RotateSpeed_Y;
-    private float CameraLookAt_X;
+    public float CameraLookAt_X;
     private float CameraLookAt_Y;
  
     public float distence;
@@ -75,14 +75,14 @@ public class MainCamera : MonoBehaviour
       //  Debug.Log(cameraCanChangeMovement);
         CameraCollision();
         CollisionFloor();
-        Rotaion();
+        
         
     }
 
     // Update is called once per frame
     void LateUpdate()
     {
-
+        Rotaion();
         Vector3 nowpos;
         distenceControl();
         nowpos = rotationEuler * new Vector3(0, 0, -distence) + playerBehavior.cameraLookAt.position;

@@ -41,36 +41,40 @@ public class PlayerController : MonoBehaviour {
         PlayerDirectionControl();
         
         if (playerBehaviour.isGround)
-        {                      
-            Move(playerBehaviour);          
+        {
+            GroundedMove(playerBehaviour);
             Avoid(playerBehaviour);
             
         }
         else
         {
-           
+            Falling(playerBehaviour);
+            Debug.Log("tttttt");
         }
+        
         Jump(playerBehaviour);
       // Debug.Log(Input.inputString.GetHashCode());
     }
 
     
 
-    public void Move(PlayerBehaviour player)
+    public void GroundedMove(PlayerBehaviour player)
+    {       
+        player.GroundedMove(moveDirection_Vertical, moveDirection_Horizontal);
+        Debug.Log("jj");
+        
+    }
+
+    public void Falling(PlayerBehaviour player)
     {
-        if (playerBehaviour.playerState == PlayerBehaviour.PlayerState.Move)
-        {
-              player.PlayerMove(moveDirection_Vertical, moveDirection_Horizontal);
-            
-        }
-                   
+        player.Falling();
     }
 
     public void Avoid(PlayerBehaviour player)
     {
-        if (Input.GetKeyDown(inputSetting.inputKey.Avoid) && (moveDirection_Vertical != 0 || moveDirection_Horizontal != 0) && ((playerBehaviour.playerState & PlayerBehaviour.PlayerState.Avoid) != 0)) 
-        {           
-            player.Avoid();
+        if (Input.GetKeyDown(inputSetting.inputKey.Avoid) && (moveDirection_Vertical != 0 || moveDirection_Horizontal != 0) && ((playerBehaviour.playerState & PlayerBehaviour.PlayerState.CanAvoid) != 0)) 
+        {
+            player.Avoid(moveDirection_Vertical, moveDirection_Horizontal);
            // Debug.Log(moveDirection_Vertical);
            
         } 
@@ -78,7 +82,7 @@ public class PlayerController : MonoBehaviour {
 
     public void Jump(PlayerBehaviour player)
     {
-        if (Input.GetKeyDown(inputSetting.inputKey.Jump) && ((playerBehaviour.playerState & PlayerBehaviour.PlayerState.Jump) | (playerBehaviour.playerState & PlayerBehaviour.PlayerState.Move)) != 0)   
+        if (Input.GetKeyDown(inputSetting.inputKey.Jump) && ((playerBehaviour.playerState & PlayerBehaviour.PlayerState.CanDoubleJump) | (playerBehaviour.playerState & PlayerBehaviour.PlayerState.Move)) != 0)  
         {
             player.Jump();
         }
@@ -86,7 +90,7 @@ public class PlayerController : MonoBehaviour {
 
     }
 
-    public void Landing(PlayerBehaviour player)
+  /*  public void Landing(PlayerBehaviour player)
     {
         if ((player.playerState & PlayerBehaviour.PlayerState.Landing) != 0)
         {
@@ -96,7 +100,7 @@ public class PlayerController : MonoBehaviour {
         }
         
     }
-
+    */
     private void PlayerDirectionControl()
     {     
         if (Input.GetAxis("Vertical") > 0 && (Input.GetKey(inputSetting.inputKey.Forward) || Input.GetKey(KeyCode.UpArrow)))
@@ -126,8 +130,6 @@ public class PlayerController : MonoBehaviour {
         }       
     }
     
-
-
     private void DoKeepCode(ref string keepString,string KeyCode)
     {
         if (keepString == "")

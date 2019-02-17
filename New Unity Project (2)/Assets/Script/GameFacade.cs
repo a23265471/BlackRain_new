@@ -27,6 +27,7 @@ public class GameFacade : MonoBehaviour {
     #region Controller
     public PlayerController playerController;
     public GameStageController gameStageController;
+   
 
     #endregion
 
