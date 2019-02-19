@@ -32,75 +32,64 @@ public class PlayerController : MonoBehaviour {
         playerBehaviour = gameStageController.playerBehaviour;
         keepKeyCode = "";
         cleanKeepKeyCode = null;
-        playerBehaviour.playerState = PlayerBehaviour.PlayerState.Move;
+        
 
     }
 	
     private void FixedUpdate()
     {
         PlayerDirectionControl();
-        
-        if (playerBehaviour.isGround)
-        {
-            GroundedMove(playerBehaviour);
-            Avoid(playerBehaviour);
-            
-        }
-        else
-        {
-            Falling(playerBehaviour);
-            Debug.Log("tttttt");
-        }
-        
-        Jump(playerBehaviour);
+
+        /*   if (playerBehaviour.isGround)
+           {
+               GroundedMove(playerBehaviour);
+               Avoid(playerBehaviour);
+
+           }
+           else
+           {
+               Falling(playerBehaviour);
+               Debug.Log("tttttt");
+           }*/
+        GroundedMove();
+        Falling();
+        Jump();
+        Avoid();
       // Debug.Log(Input.inputString.GetHashCode());
     }
 
     
 
-    public void GroundedMove(PlayerBehaviour player)
-    {       
-        player.GroundedMove(moveDirection_Vertical, moveDirection_Horizontal);
-        Debug.Log("jj");
-        
+    public void GroundedMove()
+    { 
+        playerBehaviour.GroundedMove(moveDirection_Vertical, moveDirection_Horizontal);
+                
     }
 
-    public void Falling(PlayerBehaviour player)
+    public void Falling()
     {
-        player.Falling();
+        playerBehaviour.Falling();
     }
 
-    public void Avoid(PlayerBehaviour player)
+    public void Avoid()
     {
-        if (Input.GetKeyDown(inputSetting.inputKey.Avoid) && (moveDirection_Vertical != 0 || moveDirection_Horizontal != 0) && ((playerBehaviour.playerState & PlayerBehaviour.PlayerState.CanAvoid) != 0)) 
+        if (Input.GetKeyDown(inputSetting.inputKey.Avoid) && (moveDirection_Vertical != 0 || moveDirection_Horizontal != 0) ) 
         {
-            player.Avoid(moveDirection_Vertical, moveDirection_Horizontal);
+            playerBehaviour.Avoid(moveDirection_Vertical, moveDirection_Horizontal);
            // Debug.Log(moveDirection_Vertical);
            
         } 
     }
 
-    public void Jump(PlayerBehaviour player)
+    public void Jump()
     {
-        if (Input.GetKeyDown(inputSetting.inputKey.Jump) && ((playerBehaviour.playerState & PlayerBehaviour.PlayerState.CanDoubleJump) | (playerBehaviour.playerState & PlayerBehaviour.PlayerState.Move)) != 0)  
+        if (Input.GetKeyDown(inputSetting.inputKey.Jump))
         {
-            player.Jump();
+            playerBehaviour.Jump();
         }
-       
 
     }
 
-  /*  public void Landing(PlayerBehaviour player)
-    {
-        if ((player.playerState & PlayerBehaviour.PlayerState.Landing) != 0)
-        {
-            player.Landing();
-            Debug.Log("ff");
-
-        }
-        
-    }
-    */
     private void PlayerDirectionControl()
     {     
         if (Input.GetAxis("Vertical") > 0 && (Input.GetKey(inputSetting.inputKey.Forward) || Input.GetKey(KeyCode.UpArrow)))

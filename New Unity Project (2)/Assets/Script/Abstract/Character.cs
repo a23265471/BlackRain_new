@@ -35,36 +35,49 @@ public abstract class Character : MonoBehaviour
         animator.SetTrigger(parameterName);
     }
 
-    protected virtual void Displacement(Transform CharactorTransform, float speed,float maxDistance,int moveDirection_Vertical,int moveDirection_Horizontal)
+    protected virtual void Displacement(Rigidbody rigidbody, Quaternion rotation, float speed,float maxDistance,int moveDirection_Vertical,int moveDirection_Horizontal)
     {
-        preTransform = CharactorTransform.position;
-        moveControl = MoveControl(CharactorTransform, speed,maxDistance,moveDirection_Vertical,moveDirection_Horizontal);
+       // preTransform = CharactorTransform.position;
+        moveControl = MoveControl(rigidbody, rotation, speed,maxDistance,moveDirection_Vertical,moveDirection_Horizontal);
         
         StopCoroutine(moveControl);
         StartCoroutine(moveControl);
     }
 
-    IEnumerator MoveControl(Transform CharactorTransform,float speed,float maxDis,int moveDirection_Vertical,int moveDirection_Horizontal)
+    IEnumerator MoveControl(Rigidbody rigidbody,Quaternion rotation, float speed,float maxDis,int moveDirection_Vertical,int moveDirection_Horizontal)
     {
-        float MoveZ = moveDirection_Vertical * speed * Time.deltaTime;
-        float MoveX = moveDirection_Horizontal * speed * Time.deltaTime;
+        float MoveZ = moveDirection_Vertical * speed;
+        float MoveX = moveDirection_Horizontal * speed;
         moveDis += speed * Time.deltaTime;
 
-        CharactorTransform.Translate(MoveX, 0, MoveZ);
-      
-        yield return new WaitForSeconds(0.01f);
-       
+        // Debug.Log(moveDis);
+        Debug.Log("aa");
+
         if (moveDis >= maxDis)
         {
             moveDis = 0;
             StopCoroutine(moveControl);
+            Debug.Log("stop");
         }
         else
         {
-            moveControl = MoveControl(CharactorTransform,speed, maxDis, moveDirection_Vertical, moveDirection_Horizontal); 
+            rigidbody.velocity = rotation * new Vector3(MoveX, 0, MoveZ);
+            
+            moveControl = MoveControl(rigidbody, rotation, speed, maxDis, moveDirection_Vertical, moveDirection_Horizontal);
             StopCoroutine(moveControl);
-            StartCoroutine(moveControl);        
+            StartCoroutine(moveControl);
         }
+
+
+        yield return new WaitForSeconds(0.01f);
+       
+
+
+
+      
+
+
+       
     }
 
     protected void AddVerticalForce(Rigidbody rigidbody,float force)
@@ -72,6 +85,32 @@ public abstract class Character : MonoBehaviour
         rigidbody.AddForce(0, force, 0, ForceMode.Impulse);
     }
 
+    protected void Gravity(Rigidbody rigidbody,bool isGrounded,float maxVelocity,ref float curVelocity,float acceleration)
+    {
+        
+        if (!isGrounded)
+        {
+            if (curVelocity >= maxVelocity)
+            {
+                curVelocity = maxVelocity;
+            }
+            else
+            {
+                curVelocity += acceleration;
+            }
 
+            rigidbody.velocity = Vector3.down * curVelocity;
+
+        }
+        else
+        {
+            if (curVelocity != 0)
+            {
+                curVelocity = 0;
+            }
+        }
+
+       // Debug.Log(curVelocity);
+    }
 
 }

@@ -27,7 +27,7 @@ public class PlayerBehaviour : Character
         Dead = 0xf0,
        
         CanFalling = Move | Attack,
-        CanMove = Move | Falling | Jump | DoubleJump,
+        FallingMove = Falling | Jump | DoubleJump,
         CanDoubleJump = Jump | Falling,
         CanDash = Move | Attack | Jump,
         CanDashAttack = CanDash,       
@@ -67,6 +67,7 @@ public class PlayerBehaviour : Character
     private float rotation_Horizontal;
     private float curMoveSpeed;
     private float moveSpeed;
+    private float moveDirection;
 
     private float moveAnimation_Vertical;
     private float moveAnimation_Horizontal;
@@ -79,13 +80,9 @@ public class PlayerBehaviour : Character
     private Rigidbody playerRigidbody;
     public CapsuleCollider physicsCollider;
     public float groundedDis;
-    public bool isGround
-    {
-        get
-        {
-            return Physics.Raycast(physicsCollider.bounds.center, -Vector3.up, physicsCollider.bounds.extents.y + groundedDis, floorMask);
-        }
-    }
+    public bool isGround;
+    private float curGravity;
+    public float GravityAcceleration;
     #endregion
 
     private void Awake()
@@ -102,7 +99,7 @@ public class PlayerBehaviour : Character
         playerParameter = gameStageData.CurPlayerStageData.playerData.playerParameter;
 
         floorMask = LayerMask.GetMask("Floor");
-
+        playerState = PlayerState.Move;
     }
 
     void Start()
@@ -116,11 +113,18 @@ public class PlayerBehaviour : Character
     void Update()
     {
         physicsCollider.height = playerAnimator.GetFloat("ColliderHeight");
-        Rotaion();      
-        
-       // Debug.Log(animationHash.GetAnimationState("Jump"));
+        Rotaion();
+       // Debug.Log(isGround);
+        // Debug.Log(animationHash.GetAnimationState("Jump"));
 
     }
+
+    private void FixedUpdate()
+    {
+        isGround = Physics.Raycast(physicsCollider.bounds.center, -Vector3.up, physicsCollider.bounds.extents.y + groundedDis, floorMask);
+        Gravity(playerRigidbody, isGround, playerParameter.jumpParameter.Gravity,ref curGravity, GravityAcceleration);
+    }
+
 
     #region 移動
     private void Rotaion()
@@ -144,25 +148,28 @@ public class PlayerBehaviour : Character
 
     public void GroundedMove(float moveDirection_Vertical, float moveDirection_Horizontal)
     {
-        if (((playerBehaviour.playerState & PlayerState.CanMove) != 0)) 
-        {
+        if (((playerBehaviour.playerState & PlayerState.Move) != 0)) 
+        {         
             
             AnimationBlendTreeControll(playerAnimator, "Vertical", moveDirection_Vertical, ref moveAnimation_Vertical, MoveAnimationSmoothSpeed);
             AnimationBlendTreeControll(playerAnimator, "Horizontal", moveDirection_Horizontal, ref moveAnimation_Horizontal, MoveAnimationSmoothSpeed);
-
+            moveSpeed = playerParameter.moveParameter.RunSpeed;
+           
+          
             if (moveDirection_Vertical == 0 || moveDirection_Horizontal == 0)
             {
-                curMoveSpeed = Mathf.Sqrt((Mathf.Pow(moveSpeed, 2) * 2));
+                curMoveSpeed = Mathf.Sqrt((Mathf.Pow(playerParameter.moveParameter.RunSpeed, 2) * 2));
             }
             else
             {
-                curMoveSpeed = moveSpeed;
-
+                curMoveSpeed = playerParameter.moveParameter.RunSpeed;
             }
 
-            float MoveX = moveAnimation_Horizontal * Time.deltaTime * playerParameter.moveParameter.RunSpeed;
-            float MoveZ = moveAnimation_Vertical * Time.deltaTime * playerParameter.moveParameter.RunSpeed;
-            transform.Translate(MoveX, 0, MoveZ);
+            float MoveX = moveAnimation_Horizontal  * curMoveSpeed;
+            float MoveZ = moveAnimation_Vertical * curMoveSpeed;
+            
+
+            playerRigidbody.velocity = transform.rotation * new Vector3(MoveX, 0, MoveZ)  ;
            
         }
 
@@ -174,11 +181,16 @@ public class PlayerBehaviour : Character
     }
     public void Falling()
     {
-        if((playerState & PlayerState.CanFalling) != 0)
+        if (!isGround)
         {
-            playerAnimator.SetTrigger("Falling");
-           
+            if ((playerState & PlayerState.CanFalling) != 0)
+            {
+                playerAnimator.SetTrigger("Falling");
+                Debug.Log("ggg");
+
+            }
         }
+       
        
     }
 
@@ -186,40 +198,44 @@ public class PlayerBehaviour : Character
 
     #region 迴避
     public void Avoid(int moveDirection_Vertical,int moveDirection_Horizontal)
-    {       
+    {
         string xDirection;
         string zDirection;
+        if ((playerBehaviour.playerState & PlayerState.CanAvoid) != 0)
+        {
+            avoidDirection_Horizontal = moveDirection_Horizontal;
+            avoidDirection_Verticalz = moveDirection_Vertical;
 
-        avoidDirection_Horizontal = moveDirection_Horizontal;
-        avoidDirection_Verticalz = moveDirection_Vertical;
+            if (moveDirection_Vertical == 1)
+            {
+                zDirection = "Forward";
+            }
+            else if (moveDirection_Vertical == -1)
+            {
+                zDirection = "Back";
+            }
+            else
+            {
+                zDirection = "";
+            }
 
-        if (moveDirection_Vertical == 1)
-        {
-            zDirection = "Forward";
-        }
-        else if (moveDirection_Vertical == -1) 
-        {
-            zDirection = "Back";
-        }
-        else
-        {
-            zDirection = "";
-        }
+            if (moveDirection_Horizontal == 1)
+            {
+                xDirection = "Right";
+            }
+            else if (moveDirection_Horizontal == -1)
+            {
+                xDirection = "Left";
+            }
+            else
+            {
+                xDirection = "";
+            }
 
-        if (moveDirection_Horizontal == 1)
-        {
-            xDirection = "Right";
-        }
-        else if (moveDirection_Horizontal == -1)
-        {
-            xDirection = "Left";
-        }
-        else
-        {
-            xDirection = "";
-        }
+            AvoidAnimatorTrigger(xDirection, zDirection);
 
-        AvoidAnimatorTrigger(xDirection, zDirection);               
+        }
+                          
        
     }
 
@@ -232,7 +248,11 @@ public class PlayerBehaviour : Character
 
     public void Jump()
     {
-        playerAnimator.SetTrigger("Jump");
+        if (((playerBehaviour.playerState & PlayerState.CanDoubleJump) | (playerBehaviour.playerState & PlayerState.Move)) != 0)
+        {
+            playerAnimator.SetTrigger("Jump");
+
+        }
 
     }
 
@@ -274,12 +294,14 @@ public class PlayerBehaviour : Character
                 break;
             case (int)PlayerState.Avoid:
                 playerState = PlayerState.Avoid;
-                Displacement(transform, playerParameter.avoidParameter.AvoidSpeed, playerParameter.avoidParameter.AvoidDistance, avoidDirection_Verticalz, avoidDirection_Horizontal);        
+                Displacement(playerRigidbody, transform.rotation, playerParameter.avoidParameter.AvoidSpeed, playerParameter.avoidParameter.AvoidDistance, avoidDirection_Verticalz, avoidDirection_Horizontal);
+                Debug.Log("Start");
                 break;
             case (int)PlayerState.Falling:
-                if (playerState != PlayerState.Falling)
+                if ((playerState & PlayerState.CanFalling) != 0) 
                 {
                     playerState = PlayerState.Falling;
+                    playerAnimator.ResetTrigger("Falling");
                     StartCoroutine("LandingCheck");
                 }
               
@@ -288,30 +310,6 @@ public class PlayerBehaviour : Character
 
         }
     } 
-
-   /* public void AvoidState()
-    {
-        playerState = PlayerState.Avoid;
-        Displacement(transform, playerParameter.avoidParameter.AvoidSpeed, playerParameter.avoidParameter.AvoidDistance, avoidDirection_Verticalz, avoidDirection_Horizontal);
-    }
-
-    public void IdleState()
-    {
-        playerState = PlayerState.Move;
-        
-    }
-
-    public void JumpState()
-    {
-        playerState = PlayerState.Jump;
-       
-    }
-
-    public void DoubleJumpState()
-    {
-        playerState = PlayerState.DoubleJump;          
-    }
-       */
 
     public void AddForce(int JumpState)
     {
@@ -347,7 +345,7 @@ public class PlayerBehaviour : Character
             {
                 StartCoroutine("LandingCheck");
                 StopCoroutine("JumpTriggerLandingCheck");
-                Debug.Log("Tr_Landing Check");
+               
             }
         }
         else
@@ -362,6 +360,7 @@ public class PlayerBehaviour : Character
     {
         yield return new WaitForSeconds(0.01f);
         Debug.Log("Lc");
+        Debug.Log(playerState);
         if (isGround)
         {            
             if (animationHash.GetCurrentAnimationState("Idle_Run"))
@@ -369,18 +368,19 @@ public class PlayerBehaviour : Character
                 playerAnimator.ResetTrigger("Idle");
                 playerState = PlayerState.Move;
                 StopCoroutine("LandingCheck");
-                Debug.Log("Lc_Change State");
+               
             }
             else
             {
                 playerAnimator.SetTrigger("Idle");
                 StartCoroutine("LandingCheck");
-                Debug.Log("Lc_trigger IdleState");
+                
             } 
         }
         else
         {
             StartCoroutine("LandingCheck");
+           
            // FallingMove();
             
         }

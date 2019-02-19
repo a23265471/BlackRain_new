@@ -17,7 +17,8 @@ public class PlayerData
     {
         public float JumpHigh;
         public float DoubleJumpHigh;
-        public float JumpMoveSpeed;      
+        public float JumpMoveSpeed;
+        public float Gravity;
     }
 
     [System.Serializable]

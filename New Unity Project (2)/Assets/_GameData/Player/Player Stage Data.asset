@@ -14,16 +14,17 @@ MonoBehaviour:
   playerData:
     playerParameter:
       moveParameter:
-        RunSpeed: 4
+        RunSpeed: 6
         FastRunSpeed: 0
         RotateSpeed: 60
       jumpParameter:
         JumpHigh: 3000
         DoubleJumpHigh: 5000
-        JumpMoveSpeed: 6
+        JumpMoveSpeed: 2
+        Gravity: 17
       avoidParameter:
         AvoidSpeed: 13
-        AvoidDistance: 5
+        AvoidDistance: 3
       damageParameter:
         GetupTime: 0
         AudioClip_Damage: {fileID: 0}

@@ -66,6 +66,7 @@
     <Compile Include="Assets\Script\Behaviour\PlayerBehaviour.cs" />
     <Compile Include="Assets\Script\Component\AnimationEvent.cs" />
     <Compile Include="Assets\Script\Component\AnimationHash.cs" />
+    <Compile Include="Assets\Script\Component\Gravity.cs" />
     <Compile Include="Assets\Script\Controller\GameStageController.cs" />
     <Compile Include="Assets\Script\Controller\PlayerController.cs" />
     <Compile Include="Assets\Script\EnemySpine.cs" />

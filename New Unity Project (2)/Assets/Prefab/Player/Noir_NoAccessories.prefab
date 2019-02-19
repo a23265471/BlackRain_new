@@ -1003,7 +1003,7 @@ GameObject:
   - component: {fileID: 114976038100174930}
   m_Layer: 0
   m_Name: Noir_NoAccessories
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2000,10 +2000,10 @@ Rigidbody:
   m_Mass: 500
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!82 &82629826815989912
 AudioSource:
@@ -2133,7 +2133,9 @@ MonoBehaviour:
   cameraLookAt: {fileID: 0}
   MoveAnimationSmoothSpeed: 0.1
   physicsCollider: {fileID: 0}
-  groundedDis: 0
+  groundedDis: 0.2
+  isGround: 0
+  GravityAcceleration: 1
 --- !u!114 &114976038100174930
 MonoBehaviour:
   m_ObjectHideFlags: 1
