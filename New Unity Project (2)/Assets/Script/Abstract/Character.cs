@@ -35,24 +35,26 @@ public abstract class Character : MonoBehaviour
         animator.SetTrigger(parameterName);
     }
 
-    protected virtual void Displacement(Rigidbody rigidbody, Quaternion rotation, float speed,float maxDistance,int moveDirection_Vertical,int moveDirection_Horizontal)
+    protected virtual void Displacement(Rigidbody rigidbody, Quaternion rotation, float speed,float maxDistance, int moveDirection_X,int moveDirection_Y, int moveDirection_Z)
     {
         // preTransform = CharactorTransform.position;
 
         moveTime = maxDistance / speed;
         Debug.Log(moveTime);
-        moveControl = MoveControl(rigidbody, rotation, Time.time, speed, maxDistance, moveDirection_Vertical, moveDirection_Horizontal);
+        moveControl = MoveControl(rigidbody, rotation, Time.time, speed, maxDistance, moveDirection_X, moveDirection_Y, moveDirection_Z);
         
         StopCoroutine(moveControl);
         StartCoroutine(moveControl);
     }
 
-    IEnumerator MoveControl(Rigidbody rigidbody,Quaternion rotation,float startTime,float speed,float maxDis,int moveDirection_Vertical,int moveDirection_Horizontal)
+    IEnumerator MoveControl(Rigidbody rigidbody,Quaternion rotation,float startTime,float speed,float maxDis, int moveDirection_X, int moveDirection_Y, int moveDirection_Z)
     {
-        float MoveZ = moveDirection_Vertical * speed;
-        float MoveX = moveDirection_Horizontal * speed;
+        float MoveX = moveDirection_X * speed;
+        float MoveY = moveDirection_Y * speed;
+        float MoveZ = moveDirection_Z * speed;
+       
 
-        rigidbody.velocity = rotation * new Vector3(MoveX, 0, MoveZ);
+        rigidbody.velocity = rotation * new Vector3(MoveX, MoveY, MoveZ);
 
         /* moveDis += speed * Time.deltaTime;
          moveDis = Mathf.Clamp(moveDis, 0, maxDis);*/
@@ -72,7 +74,7 @@ public abstract class Character : MonoBehaviour
         }
         else
         {
-            moveControl = MoveControl(rigidbody, rotation, startTime, speed, maxDis, moveDirection_Vertical, moveDirection_Horizontal);
+            moveControl = MoveControl(rigidbody, rotation, startTime, speed, maxDis, moveDirection_X, moveDirection_Y, moveDirection_Z);
             StartCoroutine(moveControl);
         }
 

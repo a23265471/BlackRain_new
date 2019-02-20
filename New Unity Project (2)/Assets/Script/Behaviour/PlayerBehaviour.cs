@@ -72,8 +72,8 @@ public class PlayerBehaviour : Character
     private float moveAnimation_Vertical;
     private float moveAnimation_Horizontal;
     public float MoveAnimationSmoothSpeed;
-    private int avoidDirection_Horizontal;
-    private int avoidDirection_Verticalz;
+    private int avoidDirection_X;
+    private int avoidDirection_Z;
     private float avoidSpeed;
     
     #endregion
@@ -205,8 +205,8 @@ public class PlayerBehaviour : Character
         
         if ((playerBehaviour.playerState & PlayerState.CanAvoid) != 0)
         {
-            avoidDirection_Horizontal = moveDirection_Horizontal;
-            avoidDirection_Verticalz = moveDirection_Vertical;
+            avoidDirection_X = moveDirection_Horizontal;
+            avoidDirection_Z = moveDirection_Vertical;
 
             if (moveDirection_Vertical == 1)
             {
@@ -293,7 +293,7 @@ public class PlayerBehaviour : Character
             case (int)PlayerState.Avoid:
                 playerState = PlayerState.Avoid;
                 Debug.Log("Start");
-                Displacement(playerRigidbody, transform.rotation, avoidSpeed, playerParameter.avoidParameter.AvoidDistance, avoidDirection_Verticalz, avoidDirection_Horizontal);
+                Displacement(playerRigidbody, transform.rotation, avoidSpeed, playerParameter.avoidParameter.AvoidDistance, avoidDirection_X, 0, avoidDirection_Z);
                 
                 break;
             case (int)PlayerState.Falling:
@@ -315,7 +315,8 @@ public class PlayerBehaviour : Character
         switch (JumpState)
         {
             case (int)PlayerState.Jump:
-                AddVerticalForce(playerRigidbody, playerParameter.jumpParameter.JumpHigh);
+                // AddVerticalForce(playerRigidbody, playerParameter.jumpParameter.JumpHigh);
+                Displacement(playerRigidbody, transform.rotation, playerParameter.jumpParameter.JumpSpeed, playerParameter.jumpParameter.JumpHigh, 0, 1, 0);
                 StartCoroutine("JumpTriggerLandingCheck");
                 break;
             case (int)PlayerState.DoubleJump:

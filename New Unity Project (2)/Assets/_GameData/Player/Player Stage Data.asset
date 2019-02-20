@@ -18,7 +18,8 @@ MonoBehaviour:
         FastRunSpeed: 0
         RotateSpeed: 60
       jumpParameter:
-        JumpHigh: 3000
+        JumpHigh: 8
+        JumpSpeed: 50
         DoubleJumpHigh: 5000
         JumpMoveSpeed: 2
         Gravity: 17
