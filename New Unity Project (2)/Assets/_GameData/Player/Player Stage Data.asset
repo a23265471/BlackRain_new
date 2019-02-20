@@ -23,8 +23,8 @@ MonoBehaviour:
         JumpMoveSpeed: 2
         Gravity: 17
       avoidParameter:
-        AvoidSpeed: 13
-        AvoidDistance: 3
+        AvoidSpeed: 8
+        AvoidDistance: 5
       damageParameter:
         GetupTime: 0
         AudioClip_Damage: {fileID: 0}

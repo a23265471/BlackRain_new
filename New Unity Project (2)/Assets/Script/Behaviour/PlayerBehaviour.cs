@@ -53,7 +53,7 @@ public class PlayerBehaviour : Character
     private AudioSource playerAudioSource;
     private PlayerData.PlayerParameter playerParameter;
     private AnimationHash animationHash;
-    private float avoidSpeed;
+    
 
     #region 圖層
     int floorMask;
@@ -74,6 +74,8 @@ public class PlayerBehaviour : Character
     public float MoveAnimationSmoothSpeed;
     private int avoidDirection_Horizontal;
     private int avoidDirection_Verticalz;
+    private float avoidSpeed;
+    
     #endregion
 
     #region 物理碰撞   
@@ -114,8 +116,9 @@ public class PlayerBehaviour : Character
     {
         physicsCollider.height = playerAnimator.GetFloat("ColliderHeight");
         Rotaion();
-       // Debug.Log(isGround);
+        // Debug.Log(isGround);
         // Debug.Log(animationHash.GetAnimationState("Jump"));
+        Debug.Log(playerRigidbody.velocity);
 
     }
 
@@ -140,10 +143,9 @@ public class PlayerBehaviour : Character
             rotation_Horizontal += 360;
         }
 
-        if (playerState != PlayerState.Avoid)
-        {
+        
             transform.rotation = Quaternion.Euler(0, rotation_Horizontal, 0);
-        }
+        
     }
 
     public void GroundedMove(float moveDirection_Vertical, float moveDirection_Horizontal)
@@ -167,10 +169,10 @@ public class PlayerBehaviour : Character
 
             float MoveX = moveAnimation_Horizontal  * curMoveSpeed;
             float MoveZ = moveAnimation_Vertical * curMoveSpeed;
-            
+
 
             playerRigidbody.velocity = transform.rotation * new Vector3(MoveX, 0, MoveZ)  ;
-           
+
         }
 
     }
@@ -186,7 +188,6 @@ public class PlayerBehaviour : Character
             if ((playerState & PlayerState.CanFalling) != 0)
             {
                 playerAnimator.SetTrigger("Falling");
-                Debug.Log("ggg");
 
             }
         }
@@ -201,6 +202,7 @@ public class PlayerBehaviour : Character
     {
         string xDirection;
         string zDirection;
+        
         if ((playerBehaviour.playerState & PlayerState.CanAvoid) != 0)
         {
             avoidDirection_Horizontal = moveDirection_Horizontal;
@@ -232,6 +234,16 @@ public class PlayerBehaviour : Character
                 xDirection = "";
             }
 
+            if (moveDirection_Vertical == 0 || moveDirection_Horizontal == 0)
+            {
+                avoidSpeed = Mathf.Sqrt((Mathf.Pow(playerParameter.avoidParameter.AvoidSpeed, 2) * 2));
+            }
+            else
+            {
+                avoidSpeed = playerParameter.avoidParameter.AvoidSpeed;
+            }
+        
+
             AvoidAnimatorTrigger(xDirection, zDirection);
 
         }
@@ -256,21 +268,7 @@ public class PlayerBehaviour : Character
 
     }
 
-   /* public void FallingMove()
-    {
-        AddHorizontalForce(playerRigidbody, playerParameter.jumpParameter.JumpMoveSpeed, playerController.moveDirection_Vertical, playerController.moveDirection_Horizontal);
-    }
-    */
-   /* public void Landing()
-    {
-        playerAnimator.SetTrigger("Idle");
-        if (animationHash.GetAnimationState("Idle_Run"))
-        {
-            playerState = PlayerState.Move;
-        }
-
-    }
-    */
+   
 
     #region AnimationEvent
 
@@ -294,8 +292,9 @@ public class PlayerBehaviour : Character
                 break;
             case (int)PlayerState.Avoid:
                 playerState = PlayerState.Avoid;
-                Displacement(playerRigidbody, transform.rotation, playerParameter.avoidParameter.AvoidSpeed, playerParameter.avoidParameter.AvoidDistance, avoidDirection_Verticalz, avoidDirection_Horizontal);
                 Debug.Log("Start");
+                Displacement(playerRigidbody, transform.rotation, avoidSpeed, playerParameter.avoidParameter.AvoidDistance, avoidDirection_Verticalz, avoidDirection_Horizontal);
+                
                 break;
             case (int)PlayerState.Falling:
                 if ((playerState & PlayerState.CanFalling) != 0) 
@@ -360,7 +359,7 @@ public class PlayerBehaviour : Character
     {
         yield return new WaitForSeconds(0.01f);
         Debug.Log("Lc");
-        Debug.Log(playerState);
+       // Debug.Log(playerState);
         if (isGround)
         {            
             if (animationHash.GetCurrentAnimationState("Idle_Run"))
