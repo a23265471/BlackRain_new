@@ -13,6 +13,10 @@ public abstract class Character : MonoBehaviour
     private Vector3 preTransform;
     float moveDis;
     float moveTime;
+    public bool useGravity;
+
+    float aa = 1;
+
     private void Awake()
     {
         moveControl = null;     
@@ -35,16 +39,18 @@ public abstract class Character : MonoBehaviour
         animator.SetTrigger(parameterName);
     }
 
-    protected virtual void Displacement(Rigidbody rigidbody, Quaternion rotation, float speed,float maxDistance, int moveDirection_X,int moveDirection_Y, int moveDirection_Z)
+    protected virtual void Displacement(Rigidbody rigidbody, Quaternion rotation, float speed,float maxDistance, int moveDirection_X,int moveDirection_Y, int moveDirection_Z,bool isGravity)
     {
         // preTransform = CharactorTransform.position;
+        useGravity = isGravity;
 
         moveTime = maxDistance / speed;
-        Debug.Log(moveTime);
+        
         moveControl = MoveControl(rigidbody, rotation, Time.time, speed, maxDistance, moveDirection_X, moveDirection_Y, moveDirection_Z);
         
         StopCoroutine(moveControl);
         StartCoroutine(moveControl);
+        Debug.Log(moveTime);
     }
 
     IEnumerator MoveControl(Rigidbody rigidbody,Quaternion rotation,float startTime,float speed,float maxDis, int moveDirection_X, int moveDirection_Y, int moveDirection_Z)
@@ -56,10 +62,12 @@ public abstract class Character : MonoBehaviour
 
         rigidbody.velocity = rotation * new Vector3(MoveX, MoveY, MoveZ);
 
-        /* moveDis += speed * Time.deltaTime;
-         moveDis = Mathf.Clamp(moveDis, 0, maxDis);*/
+      /*  aa += 1;
 
-        Debug.Log(rigidbody.velocity);
+         moveDis += (speed+ aa) * Time.deltaTime;
+         moveDis = Mathf.Clamp(moveDis, 0, maxDis);
+         */
+       // Debug.Log(rigidbody.velocity);
 
         
         yield return new WaitForSeconds(0.01f);
@@ -69,8 +77,9 @@ public abstract class Character : MonoBehaviour
             // moveDis = 0;
             Debug.Log("Stop");
             rigidbody.velocity = new Vector3(0, 0, 0);
-            StopCoroutine(moveControl);
+            useGravity = true;
 
+            StopCoroutine(moveControl);            
         }
         else
         {
@@ -79,6 +88,8 @@ public abstract class Character : MonoBehaviour
         }
 
     }
+
+
 
     protected void AddVerticalForce(Rigidbody rigidbody,float force)
     {
@@ -100,7 +111,7 @@ public abstract class Character : MonoBehaviour
             }
 
             rigidbody.velocity = Vector3.down * curVelocity;
-            Debug.Log("gravity");
+           // Debug.Log("gravity");
 
         }
         else

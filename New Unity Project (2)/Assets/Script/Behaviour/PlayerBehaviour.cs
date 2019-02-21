@@ -85,6 +85,7 @@ public class PlayerBehaviour : Character
     public bool isGround;
     private float curGravity;
     public float GravityAcceleration;
+    //private bool useGravity;
     #endregion
 
     private void Awake()
@@ -102,6 +103,7 @@ public class PlayerBehaviour : Character
 
         floorMask = LayerMask.GetMask("Floor");
         playerState = PlayerState.Move;
+        useGravity = true;
     }
 
     void Start()
@@ -118,14 +120,22 @@ public class PlayerBehaviour : Character
         Rotaion();
         // Debug.Log(isGround);
         // Debug.Log(animationHash.GetAnimationState("Jump"));
-        Debug.Log(playerRigidbody.velocity);
+       // Debug.Log(playerRigidbody.velocity);
 
     }
 
     private void FixedUpdate()
     {
         isGround = Physics.Raycast(physicsCollider.bounds.center, -Vector3.up, physicsCollider.bounds.extents.y + groundedDis, floorMask);
-        Gravity(playerRigidbody, isGround, playerParameter.jumpParameter.Gravity,ref curGravity, GravityAcceleration);
+
+        Debug.Log(useGravity);
+        if (useGravity)
+        {
+            Gravity(playerRigidbody, isGround, playerParameter.jumpParameter.Gravity, ref curGravity, GravityAcceleration);
+
+        }
+
+
     }
 
 
@@ -292,8 +302,8 @@ public class PlayerBehaviour : Character
                 break;
             case (int)PlayerState.Avoid:
                 playerState = PlayerState.Avoid;
-                Debug.Log("Start");
-                Displacement(playerRigidbody, transform.rotation, avoidSpeed, playerParameter.avoidParameter.AvoidDistance, avoidDirection_X, 0, avoidDirection_Z);
+               
+                Displacement(playerRigidbody, transform.rotation, avoidSpeed, playerParameter.avoidParameter.AvoidDistance, avoidDirection_X, 0, avoidDirection_Z,true);
                 
                 break;
             case (int)PlayerState.Falling:
@@ -316,7 +326,10 @@ public class PlayerBehaviour : Character
         {
             case (int)PlayerState.Jump:
                 // AddVerticalForce(playerRigidbody, playerParameter.jumpParameter.JumpHigh);
-                Displacement(playerRigidbody, transform.rotation, playerParameter.jumpParameter.JumpSpeed, playerParameter.jumpParameter.JumpHigh, 0, 1, 0);
+                useGravity = false;
+
+                Displacement(playerRigidbody, transform.rotation, playerParameter.jumpParameter.JumpSpeed, playerParameter.jumpParameter.JumpHigh, 0, 1, 0, false);
+               
                 StartCoroutine("JumpTriggerLandingCheck");
                 break;
             case (int)PlayerState.DoubleJump:
