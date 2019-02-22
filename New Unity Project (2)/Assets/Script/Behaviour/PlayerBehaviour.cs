@@ -128,7 +128,7 @@ public class PlayerBehaviour : Character
     {
         isGround = Physics.Raycast(physicsCollider.bounds.center, -Vector3.up, physicsCollider.bounds.extents.y + groundedDis, floorMask);
 
-        Debug.Log(useGravity);
+       // Debug.Log(useGravity);
         if (useGravity)
         {
             Gravity(playerRigidbody, isGround, playerParameter.jumpParameter.Gravity, ref curGravity, GravityAcceleration);
@@ -328,23 +328,27 @@ public class PlayerBehaviour : Character
                 // AddVerticalForce(playerRigidbody, playerParameter.jumpParameter.JumpHigh);
                 useGravity = false;
 
-                Displacement(playerRigidbody, transform.rotation, playerParameter.jumpParameter.JumpSpeed, playerParameter.jumpParameter.JumpHigh, 0, 1, 0, false);
-               
+                //   Displacement(playerRigidbody, transform.rotation, playerParameter.jumpParameter.JumpSpeed, playerParameter.jumpParameter.JumpHigh, 0, 1, 0, false);
+                //playerRigidbody.velocity = new Vector3(0, playerParameter.jumpParameter.JumpCurve.Evaluate(0), 0);
+                Keyframe endKey = playerParameter.jumpParameter.JumpCurve.keys[playerParameter.jumpParameter.JumpCurve.keys.Length - 1];
+                RigiBodyMoveWithAniamtionCurve(playerRigidbody,playerParameter.jumpParameter.JumpCurve, 0, endKey.time, 1f);
                 StartCoroutine("JumpTriggerLandingCheck");
                 break;
             case (int)PlayerState.DoubleJump:
                 playerRigidbody.mass = 10;
                 playerRigidbody.velocity = Vector3.zero;
                 playerRigidbody.mass = 500;
-                AddVerticalForce(playerRigidbody, playerParameter.jumpParameter.DoubleJumpHigh);
+               // AddVerticalForce(playerRigidbody, playerParameter.jumpParameter.DoubleJumpHigh);
                 break;
         }
        
     }
 
+
+
     IEnumerator JumpTriggerLandingCheck()
     {
-        Debug.Log("Tr");
+        Debug.Log("JumpCheck");
         yield return new WaitForSeconds(0.01f);
 
         if (animationHash.GetCurrentAnimationState("Jump"))
@@ -372,7 +376,7 @@ public class PlayerBehaviour : Character
      IEnumerator LandingCheck()
     {
         yield return new WaitForSeconds(0.01f);
-        Debug.Log("Lc");
+        Debug.Log("LandingCheck");
        // Debug.Log(playerState);
         if (isGround)
         {            

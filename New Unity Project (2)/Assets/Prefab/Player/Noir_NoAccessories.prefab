@@ -1357,8 +1357,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1973415817257212}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.29, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 4.931, y: -0.072, z: -33.03}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_Children:
   - {fileID: 4515144935962012}
   - {fileID: 4825125672416028}
@@ -2129,13 +2129,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48984eef8ea34764d8a93b59a73a6109, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useGravity: 0
   playerState: 0
   cameraLookAt: {fileID: 0}
   MoveAnimationSmoothSpeed: 0.1
   physicsCollider: {fileID: 0}
   groundedDis: 0.2
-  isGround: 0
-  GravityAcceleration: 1
+  isGround: 1
+  GravityAcceleration: 17
 --- !u!114 &114976038100174930
 MonoBehaviour:
   m_ObjectHideFlags: 1
