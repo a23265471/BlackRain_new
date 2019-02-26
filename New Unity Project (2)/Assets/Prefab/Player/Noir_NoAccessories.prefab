@@ -2130,6 +2130,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   useGravity: 0
+  curAnimationCurvePastLong: 0
   playerState: 0
   cameraLookAt: {fileID: 0}
   MoveAnimationSmoothSpeed: 0.1
@@ -2159,9 +2160,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.31
-  m_Height: 2.31
+  m_Height: 2.16
   m_Direction: 1
-  m_Center: {x: 0, y: 1.27, z: 0}
+  m_Center: {x: 0, y: 1.25, z: 0}
 --- !u!137 &137818177036377714
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

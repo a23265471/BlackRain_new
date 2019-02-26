@@ -119,7 +119,7 @@ public class PlayerBehaviour : Character
     void Update()
     {
        
-        physicsCollider.height = playerAnimator.GetFloat("ColliderHeight");
+       // physicsCollider.height = playerAnimator.GetFloat("ColliderHeight");
         Rotaion();
         // Debug.Log(isGround);
         // Debug.Log(animationHash.GetAnimationState("Jump"));
@@ -131,9 +131,9 @@ public class PlayerBehaviour : Character
     {
         isGround = Physics.Raycast(physicsCollider.bounds.center, -Vector3.up, physicsCollider.bounds.extents.y + groundedDis, floorMask);
 
-        if (playerState == PlayerState.DoubleJump)
+        if (playerState == PlayerState.Jump)
         {
-          //  Debug.Log(playerRigidbody.velocity);
+         //  Debug.Log(playerRigidbody.velocity);
         }
 
         // Debug.Log(useGravity);
@@ -168,8 +168,6 @@ public class PlayerBehaviour : Character
     {
         useGravity = false;
         isGravity = false;
-
-
     } 
 
 
@@ -188,15 +186,16 @@ public class PlayerBehaviour : Character
         }
 
         
-            transform.rotation = Quaternion.Euler(0, rotation_Horizontal, 0);
+        transform.rotation = Quaternion.Euler(0, rotation_Horizontal, 0);
         
     }
 
     public void GroundedMove(float moveDirection_Vertical, float moveDirection_Horizontal)
     {
         if (((playerBehaviour.playerState & PlayerState.Move) != 0)) 
-        {         
-            
+        {
+            Debug.Log(playerRigidbody.velocity);
+
             AnimationBlendTreeControll(playerAnimator, "Vertical", moveDirection_Vertical, ref moveAnimation_Vertical, MoveAnimationSmoothSpeed);
             AnimationBlendTreeControll(playerAnimator, "Horizontal", moveDirection_Horizontal, ref moveAnimation_Horizontal, MoveAnimationSmoothSpeed);
             moveSpeed = playerParameter.moveParameter.RunSpeed;
@@ -321,9 +320,6 @@ public class PlayerBehaviour : Character
 
     }
 
-   
-
-
     #region AnimationEvent
 
     public void ChangePlayerState(int ChangePlayerState)
@@ -341,6 +337,7 @@ public class PlayerBehaviour : Character
 
             case (int)PlayerState.Jump:
                 playerState = PlayerState.Jump;
+                playerRigidbody.velocity = new Vector3(0, 0, 0);
                 break;
 
             case (int)PlayerState.DoubleJump:
@@ -370,8 +367,8 @@ public class PlayerBehaviour : Character
         {
             case (int)PlayerState.Jump:
                 Keyframe jumpEndKey = playerParameter.jumpParameter.JumpCurve.keys[playerParameter.jumpParameter.JumpCurve.keys.Length - 1];
-                StopRigiBodyMoveWithAniamtionCurve();
                 StopUseGravity();
+                StopRigiBodyMoveWithAniamtionCurve();
                 RigiBodyMoveWithAniamtionCurve(playerRigidbody,playerParameter.jumpParameter.JumpCurve, 0, jumpEndKey.time, 12, playerParameter.jumpParameter.JumpPerIntervalTime);              
                 break;
 
@@ -404,6 +401,7 @@ public class PlayerBehaviour : Character
             {
                 playerAnimator.ResetTrigger("Idle");
                 playerState = PlayerState.Move;
+                StopRigiBodyMoveWithAniamtionCurve();
                 StopCoroutine("LandingCheck");
                
             }
