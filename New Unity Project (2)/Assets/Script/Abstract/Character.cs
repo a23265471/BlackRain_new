@@ -15,13 +15,17 @@ public abstract class Character : MonoBehaviour
     float moveDis;
     float moveTime;
     public bool useGravity;
+    private bool StopRigibodyWithAnimationCurve;
+    private bool RigibodyAnimationCurveIsRunning;
 
-    float curAnimationCurvePastTime = 0 ; 
+    public float curAnimationCurvePastLong = 0 ; 
 
     private void Awake()
     {
         moveControl = null;
         rigibodyWithAnimationCurve = null;
+        StopRigibodyWithAnimationCurve = false;
+        RigibodyAnimationCurveIsRunning = false;
     }
 
     protected virtual void AnimationBlendTreeControll(Animator animator,string parameterName, float targetValue,ref float controllValue,float animationSpeed)
@@ -70,7 +74,7 @@ public abstract class Character : MonoBehaviour
             // moveDis = 0;
             
             rigidbody.velocity = new Vector3(0, 0, 0);
-            useGravity = true;
+            
 
             StopCoroutine(moveControl);            
         }
@@ -83,55 +87,72 @@ public abstract class Character : MonoBehaviour
 
     }
 
-    protected float RunAnimationCurve(AnimationCurve animationCurve, IEnumerator enumerator, float startTime,float endTime,float speed)
+    protected float AnimationCurve(AnimationCurve animationCurve, float startTime,float endTime,float perLength)
     {
-        // float endKey=animationCurve.keys[];
-        Debug.Log("AniamtionCurve");
+      ///  Debug.Log("AniamtionCurve");
 
-        float curTime = startTime + curAnimationCurvePastTime;
+        float curTime = startTime + curAnimationCurvePastLong;
+
         if (curTime >= endTime)
         {
             curTime = endTime;
-            curAnimationCurvePastTime = 0;
-            useGravity = true;
-            StopCoroutine(enumerator);
-            Debug.Log("AniamtionCurve_Stop");
+
         }
         else
         {
-            curAnimationCurvePastTime += speed * Time.deltaTime;
-            //  readAnimationCurve = ReadAnimationCurve(/*rigidbody,*/ animationCurve, startTime, endTime, speed);
-            //  Debug.Log("AniamtionCurve_Start");
-            Debug.Log("ss");
-            StartCoroutine(enumerator);
+            curAnimationCurvePastLong += perLength;
         }
-        Debug.Log("aa");
 
         return animationCurve.Evaluate(curTime);
     }
 
-    IEnumerator RigibodyWithAnimationCurve(Rigidbody rigidbody,AnimationCurve animationCurve, float startTime, float endTime, float speed)
+    IEnumerator RigibodyRunAnimationCurve(Rigidbody rigidbody, AnimationCurve animationCurve, float startTime, float endTime, float perLength, float perIntervalTime)
     {
-        Debug.Log("rr");
-        yield return new WaitForSeconds(0.01f);
-        Debug.Log("ww");
-        rigibodyWithAnimationCurve = RigibodyWithAnimationCurve(rigidbody, animationCurve, startTime, endTime, speed);
-        rigidbody.velocity = new Vector3(0, RunAnimationCurve(animationCurve, rigibodyWithAnimationCurve, startTime, endTime, speed), 0);
-       // RunAnimationCurve(rigidbody, animationCurve, startTime, endTime, speed);
-    }
+     
+        rigidbody.velocity = new Vector3(rigidbody.velocity.x, AnimationCurve(animationCurve, startTime, endTime, perLength), rigidbody.velocity.z);
 
-    protected void RigiBodyMoveWithAniamtionCurve(Rigidbody rigidbody, AnimationCurve animationCurve, float startTime, float endTime, float speed)
-    {
-        rigibodyWithAnimationCurve = RigibodyWithAnimationCurve(rigidbody, animationCurve, startTime, endTime, speed);
+        if (curAnimationCurvePastLong >= endTime)
+        {
+
+            curAnimationCurvePastLong = 0;
+            useGravity = true;
+            RigibodyAnimationCurveIsRunning = false;         
+            StopCoroutine(rigibodyWithAnimationCurve);
+        }
+    
+        yield return new WaitForSeconds(perIntervalTime);
+        rigibodyWithAnimationCurve = RigibodyRunAnimationCurve(rigidbody, animationCurve, startTime, endTime, perLength, perIntervalTime);
+
         StartCoroutine(rigibodyWithAnimationCurve);
     }
 
-    protected void AddVerticalForce(Rigidbody rigidbody,float force)
+    protected void RigiBodyMoveWithAniamtionCurve(Rigidbody rigidbody, AnimationCurve animationCurve, float startTime, float endTime, float perIntervalLength, float perIntervalTime)
     {
-        rigidbody.AddForce(0, force, 0, ForceMode.Impulse);
+        float perLength = animationCurve.keys[animationCurve.length - 1].time / perIntervalLength;
+        rigibodyWithAnimationCurve = RigibodyRunAnimationCurve(rigidbody, animationCurve, startTime, endTime, perLength, perIntervalTime);
+        RigibodyAnimationCurveIsRunning = true;
+
+        StartCoroutine(rigibodyWithAnimationCurve);
     }
 
-    protected void Gravity(Rigidbody rigidbody,bool isGrounded,float maxVelocity,ref float curVelocity,float acceleration)
+    protected void StopRigiBodyMoveWithAniamtionCurve()
+    {
+        if (RigibodyAnimationCurveIsRunning)
+        {
+            RigibodyAnimationCurveIsRunning = false;          
+            curAnimationCurvePastLong = 0;
+
+            StopCoroutine(rigibodyWithAnimationCurve);
+        }
+       
+    }
+
+   /* protected void AddVerticalForce(Rigidbody rigidbody,float force)
+    {
+        rigidbody.AddForce(0, force, 0, ForceMode.Impulse);
+    }*/
+
+   /* protected void Gravity(Rigidbody rigidbody,bool isGrounded,float maxVelocity,ref float curVelocity,float acceleration)
     {
         
         if (!isGrounded)
@@ -158,6 +179,6 @@ public abstract class Character : MonoBehaviour
         }
 
        // Debug.Log(curVelocity);
-    }
+    }*/
 
 }

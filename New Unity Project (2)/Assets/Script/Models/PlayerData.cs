@@ -16,6 +16,10 @@ public class PlayerData
     public struct JumpParameter
     {
         public AnimationCurve JumpCurve;
+        public AnimationCurve DoubleJumpCurve;
+        public AnimationCurve GravityCurve;
+        public float JumpPerIntervalTime;
+        public float GravityPerIntervalTime;
       /*  public float JumpHigh;
         public float JumpSpeed;*/
         public float DoubleJumpHigh;

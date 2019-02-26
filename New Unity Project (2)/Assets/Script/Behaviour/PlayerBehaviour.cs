@@ -85,6 +85,7 @@ public class PlayerBehaviour : Character
     public bool isGround;
     private float curGravity;
     public float GravityAcceleration;
+    private bool isGravity;
     //private bool useGravity;
     #endregion
 
@@ -104,6 +105,7 @@ public class PlayerBehaviour : Character
         floorMask = LayerMask.GetMask("Floor");
         playerState = PlayerState.Move;
         useGravity = true;
+        isGravity = false;
     }
 
     void Start()
@@ -116,6 +118,7 @@ public class PlayerBehaviour : Character
      
     void Update()
     {
+       
         physicsCollider.height = playerAnimator.GetFloat("ColliderHeight");
         Rotaion();
         // Debug.Log(isGround);
@@ -128,15 +131,46 @@ public class PlayerBehaviour : Character
     {
         isGround = Physics.Raycast(physicsCollider.bounds.center, -Vector3.up, physicsCollider.bounds.extents.y + groundedDis, floorMask);
 
-       // Debug.Log(useGravity);
+        if (playerState == PlayerState.DoubleJump)
+        {
+          //  Debug.Log(playerRigidbody.velocity);
+        }
+
+        // Debug.Log(useGravity);
         if (useGravity)
         {
-            Gravity(playerRigidbody, isGround, playerParameter.jumpParameter.Gravity, ref curGravity, GravityAcceleration);
+            if (!isGround)
+            {
+                Gravity();
+            }
+            else
+            {
+                isGravity = false;
+            }
+        }
+
+    }
+
+    public void Gravity()
+    {
+        if (!isGravity)
+        {
+            isGravity = true;
+            StopRigiBodyMoveWithAniamtionCurve();
+            Keyframe gravityKey = playerParameter.jumpParameter.GravityCurve.keys[playerParameter.jumpParameter.GravityCurve.keys.Length - 1];
+            RigiBodyMoveWithAniamtionCurve(playerRigidbody, playerParameter.jumpParameter.GravityCurve, 0, gravityKey.time, 12, playerParameter.jumpParameter.GravityPerIntervalTime);
 
         }
 
-
     }
+
+    public void StopUseGravity()
+    {
+        useGravity = false;
+        isGravity = false;
+
+
+    } 
 
 
     #region 移動
@@ -197,6 +231,7 @@ public class PlayerBehaviour : Character
         {
             if ((playerState & PlayerState.CanFalling) != 0)
             {
+               // Debug.Log("Falling");
                 playerAnimator.SetTrigger("Falling");
 
             }
@@ -270,15 +305,24 @@ public class PlayerBehaviour : Character
 
     public void Jump()
     {
-        if (((playerBehaviour.playerState & PlayerState.CanDoubleJump) | (playerBehaviour.playerState & PlayerState.Move)) != 0)
+        if (((playerBehaviour.playerState & PlayerState.Move) != 0)) 
         {
+           // Debug.Log("Jump");
+
             playerAnimator.SetTrigger("Jump");
+
+        }
+        else if(((playerBehaviour.playerState & PlayerState.CanDoubleJump)!=0) && !isGround)
+        {
+            //Debug.Log("Double");
+            playerAnimator.SetTrigger("DoubleJump");
 
         }
 
     }
 
    
+
 
     #region AnimationEvent
 
@@ -294,29 +338,29 @@ public class PlayerBehaviour : Character
             case (int)PlayerState.Move:
                 playerState = PlayerState.Move;
                 break;
+
             case (int)PlayerState.Jump:
                 playerState = PlayerState.Jump;
                 break;
+
             case (int)PlayerState.DoubleJump:
-                playerState = PlayerState.DoubleJump;
+                playerState = PlayerState.DoubleJump;                  
                 break;
+
             case (int)PlayerState.Avoid:
-                playerState = PlayerState.Avoid;
-               
-                Displacement(playerRigidbody, transform.rotation, avoidSpeed, playerParameter.avoidParameter.AvoidDistance, avoidDirection_X, 0, avoidDirection_Z,true);
-                
+                playerState = PlayerState.Avoid;               
+                Displacement(playerRigidbody, transform.rotation, avoidSpeed, playerParameter.avoidParameter.AvoidDistance, avoidDirection_X, 0, avoidDirection_Z,true);                
                 break;
+
             case (int)PlayerState.Falling:
+               // Debug.Log(playerState);
                 if ((playerState & PlayerState.CanFalling) != 0) 
                 {
                     playerState = PlayerState.Falling;
                     playerAnimator.ResetTrigger("Falling");
                     StartCoroutine("LandingCheck");
-                }
-              
+                }              
                 break;
-
-
         }
     } 
 
@@ -325,58 +369,34 @@ public class PlayerBehaviour : Character
         switch (JumpState)
         {
             case (int)PlayerState.Jump:
-                // AddVerticalForce(playerRigidbody, playerParameter.jumpParameter.JumpHigh);
-                useGravity = false;
-
-                //   Displacement(playerRigidbody, transform.rotation, playerParameter.jumpParameter.JumpSpeed, playerParameter.jumpParameter.JumpHigh, 0, 1, 0, false);
-                //playerRigidbody.velocity = new Vector3(0, playerParameter.jumpParameter.JumpCurve.Evaluate(0), 0);
-                Keyframe endKey = playerParameter.jumpParameter.JumpCurve.keys[playerParameter.jumpParameter.JumpCurve.keys.Length - 1];
-                RigiBodyMoveWithAniamtionCurve(playerRigidbody,playerParameter.jumpParameter.JumpCurve, 0, endKey.time, 1f);
-                StartCoroutine("JumpTriggerLandingCheck");
+                Keyframe jumpEndKey = playerParameter.jumpParameter.JumpCurve.keys[playerParameter.jumpParameter.JumpCurve.keys.Length - 1];
+                StopRigiBodyMoveWithAniamtionCurve();
+                StopUseGravity();
+                RigiBodyMoveWithAniamtionCurve(playerRigidbody,playerParameter.jumpParameter.JumpCurve, 0, jumpEndKey.time, 12, playerParameter.jumpParameter.JumpPerIntervalTime);              
                 break;
+
             case (int)PlayerState.DoubleJump:
-                playerRigidbody.mass = 10;
-                playerRigidbody.velocity = Vector3.zero;
-                playerRigidbody.mass = 500;
-               // AddVerticalForce(playerRigidbody, playerParameter.jumpParameter.DoubleJumpHigh);
+                Keyframe doubleJumpEndKey = playerParameter.jumpParameter.DoubleJumpCurve.keys[playerParameter.jumpParameter.DoubleJumpCurve.keys.Length - 1];
+                StopRigiBodyMoveWithAniamtionCurve();
+                StopUseGravity(); 
+               // playerRigidbody.velocity = new Vector3(playerRigidbody.velocity.x, 0, playerRigidbody.velocity.z);
+                RigiBodyMoveWithAniamtionCurve(playerRigidbody, playerParameter.jumpParameter.DoubleJumpCurve, 0, doubleJumpEndKey.time, 12, playerParameter.jumpParameter.JumpPerIntervalTime);
+                StartLandingCheck();
                 break;
         }
        
     }
 
-
-
-    IEnumerator JumpTriggerLandingCheck()
+    public void StartLandingCheck()
     {
-        Debug.Log("JumpCheck");
-        yield return new WaitForSeconds(0.01f);
-
-        if (animationHash.GetCurrentAnimationState("Jump"))
-        {
-            if (isGround)
-            {
-                StopCoroutine("JumpTriggerLandingCheck");
-                StartCoroutine("JumpTriggerLandingCheck");
-            }
-            else
-            {
-                StartCoroutine("LandingCheck");
-                StopCoroutine("JumpTriggerLandingCheck");
-               
-            }
-        }
-        else
-        {
-            StopCoroutine("JumpGroundedCheck");
-            
-        }
-       
+        StopCoroutine("LandingCheck");
+        StartCoroutine("LandingCheck");
     }
 
-     IEnumerator LandingCheck()
+    IEnumerator LandingCheck()
     {
         yield return new WaitForSeconds(0.01f);
-        Debug.Log("LandingCheck");
+       // Debug.Log("LandingCheck");
        // Debug.Log(playerState);
         if (isGround)
         {            
