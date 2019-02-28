@@ -89,7 +89,7 @@ public abstract class Character : MonoBehaviour
 
     protected float AnimationCurve(AnimationCurve animationCurve, float startTime,float endTime,float perLength)
     {
-      ///  Debug.Log("AniamtionCurve");
+        Debug.Log("AniamtionCurve");
 
         float curTime = startTime + curAnimationCurvePastLong;
 
@@ -106,14 +106,13 @@ public abstract class Character : MonoBehaviour
         return animationCurve.Evaluate(curTime);
     }
 
-    IEnumerator RigibodyRunAnimationCurve(Rigidbody rigidbody, AnimationCurve animationCurve, float startTime, float endTime, float perLength, float perIntervalTime)
+    IEnumerator RigibodyRunAnimationCurve_Y(Rigidbody rigidbody, AnimationCurve animationCurve, float startTime, float endTime, float perLength, float perIntervalTime)
     {
      
         rigidbody.velocity = new Vector3(rigidbody.velocity.x, AnimationCurve(animationCurve, startTime, endTime, perLength), rigidbody.velocity.z);
 
         if (curAnimationCurvePastLong >= endTime)
         {
-
             curAnimationCurvePastLong = 0;
             useGravity = true;
             RigibodyAnimationCurveIsRunning = false;         
@@ -121,21 +120,21 @@ public abstract class Character : MonoBehaviour
         }
     
         yield return new WaitForSeconds(perIntervalTime);
-        rigibodyWithAnimationCurve = RigibodyRunAnimationCurve(rigidbody, animationCurve, startTime, endTime, perLength, perIntervalTime);
+        rigibodyWithAnimationCurve = RigibodyRunAnimationCurve_Y(rigidbody, animationCurve, startTime, endTime, perLength, perIntervalTime);
 
         StartCoroutine(rigibodyWithAnimationCurve);
     }
 
-    protected void RigiBodyMoveWithAniamtionCurve(Rigidbody rigidbody, AnimationCurve animationCurve, float startTime, float endTime, float perIntervalLength, float perIntervalTime)
+    protected void RigiBodyMoveWithAniamtionCurve_Y(Rigidbody rigidbody, AnimationCurve animationCurve, float startTime, float endTime, float perIntervalLength, float perIntervalTime)
     {
         float perLength = animationCurve.keys[animationCurve.length - 1].time / perIntervalLength;
-        rigibodyWithAnimationCurve = RigibodyRunAnimationCurve(rigidbody, animationCurve, startTime, endTime, perLength, perIntervalTime);
+        rigibodyWithAnimationCurve = RigibodyRunAnimationCurve_Y(rigidbody, animationCurve, startTime, endTime, perLength, perIntervalTime);
         RigibodyAnimationCurveIsRunning = true;
 
         StartCoroutine(rigibodyWithAnimationCurve);
     }
 
-    protected void StopRigiBodyMoveWithAniamtionCurve()
+    protected void StopRigiBodyMoveWithAniamtionCurve_Y()
     {
         if (RigibodyAnimationCurveIsRunning)
         {

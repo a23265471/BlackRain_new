@@ -85,7 +85,7 @@ public class PlayerController : MonoBehaviour {
     {
         if (Input.GetKeyDown(inputSetting.inputKey.Jump))
         {
-            playerBehaviour.Jump();
+            playerBehaviour.Jump(moveDirection_Vertical, moveDirection_Horizontal);
         }
 
     }

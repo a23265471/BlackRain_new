@@ -27,7 +27,7 @@ public class PlayerBehaviour : Character
         Dead = 0xf0,
        
         CanFalling = Move | Attack,
-        FallingMove = Falling | Jump | DoubleJump,
+        FallingMove = Falling | Jump | DoubleJump | SkyAttack,
         CanDoubleJump = Jump | Falling,
         CanDash = Move | Attack | Jump,
         CanDashAttack = CanDash,       
@@ -75,7 +75,8 @@ public class PlayerBehaviour : Character
     private int avoidDirection_X;
     private int avoidDirection_Z;
     private float avoidSpeed;
-    
+
+    private float curJumpMoveSpeedCurveTime;
     #endregion
 
     #region 物理碰撞   
@@ -106,6 +107,8 @@ public class PlayerBehaviour : Character
         playerState = PlayerState.Move;
         useGravity = true;
         isGravity = false;
+
+        playerParameter.jumpParameter.dd = 11;
     }
 
     void Start()
@@ -133,8 +136,12 @@ public class PlayerBehaviour : Character
 
         if (playerState == PlayerState.Jump)
         {
+           // Debug.Log(Time.time);
          //  Debug.Log(playerRigidbody.velocity);
         }
+
+        Debug.Log(curJumpMoveSpeedCurveTime);
+        
 
         // Debug.Log(useGravity);
         if (useGravity)
@@ -156,9 +163,9 @@ public class PlayerBehaviour : Character
         if (!isGravity)
         {
             isGravity = true;
-            StopRigiBodyMoveWithAniamtionCurve();
+            StopRigiBodyMoveWithAniamtionCurve_Y();
             Keyframe gravityKey = playerParameter.jumpParameter.GravityCurve.keys[playerParameter.jumpParameter.GravityCurve.keys.Length - 1];
-            RigiBodyMoveWithAniamtionCurve(playerRigidbody, playerParameter.jumpParameter.GravityCurve, 0, gravityKey.time, 12, playerParameter.jumpParameter.GravityPerIntervalTime);
+            RigiBodyMoveWithAniamtionCurve_Y(playerRigidbody, playerParameter.jumpParameter.GravityCurve, 0, gravityKey.time, 12, playerParameter.jumpParameter.GravityPerIntervalTime);
 
         }
 
@@ -192,15 +199,15 @@ public class PlayerBehaviour : Character
 
     public void GroundedMove(float moveDirection_Vertical, float moveDirection_Horizontal)
     {
-        if (((playerBehaviour.playerState & PlayerState.Move) != 0)) 
+        float MoveX;
+        float MoveZ;
+        if ((playerState & PlayerState.Move) != 0)
         {
-            Debug.Log(playerRigidbody.velocity);
-
+            //  Debug.Log(playerRigidbody.velocity);
             AnimationBlendTreeControll(playerAnimator, "Vertical", moveDirection_Vertical, ref moveAnimation_Vertical, MoveAnimationSmoothSpeed);
             AnimationBlendTreeControll(playerAnimator, "Horizontal", moveDirection_Horizontal, ref moveAnimation_Horizontal, MoveAnimationSmoothSpeed);
             moveSpeed = playerParameter.moveParameter.RunSpeed;
-           
-          
+
             if (moveDirection_Vertical == 0 || moveDirection_Horizontal == 0)
             {
                 curMoveSpeed = Mathf.Sqrt((Mathf.Pow(playerParameter.moveParameter.RunSpeed, 2) * 2));
@@ -210,20 +217,37 @@ public class PlayerBehaviour : Character
                 curMoveSpeed = playerParameter.moveParameter.RunSpeed;
             }
 
-            float MoveX = moveAnimation_Horizontal  * curMoveSpeed;
-            float MoveZ = moveAnimation_Vertical * curMoveSpeed;
+            MoveX = moveAnimation_Horizontal * curMoveSpeed;
+            MoveZ = moveAnimation_Vertical * curMoveSpeed;
 
-
-            playerRigidbody.velocity = transform.rotation * new Vector3(MoveX, 0, MoveZ)  ;
+            playerRigidbody.velocity = transform.rotation * new Vector3(MoveX, 0, MoveZ);
 
         }
-
+       
     }
+
+
 
     public void FallingMove(float moveDirection_Vertical, float moveDirection_Horizontal)
     {
+        if ((playerState & PlayerState.FallingMove) != 0 && !isGround)
+        {
+            if (moveDirection_Vertical != 0 || moveDirection_Horizontal != 0) 
+            {
+
+
+
+
+            }
+
+
+
+
+        }
+
        
     }
+
     public void Falling()
     {
         if (!isGround)
@@ -252,31 +276,7 @@ public class PlayerBehaviour : Character
             avoidDirection_X = moveDirection_Horizontal;
             avoidDirection_Z = moveDirection_Vertical;
 
-            if (moveDirection_Vertical == 1)
-            {
-                zDirection = "Forward";
-            }
-            else if (moveDirection_Vertical == -1)
-            {
-                zDirection = "Back";
-            }
-            else
-            {
-                zDirection = "";
-            }
-
-            if (moveDirection_Horizontal == 1)
-            {
-                xDirection = "Right";
-            }
-            else if (moveDirection_Horizontal == -1)
-            {
-                xDirection = "Left";
-            }
-            else
-            {
-                xDirection = "";
-            }
+            AnimationRotation(moveDirection_Vertical, moveDirection_Horizontal);
 
             if (moveDirection_Vertical == 0 || moveDirection_Horizontal == 0)
             {
@@ -286,28 +286,61 @@ public class PlayerBehaviour : Character
             {
                 avoidSpeed = playerParameter.avoidParameter.AvoidSpeed;
             }
-        
 
-            AvoidAnimatorTrigger(xDirection, zDirection);
+            playerAnimator.SetTrigger("Avoid");
+          
 
         }
                           
        
     }
 
-    private void AvoidAnimatorTrigger(string Horizontal_Direction, string Vertical_Direction)
-    {
-        playerAnimator.ResetTrigger("Avoid" + Vertical_Direction + Horizontal_Direction);
-        playerAnimator.SetTrigger("Avoid" + Vertical_Direction + Horizontal_Direction);             
-    }
+   
     #endregion
 
-    public void Jump()
+    private void AnimationRotation(int moveDirection_Vertical, int moveDirection_Horizontal)
+    {      
+        if (moveDirection_Vertical == 1)
+        {           
+            playerAnimator.SetBool("Forward", true);
+            playerAnimator.SetBool("Back", false);
+
+        }
+        else if (moveDirection_Vertical == -1)
+        {            
+            playerAnimator.SetBool("Forward", false);
+            playerAnimator.SetBool("Back", true);
+        }
+        else
+        {           
+            playerAnimator.SetBool("Forward", false);
+            playerAnimator.SetBool("Back", false);
+        }
+
+        if (moveDirection_Horizontal == 1)
+        {           
+            playerAnimator.SetBool("Left", false);
+            playerAnimator.SetBool("Right", true);
+        }
+        else if (moveDirection_Horizontal == -1)
+        {            
+            playerAnimator.SetBool("Right", false);
+            playerAnimator.SetBool("Left", true);
+        }
+        else
+        {           
+            playerAnimator.SetBool("Right", false);
+            playerAnimator.SetBool("Left", false);
+        }
+      
+    }
+
+    public void Jump(int moveDirection_Vertical, int moveDirection_Horizontal)
     {
+        AnimationRotation(moveDirection_Vertical, moveDirection_Horizontal);
         if (((playerBehaviour.playerState & PlayerState.Move) != 0)) 
         {
-           // Debug.Log("Jump");
-
+           // Debug.Log("Jump");           
             playerAnimator.SetTrigger("Jump");
 
         }
@@ -368,16 +401,16 @@ public class PlayerBehaviour : Character
             case (int)PlayerState.Jump:
                 Keyframe jumpEndKey = playerParameter.jumpParameter.JumpCurve.keys[playerParameter.jumpParameter.JumpCurve.keys.Length - 1];
                 StopUseGravity();
-                StopRigiBodyMoveWithAniamtionCurve();
-                RigiBodyMoveWithAniamtionCurve(playerRigidbody,playerParameter.jumpParameter.JumpCurve, 0, jumpEndKey.time, 12, playerParameter.jumpParameter.JumpPerIntervalTime);              
+                StopRigiBodyMoveWithAniamtionCurve_Y();
+                RigiBodyMoveWithAniamtionCurve_Y(playerRigidbody,playerParameter.jumpParameter.JumpCurve, 0, jumpEndKey.time, 12, playerParameter.jumpParameter.JumpPerIntervalTime);              
                 break;
 
             case (int)PlayerState.DoubleJump:
                 Keyframe doubleJumpEndKey = playerParameter.jumpParameter.DoubleJumpCurve.keys[playerParameter.jumpParameter.DoubleJumpCurve.keys.Length - 1];
-                StopRigiBodyMoveWithAniamtionCurve();
-                StopUseGravity(); 
-               // playerRigidbody.velocity = new Vector3(playerRigidbody.velocity.x, 0, playerRigidbody.velocity.z);
-                RigiBodyMoveWithAniamtionCurve(playerRigidbody, playerParameter.jumpParameter.DoubleJumpCurve, 0, doubleJumpEndKey.time, 12, playerParameter.jumpParameter.JumpPerIntervalTime);
+                StopRigiBodyMoveWithAniamtionCurve_Y();
+                StopUseGravity();
+                // playerRigidbody.velocity = new Vector3(playerRigidbody.velocity.x, 0, playerRigidbody.velocity.z);
+                RigiBodyMoveWithAniamtionCurve_Y(playerRigidbody, playerParameter.jumpParameter.DoubleJumpCurve, 0, doubleJumpEndKey.time, 12, playerParameter.jumpParameter.JumpPerIntervalTime);
                 StartLandingCheck();
                 break;
         }
@@ -393,7 +426,7 @@ public class PlayerBehaviour : Character
     IEnumerator LandingCheck()
     {
         yield return new WaitForSeconds(0.01f);
-       // Debug.Log("LandingCheck");
+        Debug.Log("LandingCheck");
        // Debug.Log(playerState);
         if (isGround)
         {            
@@ -401,7 +434,7 @@ public class PlayerBehaviour : Character
             {
                 playerAnimator.ResetTrigger("Idle");
                 playerState = PlayerState.Move;
-                StopRigiBodyMoveWithAniamtionCurve();
+                StopRigiBodyMoveWithAniamtionCurve_Y();
                 StopCoroutine("LandingCheck");
                
             }

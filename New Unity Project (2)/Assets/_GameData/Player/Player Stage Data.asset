@@ -90,10 +90,35 @@ MonoBehaviour:
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
+        JumpMoveSpeed:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 3
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 136
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 1
+            value: 5
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 136
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
         JumpPerIntervalTime: 0.05
         GravityPerIntervalTime: 0.04
+        JumpMoveSpeedPerIntervalTime: 0
+        dd: 11
         DoubleJumpHigh: 5000
-        JumpMoveSpeed: 2
         Gravity: 17
       avoidParameter:
         AvoidSpeed: 8

@@ -18,12 +18,15 @@ public class PlayerData
         public AnimationCurve JumpCurve;
         public AnimationCurve DoubleJumpCurve;
         public AnimationCurve GravityCurve;
+        public AnimationCurve JumpMoveSpeed;
         public float JumpPerIntervalTime;
         public float GravityPerIntervalTime;
-      /*  public float JumpHigh;
-        public float JumpSpeed;*/
+        public float JumpMoveSpeedPerIntervalTime;
+        public float dd;
+        /*  public float JumpHigh;
+          public float JumpSpeed;*/
         public float DoubleJumpHigh;
-        public float JumpMoveSpeed;       
+            
         public float Gravity;
     }
 
@@ -70,4 +73,6 @@ public class PlayerData
     public PlayerParameter playerParameter;
     public GameObject Player;
     public GameObject MainCamera;
+
+    
 }

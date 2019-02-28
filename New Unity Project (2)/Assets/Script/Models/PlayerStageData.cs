@@ -7,4 +7,9 @@ public class PlayerStageData : ScriptableObject
 {
     public PlayerData playerData;
 
+    private void Awake()
+    {
+        
+    }
+
 }
