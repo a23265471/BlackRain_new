@@ -71,7 +71,10 @@ public class PlayerBehaviour : Character
 
     private float moveAnimation_Vertical;
     private float moveAnimation_Horizontal;
+    private float FallindAniamtion_Vertical;
+    private float FallindAniamtion_Horizontal;
     public float MoveAnimationSmoothSpeed;
+    public float JumpMoveAnimationSmoothSpeed;
     private int avoidDirection_X;
     private int avoidDirection_Z;
     private float avoidSpeed;
@@ -140,7 +143,7 @@ public class PlayerBehaviour : Character
          //  Debug.Log(playerRigidbody.velocity);
         }
 
-        Debug.Log(curJumpMoveSpeedCurveTime);
+       // Debug.Log(curJumpMoveSpeedCurveTime);
         
 
         // Debug.Log(useGravity);
@@ -226,22 +229,20 @@ public class PlayerBehaviour : Character
        
     }
 
-
-
     public void FallingMove(float moveDirection_Vertical, float moveDirection_Horizontal)
     {
+        float direction_X = moveDirection_Horizontal;
+        float direction_Z = moveDirection_Vertical;
+
         if ((playerState & PlayerState.FallingMove) != 0 && !isGround)
         {
-            if (moveDirection_Vertical != 0 || moveDirection_Horizontal != 0) 
+            Debug.Log(FallindAniamtion_Vertical);
+            if (direction_Z < 0)
             {
-
-
-
-
+                direction_Z = 0;
             }
-
-
-
+            AnimationBlendTreeControll(playerAnimator, "Jump_Vertical", direction_Z, ref FallindAniamtion_Vertical, JumpMoveAnimationSmoothSpeed);
+            AnimationBlendTreeControll(playerAnimator, "Jump_Horizontal", direction_X, ref FallindAniamtion_Horizontal, JumpMoveAnimationSmoothSpeed);
 
         }
 
@@ -389,7 +390,8 @@ public class PlayerBehaviour : Character
                     playerState = PlayerState.Falling;
                     playerAnimator.ResetTrigger("Falling");
                     StartCoroutine("LandingCheck");
-                }              
+                }
+                
                 break;
         }
     } 
@@ -435,6 +437,8 @@ public class PlayerBehaviour : Character
                 playerAnimator.ResetTrigger("Idle");
                 playerState = PlayerState.Move;
                 StopRigiBodyMoveWithAniamtionCurve_Y();
+                FallindAniamtion_Vertical = 0;
+                FallindAniamtion_Horizontal = 0;
                 StopCoroutine("LandingCheck");
                
             }

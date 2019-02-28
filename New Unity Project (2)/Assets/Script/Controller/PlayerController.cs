@@ -51,7 +51,15 @@ public class PlayerController : MonoBehaviour {
                Falling(playerBehaviour);
                Debug.Log("tttttt");
            }*/
-        GroundedMove();
+        if (playerBehaviour.isGround)
+        {
+            GroundedMove();
+
+        }
+        else
+        {
+            FallingMove();
+        }
         Falling();
         Jump();
         Avoid();
@@ -64,6 +72,11 @@ public class PlayerController : MonoBehaviour {
     { 
         playerBehaviour.GroundedMove(moveDirection_Vertical, moveDirection_Horizontal);
                 
+    }
+
+    public void FallingMove()
+    {
+        playerBehaviour.FallingMove(moveDirection_Vertical, moveDirection_Horizontal);
     }
 
     public void Falling()
