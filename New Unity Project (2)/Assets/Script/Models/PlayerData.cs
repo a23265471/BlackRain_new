@@ -18,7 +18,7 @@ public class PlayerData
         public AnimationCurve JumpCurve;
         public AnimationCurve DoubleJumpCurve;
         public AnimationCurve GravityCurve;
-        public AnimationCurve JumpMoveSpeed;
+        public float JumpMoveSpeed;
         public float JumpPerIntervalTime;
         public float GravityPerIntervalTime;
         public float JumpMoveSpeedPerIntervalTime;

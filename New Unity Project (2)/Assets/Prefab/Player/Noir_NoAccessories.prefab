@@ -2133,8 +2133,8 @@ MonoBehaviour:
   curAnimationCurvePastLong: 0
   playerState: 0
   cameraLookAt: {fileID: 0}
-  MoveAnimationSmoothSpeed: 0.1
-  JumpMoveAnimationSmoothSpeed: 0.07
+  MoveAnimationSmoothSpeed: 0.2
+  JumpMoveAnimationSmoothSpeed: 0.2
   physicsCollider: {fileID: 0}
   groundedDis: 0.2
   isGround: 1

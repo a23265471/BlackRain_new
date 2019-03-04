@@ -89,7 +89,6 @@ public abstract class Character : MonoBehaviour
 
     protected float AnimationCurve(AnimationCurve animationCurve, float startTime,float endTime,float perLength)
     {
-        Debug.Log("AniamtionCurve");
 
         float curTime = startTime + curAnimationCurvePastLong;
 
@@ -113,6 +112,8 @@ public abstract class Character : MonoBehaviour
 
         if (curAnimationCurvePastLong >= endTime)
         {
+            Debug.Log("AniamtionCurve");
+
             curAnimationCurvePastLong = 0;
             useGravity = true;
             RigibodyAnimationCurveIsRunning = false;         

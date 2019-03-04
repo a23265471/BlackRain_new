@@ -224,8 +224,8 @@ ModelImporter:
     - serializedVersion: 16
       name: Jump
       takeName: mixamo.com
-      firstFrame: 0
-      lastFrame: 20
+      firstFrame: 8
+      lastFrame: 16
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -246,15 +246,15 @@ ModelImporter:
       curves: []
       events:
       - time: 0
-        functionName: ChangePlayerState
+        functionName: AddForce
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 48984eef8ea34764d8a93b59a73a6109,
           type: 3}
         floatParameter: 0
         intParameter: 2
         messageOptions: 0
-      - time: 0.5839286
-        functionName: AddForce
+      - time: 0
+        functionName: ChangePlayerState
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 48984eef8ea34764d8a93b59a73a6109,
           type: 3}
@@ -276,8 +276,8 @@ ModelImporter:
     - serializedVersion: 16
       name: JumpRight
       takeName: mixamo.com
-      firstFrame: 0
-      lastFrame: 20
+      firstFrame: 8
+      lastFrame: 16
       wrapMode: 0
       orientationOffsetY: -90
       level: 0
@@ -305,7 +305,7 @@ ModelImporter:
         floatParameter: 0
         intParameter: 2
         messageOptions: 0
-      - time: 0.58275133
+      - time: 0
         functionName: AddForce
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 48984eef8ea34764d8a93b59a73a6109,
@@ -328,8 +328,8 @@ ModelImporter:
     - serializedVersion: 16
       name: JumpLeft
       takeName: mixamo.com
-      firstFrame: 0
-      lastFrame: 20
+      firstFrame: 8
+      lastFrame: 16
       wrapMode: 0
       orientationOffsetY: 90
       level: 0
@@ -357,7 +357,7 @@ ModelImporter:
         floatParameter: 0
         intParameter: 2
         messageOptions: 0
-      - time: 0.5804598
+      - time: 0
         functionName: AddForce
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 48984eef8ea34764d8a93b59a73a6109,
@@ -380,8 +380,8 @@ ModelImporter:
     - serializedVersion: 16
       name: JumpForwardLeft
       takeName: mixamo.com
-      firstFrame: 0
-      lastFrame: 20
+      firstFrame: 8
+      lastFrame: 16
       wrapMode: 0
       orientationOffsetY: 45
       level: 0
@@ -409,7 +409,7 @@ ModelImporter:
         floatParameter: 0
         intParameter: 2
         messageOptions: 0
-      - time: 0.5833333
+      - time: 0
         functionName: AddForce
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 48984eef8ea34764d8a93b59a73a6109,
@@ -432,8 +432,8 @@ ModelImporter:
     - serializedVersion: 16
       name: JumpForwardRight
       takeName: mixamo.com
-      firstFrame: 0
-      lastFrame: 20
+      firstFrame: 8
+      lastFrame: 16
       wrapMode: 0
       orientationOffsetY: -45
       level: 0
@@ -461,7 +461,7 @@ ModelImporter:
         floatParameter: 0
         intParameter: 2
         messageOptions: 0
-      - time: 0.5804598
+      - time: 0
         functionName: AddForce
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 48984eef8ea34764d8a93b59a73a6109,
