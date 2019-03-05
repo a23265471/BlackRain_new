@@ -140,8 +140,8 @@ public class PlayerBehaviour : Character
     private void FixedUpdate()
     {
         isGround = Physics.Raycast(curPhysicsCollider[0].bounds.center, -Vector3.up, curPhysicsCollider[0].bounds.extents.y + groundedDis,floorMask);
-      //  Debug.DrawLine(curPhysicsCollider[0].bounds.center, -transform.up * (curPhysicsCollider[0].bounds.extents.y + groundedDis), Color.green);
-        
+        //  Debug.DrawLine(curPhysicsCollider[0].bounds.center, -transform.up * (curPhysicsCollider[0].bounds.extents.y + groundedDis), Color.green);
+        isNotGraoundStep = Physics.Raycast(curPhysicsCollider[0].bounds.center, -Vector3.up, curPhysicsCollider[0].bounds.extents.y + groundedDis);
 
         if (playerState == PlayerState.Jump)
         {
@@ -156,14 +156,23 @@ public class PlayerBehaviour : Character
         {
 
             if (!isGround)
-            {               
-                Gravity();
+            {
+                if (!isNotGraoundStep)
+                {
+                    if (((playerState & PlayerState.FallingMove) != 0) && (playerRigidbody.velocity.y != 15)) 
+                    {
+                        Debug.Log("gg");
 
+                        isGravity = false;
+                      
+                    }
+
+                }
+                Gravity();
             }
             else
             {
                 isGravity = false;
-
             }
         }
 
@@ -412,12 +421,13 @@ public class PlayerBehaviour : Character
 
             case (int)PlayerState.Falling:
                // Debug.Log(playerState);
-                if ((playerState & PlayerState.Falling) != 0)
+                if ((playerState & PlayerState.CanFalling ) != 0)
                 {
                     playerState = PlayerState.Falling;
+                    playerAnimator.ResetTrigger("Falling");
                     StartLandingCheck();
                     //  Debug.Log("hh");
-                    playerAnimator.ResetTrigger("Falling");
+                    
 
                 }
 
@@ -477,7 +487,7 @@ public class PlayerBehaviour : Character
             }
             else
             {
-           //     Debug.Log("Trigger Idle");
+                Debug.Log("Trigger Idle");
 
                 playerAnimator.SetTrigger("Idle");
                 StartCoroutine("LandingCheck");
