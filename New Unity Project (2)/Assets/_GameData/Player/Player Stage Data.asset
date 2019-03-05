@@ -47,9 +47,9 @@ MonoBehaviour:
           m_Curve:
           - serializedVersion: 3
             time: 0
-            value: 12
-            inSlope: -20
-            outSlope: -20
+            value: 15
+            inSlope: -23
+            outSlope: -23
             tangentMode: 34
             weightedMode: 0
             inWeight: 0
@@ -57,8 +57,8 @@ MonoBehaviour:
           - serializedVersion: 3
             time: 1
             value: -8
-            inSlope: -20
-            outSlope: -20
+            inSlope: -23
+            outSlope: -23
             tangentMode: 34
             weightedMode: 0
             inWeight: 0.33333334
@@ -90,10 +90,10 @@ MonoBehaviour:
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
-        JumpMoveSpeed: 6
+        JumpMoveSpeed: 7
         JumpPerIntervalTime: 0.05
         GravityPerIntervalTime: 0.04
-        JumpMoveSpeedPerIntervalTime: 7
+        JumpMoveSpeedPerIntervalTime: 0
         dd: 11
         DoubleJumpHigh: 5000
         Gravity: 17

@@ -153,12 +153,12 @@ ModelImporter:
     4300004: Paladin_J_Nordstrom_Sword
     4300006: Paladin_J_Nordstrom_Shield
     7400000: Take 001
-    7400002: AvoidForward
+    7400002: Jump
     7400004: DoubleJump
-    7400006: DoubleJumpRight
-    7400008: DoubleJumpLeft
-    7400010: DoubleJumpForwardRight
-    7400012: DoubleJumpForwardLeft
+    7400006: DoubleJumpForwardRight
+    7400008: DoubleJumpForwardLeft
+    7400010: DoubleJumpRight
+    7400012: DoubleJumpLeft
     9500000: //RootNode
     13700000: Paladin_J_Nordstrom
     13700002: Paladin_J_Nordstrom_Helmet
@@ -221,12 +221,12 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: AvoidForward
+      name: Jump
       takeName: mixamo.com
-      firstFrame: 11
-      lastFrame: 37
+      firstFrame: 10
+      lastFrame: 29
       wrapMode: 0
-      orientationOffsetY: -20
+      orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
@@ -234,7 +234,7 @@ ModelImporter:
       loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 1
-      loopBlendPositionY: 1
+      loopBlendPositionY: 0
       loopBlendPositionXZ: 0
       keepOriginalOrientation: 0
       keepOriginalPositionY: 1
@@ -245,25 +245,25 @@ ModelImporter:
       curves: []
       events:
       - time: 0
-        functionName: CancelAttackNow
+        functionName: ChangePlayerState
         data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 23103c895a28c934f8bd1c4600195f95,
+        objectReferenceParameter: {fileID: 11500000, guid: 48984eef8ea34764d8a93b59a73a6109,
           type: 3}
         floatParameter: 0
-        intParameter: 0
+        intParameter: 2
         messageOptions: 0
-      - time: 1
-        functionName: TriggerFastRun
+      - time: 0
+        functionName: AddForce
         data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 23103c895a28c934f8bd1c4600195f95,
+        objectReferenceParameter: {fileID: 11500000, guid: 48984eef8ea34764d8a93b59a73a6109,
           type: 3}
-        floatParameter: 0.2
-        intParameter: 0
+        floatParameter: 0
+        intParameter: 2
         messageOptions: 0
       - time: 1
-        functionName: ChangeToIdle
+        functionName: StartLandingCheck
         data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 23103c895a28c934f8bd1c4600195f95,
+        objectReferenceParameter: {fileID: 11500000, guid: 48984eef8ea34764d8a93b59a73a6109,
           type: 3}
         floatParameter: 0
         intParameter: 0
@@ -275,7 +275,7 @@ ModelImporter:
     - serializedVersion: 16
       name: DoubleJump
       takeName: mixamo.com
-      firstFrame: 11
+      firstFrame: 10
       lastFrame: 29
       wrapMode: 0
       orientationOffsetY: 0
@@ -297,14 +297,6 @@ ModelImporter:
       curves: []
       events:
       - time: 0
-        functionName: ChangePlayerState
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 48984eef8ea34764d8a93b59a73a6109,
-          type: 3}
-        floatParameter: 0
-        intParameter: 8
-        messageOptions: 0
-      - time: 0
         functionName: AddForce
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 48984eef8ea34764d8a93b59a73a6109,
@@ -312,88 +304,8 @@ ModelImporter:
         floatParameter: 0
         intParameter: 8
         messageOptions: 0
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: DoubleJumpRight
-      takeName: mixamo.com
-      firstFrame: 11
-      lastFrame: 29
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 1
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events:
       - time: 0
         functionName: ChangePlayerState
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 48984eef8ea34764d8a93b59a73a6109,
-          type: 3}
-        floatParameter: 0
-        intParameter: 8
-        messageOptions: 0
-      - time: 0
-        functionName: AddForce
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 48984eef8ea34764d8a93b59a73a6109,
-          type: 3}
-        floatParameter: 0
-        intParameter: 8
-        messageOptions: 0
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: DoubleJumpLeft
-      takeName: mixamo.com
-      firstFrame: 11
-      lastFrame: 29
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 1
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events:
-      - time: 0
-        functionName: ChangePlayerState
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 48984eef8ea34764d8a93b59a73a6109,
-          type: 3}
-        floatParameter: 0
-        intParameter: 8
-        messageOptions: 0
-      - time: 0
-        functionName: AddForce
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 48984eef8ea34764d8a93b59a73a6109,
           type: 3}
@@ -407,10 +319,10 @@ ModelImporter:
     - serializedVersion: 16
       name: DoubleJumpForwardRight
       takeName: mixamo.com
-      firstFrame: 11
+      firstFrame: 10
       lastFrame: 29
       wrapMode: 0
-      orientationOffsetY: 0
+      orientationOffsetY: -45
       level: 0
       cycleOffset: 0
       loop: 0
@@ -451,10 +363,98 @@ ModelImporter:
     - serializedVersion: 16
       name: DoubleJumpForwardLeft
       takeName: mixamo.com
-      firstFrame: 11
+      firstFrame: 10
       lastFrame: 29
       wrapMode: 0
-      orientationOffsetY: 0
+      orientationOffsetY: 45
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events:
+      - time: 0
+        functionName: ChangePlayerState
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 48984eef8ea34764d8a93b59a73a6109,
+          type: 3}
+        floatParameter: 0
+        intParameter: 8
+        messageOptions: 0
+      - time: 0
+        functionName: AddForce
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 48984eef8ea34764d8a93b59a73a6109,
+          type: 3}
+        floatParameter: 0
+        intParameter: 8
+        messageOptions: 0
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: DoubleJumpRight
+      takeName: mixamo.com
+      firstFrame: 10
+      lastFrame: 29
+      wrapMode: 0
+      orientationOffsetY: -90
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events:
+      - time: 0
+        functionName: ChangePlayerState
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 48984eef8ea34764d8a93b59a73a6109,
+          type: 3}
+        floatParameter: 0
+        intParameter: 8
+        messageOptions: 0
+      - time: 0
+        functionName: AddForce
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 48984eef8ea34764d8a93b59a73a6109,
+          type: 3}
+        floatParameter: 0
+        intParameter: 8
+        messageOptions: 0
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: DoubleJumpLeft
+      takeName: mixamo.com
+      firstFrame: 10
+      lastFrame: 29
+      wrapMode: 0
+      orientationOffsetY: 90
       level: 0
       cycleOffset: 0
       loop: 0

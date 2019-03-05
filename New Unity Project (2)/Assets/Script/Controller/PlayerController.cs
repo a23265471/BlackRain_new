@@ -53,13 +53,14 @@ public class PlayerController : MonoBehaviour {
            }*/
         if (playerBehaviour.isGround)
         {
-            GroundedMove();
+            
 
         }
         else
         {
-            FallingMove();
+           // FallingAnimation();
         }
+        GroundedMove();
         Falling();
         Jump();
         Avoid();
@@ -74,14 +75,10 @@ public class PlayerController : MonoBehaviour {
                 
     }
 
-    public void FallingMove()
-    {
-        playerBehaviour.FallingMove(moveDirection_Vertical, moveDirection_Horizontal);
-    }
-
+    
     public void Falling()
     {
-        playerBehaviour.Falling();
+        playerBehaviour.Falling(moveDirection_Vertical, moveDirection_Horizontal);
     }
 
     public void Avoid()

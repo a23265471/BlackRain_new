@@ -112,8 +112,6 @@ public abstract class Character : MonoBehaviour
 
         if (curAnimationCurvePastLong >= endTime)
         {
-            Debug.Log("AniamtionCurve");
-
             curAnimationCurvePastLong = 0;
             useGravity = true;
             RigibodyAnimationCurveIsRunning = false;         

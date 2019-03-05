@@ -49,7 +49,7 @@ public class MainCamera : MonoBehaviour
     {
         get
         {
-            return Physics.Linecast(playerBehavior.physicsCollider.bounds.center, transform.position, out playerHit, WallMask);
+            return Physics.Linecast(playerBehavior.curPhysicsCollider[0].bounds.center, transform.position, out playerHit, WallMask);
         }
     }
 

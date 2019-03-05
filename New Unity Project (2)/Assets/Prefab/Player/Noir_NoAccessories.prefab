@@ -999,6 +999,8 @@ GameObject:
   - component: {fileID: 54702865173549662}
   - component: {fileID: 82629826815989912}
   - component: {fileID: 136272365968025632}
+  - component: {fileID: 136012207573831050}
+  - component: {fileID: 136954772272127938}
   - component: {fileID: 114161194625199638}
   - component: {fileID: 114976038100174930}
   m_Layer: 0
@@ -2134,7 +2136,7 @@ MonoBehaviour:
   playerState: 0
   cameraLookAt: {fileID: 0}
   MoveAnimationSmoothSpeed: 0.2
-  JumpMoveAnimationSmoothSpeed: 0.2
+  JumpMoveAnimationSmoothSpeed: 0.1
   physicsCollider: {fileID: 0}
   groundedDis: 0.2
   isGround: 1
@@ -2151,6 +2153,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actionState: {fileID: 11400000, guid: 9564ca38dcc4714409a0446023d253d0, type: 2}
+--- !u!136 &136012207573831050
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1973415817257212}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  m_Radius: 0.31
+  m_Height: 1.08
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.25, z: 0}
 --- !u!136 &136272365968025632
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -2160,6 +2175,19 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
+  m_Radius: 0.31
+  m_Height: 2.16
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.25, z: 0}
+--- !u!136 &136954772272127938
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1973415817257212}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
   m_Radius: 0.31
   m_Height: 2.16
   m_Direction: 1

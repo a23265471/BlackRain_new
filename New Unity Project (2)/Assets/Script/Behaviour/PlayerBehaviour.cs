@@ -84,9 +84,14 @@ public class PlayerBehaviour : Character
 
     #region 物理碰撞   
     private Rigidbody playerRigidbody;
-    public CapsuleCollider physicsCollider;
+    public CapsuleCollider[] curPhysicsCollider;
+    private CapsuleCollider idlePhysicsCollider;
+    private CapsuleCollider smallPhysicsCollider;
+    private CapsuleCollider mediumPhysicsCollider;
+
     public float groundedDis;
     public bool isGround;
+    public bool isNotGraoundStep;
     private float curGravity;
     public float GravityAcceleration;
     private bool isGravity;
@@ -98,7 +103,7 @@ public class PlayerBehaviour : Character
         playerBehaviour = this;
         playerAnimator = GetComponent<Animator>();
         playerAudioSource = GetComponent<AudioSource>();
-        physicsCollider = GetComponent<CapsuleCollider>();
+        curPhysicsCollider = GetComponents<CapsuleCollider>();
         animationHash = GetComponent<AnimationHash>();
         playerRigidbody = GetComponent<Rigidbody>();
 
@@ -110,8 +115,7 @@ public class PlayerBehaviour : Character
         playerState = PlayerState.Move;
         useGravity = true;
         isGravity = false;
-
-        playerParameter.jumpParameter.dd = 11;
+        isNotGraoundStep = false;
     }
 
     void Start()
@@ -129,33 +133,37 @@ public class PlayerBehaviour : Character
         Rotaion();
         // Debug.Log(isGround);
         // Debug.Log(animationHash.GetAnimationState("Jump"));
-       // Debug.Log(playerRigidbody.velocity);
+       //  Debug.Log(playerRigidbody.velocity);
 
     }
 
     private void FixedUpdate()
     {
-        isGround = Physics.Raycast(physicsCollider.bounds.center, -Vector3.up, physicsCollider.bounds.extents.y + groundedDis, floorMask);
+        isGround = Physics.Raycast(curPhysicsCollider[0].bounds.center, -Vector3.up, curPhysicsCollider[0].bounds.extents.y + groundedDis,floorMask);
+      //  Debug.DrawLine(curPhysicsCollider[0].bounds.center, -transform.up * (curPhysicsCollider[0].bounds.extents.y + groundedDis), Color.green);
+        
 
         if (playerState == PlayerState.Jump)
         {
            // Debug.Log(Time.time);
         }
-        // Debug.Log(playerRigidbody.velocity.y);
 
-        // Debug.Log(curJumpMoveSpeedCurveTime);
-
+       // Debug.Log(curJumpMoveSpeedCurveTime);
+        
 
         // Debug.Log(useGravity);
         if (useGravity)
         {
+
             if (!isGround)
-            {
+            {               
                 Gravity();
+
             }
             else
             {
                 isGravity = false;
+
             }
         }
 
@@ -204,82 +212,34 @@ public class PlayerBehaviour : Character
     {
         float MoveX;
         float MoveZ;
-        if ((playerState & PlayerState.Move) != 0)
+        if (isGround)
         {
-            //  Debug.Log(playerRigidbody.velocity);
-            AnimationBlendTreeControll(playerAnimator, "Vertical", moveDirection_Vertical, ref moveAnimation_Vertical, MoveAnimationSmoothSpeed);
-            AnimationBlendTreeControll(playerAnimator, "Horizontal", moveDirection_Horizontal, ref moveAnimation_Horizontal, MoveAnimationSmoothSpeed);
-            moveSpeed = playerParameter.moveParameter.RunSpeed;
+            if ((playerState & PlayerState.Move) != 0)
+            {
+                //  Debug.Log(playerRigidbody.velocity);
+                AnimationBlendTreeControll(playerAnimator, "Vertical", moveDirection_Vertical, ref moveAnimation_Vertical, MoveAnimationSmoothSpeed);
+                AnimationBlendTreeControll(playerAnimator, "Horizontal", moveDirection_Horizontal, ref moveAnimation_Horizontal, MoveAnimationSmoothSpeed);
+                moveSpeed = playerParameter.moveParameter.RunSpeed;
 
-            if (moveDirection_Vertical == 0 || moveDirection_Horizontal == 0)
-            {
-                curMoveSpeed = Mathf.Sqrt((Mathf.Pow(playerParameter.moveParameter.RunSpeed, 2) * 2));
-            }
-            else
-            {
-                curMoveSpeed = playerParameter.moveParameter.RunSpeed;
+                if (moveDirection_Vertical == 0 || moveDirection_Horizontal == 0)
+                {
+                    curMoveSpeed = Mathf.Sqrt((Mathf.Pow(playerParameter.moveParameter.RunSpeed, 2) * 2));
+                }
+                else
+                {
+                    curMoveSpeed = playerParameter.moveParameter.RunSpeed;
+                }
+               
             }
             MoveX = moveAnimation_Horizontal * curMoveSpeed;
             MoveZ = moveAnimation_Vertical * curMoveSpeed;
+
             playerRigidbody.velocity = transform.rotation * new Vector3(MoveX, playerRigidbody.velocity.y, MoveZ);
-
         }
-        if (isGround)
-        {
-            
-          //  Debug.Log("dd");
-        }
-
+        
+       
     }
-
-    public void FallingMove(int moveDirection_Vertical, int moveDirection_Horizontal)
-    {
-        float fallingRotation = moveDirection_Horizontal;
-        float direction_Z = moveDirection_Vertical;
-        direction_Z = Mathf.Clamp(direction_Z, 0, 1);
-        if ((playerState & PlayerState.FallingMove) != 0)
-        {
-            
-            
-            if (direction_Z > 0) 
-            {
-                switch (moveDirection_Horizontal)
-                {
-                    case 1:
-                        fallingRotation = 0.5f;
-                        break;
-                    case -1:
-                        fallingRotation = -0.5f;
-                        break;
-                }
-            }
-            Debug.Log(FallindAniamtion_Horizontal);
-            AnimationBlendTreeControll(playerAnimator, "Jump_Z", direction_Z, ref FallindAniamtion_Vertical, JumpMoveAnimationSmoothSpeed);
-         //   AnimationBlendTreeControll(playerAnimator, "Vertical", direction_Z, ref FallindAniamtion_Vertical, JumpMoveAnimationSmoothSpeed);
-            AnimationBlendTreeControll(playerAnimator, "Jump_Rotation", fallingRotation, ref FallindAniamtion_Horizontal, JumpMoveAnimationSmoothSpeed);
-
-            if (moveDirection_Vertical == 0 || moveDirection_Horizontal == 0)
-            {
-                curMoveSpeed = Mathf.Sqrt((Mathf.Pow(playerParameter.jumpParameter.JumpMoveSpeed, 2) * 2));
-            }
-            else
-            {
-                curMoveSpeed = playerParameter.jumpParameter.JumpMoveSpeed;
-            }
-
-            float Move_X = FallindAniamtion_Horizontal * curMoveSpeed;
-            float Move_Z = FallindAniamtion_Vertical * curMoveSpeed;
-
-
-            playerRigidbody.velocity = transform.rotation * new Vector3(Move_X, playerRigidbody.velocity.y, Move_Z);
-            //Debug.Log("aa");
-
-        }
-
-
-    }
-
-    public void Falling()
+    public void Falling(int moveDirection_Vertical, int moveDirection_Horizontal)
     {
         if (!isGround)
         {
@@ -287,13 +247,50 @@ public class PlayerBehaviour : Character
             {
                // Debug.Log("Falling");
                 playerAnimator.SetTrigger("Falling");
+               
+            }
+            FallingAniamtion(moveDirection_Vertical, moveDirection_Horizontal);
+        }
+
+    }
+    public void FallingAniamtion(int moveDirection_Vertical, int moveDirection_Horizontal)
+    {
+        float direction_X = moveDirection_Horizontal;
+        float direction_Y = moveDirection_Vertical;
+        direction_Y = Mathf.Clamp(direction_Y, 0, 1);
+        if ((playerState & PlayerState.FallingMove) != 0)
+        {
+            if (moveDirection_Vertical == 1)
+            {
+                switch (moveDirection_Horizontal)
+                {
+                    case -1:
+                        direction_X = -0.5f;
+                        break;
+                    case 1:
+                        direction_X = 0.5f;
+                        break;
+                }
 
             }
+            // Debug.Log(FallindAniamtion_Vertical);       
+            AnimationBlendTreeControll(playerAnimator, "Vertical", moveDirection_Vertical, ref moveAnimation_Vertical, MoveAnimationSmoothSpeed);
+            AnimationBlendTreeControll(playerAnimator, "Horizontal", moveDirection_Horizontal, ref moveAnimation_Horizontal, MoveAnimationSmoothSpeed);
+            AnimationBlendTreeControll(playerAnimator, "Jump_Rotation", direction_X, ref FallindAniamtion_Horizontal, JumpMoveAnimationSmoothSpeed);
         }
-       
-       
+
+        float fallingMoveX = moveDirection_Horizontal * playerParameter.jumpParameter.JumpMoveSpeed;
+        float fallingMoveZ = direction_Y * playerParameter.jumpParameter.JumpMoveSpeed;
+     
+        playerRigidbody.velocity = transform.rotation * new Vector3(fallingMoveX, playerRigidbody.velocity.y, fallingMoveZ);
+   
     }
 
+    public void FallingMove()
+    {
+
+
+    }
     #endregion
 
     #region 迴避
@@ -388,19 +385,20 @@ public class PlayerBehaviour : Character
 
     public void ChangePlayerState(int ChangePlayerState)
     {
-        /*playerAnimator.SetFloat("Horizontal", 0);
-        playerAnimator.SetFloat("Vertical", 0);*/
+     /*   playerAnimator.SetFloat("Horizontal", 0);
+        playerAnimator.SetFloat("Vertical", 0);
         
-        
+        moveAnimation_Vertical = 0;
+        moveAnimation_Horizontal = 0;*/
         switch (ChangePlayerState)
         {
-            case (int)PlayerState.Move:
+            case (int)PlayerState.Move:               
                 playerState = PlayerState.Move;
                 break;
 
             case (int)PlayerState.Jump:
                 playerState = PlayerState.Jump;
-              //  playerRigidbody.velocity = new Vector3(0, 0, 0);
+             //   playerRigidbody.velocity = new Vector3(0, 0, 0);
                 break;
 
             case (int)PlayerState.DoubleJump:
@@ -414,13 +412,14 @@ public class PlayerBehaviour : Character
 
             case (int)PlayerState.Falling:
                // Debug.Log(playerState);
-                if ((playerState & PlayerState.CanFalling) != 0) 
+                if ((playerState & PlayerState.Falling) != 0)
                 {
                     playerState = PlayerState.Falling;
-                    playerAnimator.ResetTrigger("Falling");
                     StartLandingCheck();
+                    //  Debug.Log("hh");
+                    playerAnimator.ResetTrigger("Falling");
+
                 }
-               // 
 
                 break;
         }
@@ -434,8 +433,7 @@ public class PlayerBehaviour : Character
                 Keyframe jumpEndKey = playerParameter.jumpParameter.JumpCurve.keys[playerParameter.jumpParameter.JumpCurve.keys.Length - 1];
                 StopUseGravity();
                 StopRigiBodyMoveWithAniamtionCurve_Y();
-                RigiBodyMoveWithAniamtionCurve_Y(playerRigidbody,playerParameter.jumpParameter.JumpCurve, 0, jumpEndKey.time, 12, playerParameter.jumpParameter.JumpPerIntervalTime);
-            //    StartLandingCheck();
+                RigiBodyMoveWithAniamtionCurve_Y(playerRigidbody,playerParameter.jumpParameter.JumpCurve, 0, jumpEndKey.time, 12, playerParameter.jumpParameter.JumpPerIntervalTime);              
                 break;
 
             case (int)PlayerState.DoubleJump:
@@ -452,6 +450,8 @@ public class PlayerBehaviour : Character
 
     public void StartLandingCheck()
     {
+       // Debug.Log("dd");
+
         StopCoroutine("LandingCheck");
         StartCoroutine("LandingCheck");
     }
@@ -459,25 +459,26 @@ public class PlayerBehaviour : Character
     IEnumerator LandingCheck()
     {
         yield return new WaitForSeconds(0.01f);
-        Debug.Log("LandingCheck");
+      //  Debug.Log(animationHash.GetCurrentAnimationState("Idle_Run"));
        // Debug.Log(playerState);
         if (isGround)
         {            
             if (animationHash.GetCurrentAnimationState("Idle_Run"))
             {
-                Debug.Log("Idle");
+            //    Debug.Log("Idle");
+
                 playerAnimator.ResetTrigger("Idle");
                 playerState = PlayerState.Move;
                 StopRigiBodyMoveWithAniamtionCurve_Y();
-               /* FallindAniamtion_Vertical = 0;
-                FallindAniamtion_Horizontal = 0;*/
+                FallindAniamtion_Vertical = 0;
+                FallindAniamtion_Horizontal = 0;
                 StopCoroutine("LandingCheck");
                
             }
             else
             {
-                Debug.Log("Trigger Idle");
-                //if()
+           //     Debug.Log("Trigger Idle");
+
                 playerAnimator.SetTrigger("Idle");
                 StartCoroutine("LandingCheck");
                 
@@ -486,7 +487,8 @@ public class PlayerBehaviour : Character
         else
         {
             StartCoroutine("LandingCheck");
-           
+            Debug.Log("LC");
+
            // FallingMove();
             
         }

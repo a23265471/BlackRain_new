@@ -22,7 +22,6 @@ public class PlayerData
         public float JumpPerIntervalTime;
         public float GravityPerIntervalTime;
         public float JumpMoveSpeedPerIntervalTime;
-        public float dd;
         /*  public float JumpHigh;
           public float JumpSpeed;*/
         public float DoubleJumpHigh;
