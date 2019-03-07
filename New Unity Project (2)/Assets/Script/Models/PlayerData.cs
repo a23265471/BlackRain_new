@@ -72,6 +72,8 @@ public class PlayerData
     public PlayerParameter playerParameter;
     public GameObject Player;
     public GameObject MainCamera;
-
+    public GameObject Weapon;
+    public Transform WeaponPos;
+    public Transform GetWeaponHand;
     
 }

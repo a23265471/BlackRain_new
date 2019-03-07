@@ -33,6 +33,7 @@ public class PlayerBehaviour : Character
         CanDashAttack = CanDash,       
         CanSkyAttack = Jump | Falling | DoubleJump,
         CanAvoid = Move | Attack | Skill,      
+        CanAttack= Attack | Move,
         CanSkill = Attack | Move,
         CanDamage = 0xff,
         CaGetDown = 0xff,
@@ -53,7 +54,8 @@ public class PlayerBehaviour : Character
     private AudioSource playerAudioSource;
     private PlayerData.PlayerParameter playerParameter;
     private AnimationHash animationHash;
-    
+
+    public Transform GetWeaponHand;
 
     #region 圖層
     int floorMask;
@@ -96,6 +98,12 @@ public class PlayerBehaviour : Character
     public float GravityAcceleration;
     private bool isGravity;
     //private bool useGravity;
+    #endregion
+
+    #region 攻擊
+
+    public bool CanTriggerNextAttack;
+
     #endregion
 
     private void Awake()
@@ -272,12 +280,15 @@ public class PlayerBehaviour : Character
                 {
                     curMoveSpeed = playerParameter.moveParameter.RunSpeed;
                 }
-               
-            }
-            MoveX = moveAnimation_Horizontal * curMoveSpeed;
-            MoveZ = moveAnimation_Vertical * curMoveSpeed;
+                MoveX = moveAnimation_Horizontal * curMoveSpeed;
+                MoveZ = moveAnimation_Vertical * curMoveSpeed;
 
-            playerRigidbody.velocity = transform.rotation * new Vector3(MoveX, playerRigidbody.velocity.y, MoveZ);
+                playerRigidbody.velocity = transform.rotation * new Vector3(MoveX, playerRigidbody.velocity.y, MoveZ);
+
+                Debug.Log("jjj");
+
+            }
+           
         }
         
        
@@ -384,9 +395,18 @@ public class PlayerBehaviour : Character
 
     #region 攻擊
 
-    public void NormalAttack(int Id)
+    public void NormalAttack()
     {
-        
+        if (isGround)
+        {
+            if (CanTriggerNextAttack && ((playerState& PlayerState.CanAttack)!=0))
+            {
+                playerAnimator.SetTrigger("NormalAttack");
+
+            }
+
+        }
+
     }
 
 
@@ -417,6 +437,7 @@ public class PlayerBehaviour : Character
         {
             case (int)PlayerState.Move:               
                 playerState = PlayerState.Move;
+                CanTriggerNextAttack = true;
                 break;
 
             case (int)PlayerState.Jump:
@@ -443,6 +464,8 @@ public class PlayerBehaviour : Character
 
             case (int)PlayerState.Attack:
                 playerState = PlayerState.Attack;
+                playerRigidbody.velocity = new Vector3(0, 0, 0);
+                CanTriggerNextAttack = false;
                 break;
         }
     } 
@@ -490,7 +513,7 @@ public class PlayerBehaviour : Character
             //    Debug.Log("Idle");
 
                 playerAnimator.ResetTrigger("Idle");
-                playerState = PlayerState.Move;
+                ChangePlayerState(1);
                 StopRigiBodyMoveWithAniamtionCurve_Y();
                 FallindAniamtion_Vertical = 0;
                 FallindAniamtion_Horizontal = 0;
@@ -515,6 +538,16 @@ public class PlayerBehaviour : Character
             
         }
 
+    }
+
+    public void CanTriggerAttack()
+    {
+        CanTriggerNextAttack = true;
+    }
+
+    public void CantTriggerAttack()
+    {
+        CanTriggerNextAttack = false;
     }
 
     #endregion

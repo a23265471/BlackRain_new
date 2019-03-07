@@ -23,13 +23,15 @@ public class PlayerController : MonoBehaviour {
         gameStageController = GameFacade.GetInstance().gameStageController;
         inputSetting=GameFacade.GetInstance().inputSetting;
 
-      //  Debug.Log((KeyCode)System.Enum.Parse(typeof(KeyCode), "Whatever"));
-        
+        //  Debug.Log((KeyCode)System.Enum.Parse(typeof(KeyCode), "Whatever"));
+
     }
 
     void Start ()
     {
         playerBehaviour = gameStageController.playerBehaviour;
+        gameStageController.Weapon.transform.parent = playerBehaviour.GetWeaponHand;
+
         keepKeyCode = "";
         cleanKeepKeyCode = null;
         
@@ -63,6 +65,7 @@ public class PlayerController : MonoBehaviour {
         GroundedMove();
         Falling();
         Jump();
+        NormalAttack();
         Avoid();
       // Debug.Log(Input.inputString.GetHashCode());
     }
@@ -97,6 +100,16 @@ public class PlayerController : MonoBehaviour {
         {
             playerBehaviour.Jump(moveDirection_Vertical, moveDirection_Horizontal);
         }
+
+    }
+
+    public void NormalAttack()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            playerBehaviour.NormalAttack();
+        }
+
 
     }
 

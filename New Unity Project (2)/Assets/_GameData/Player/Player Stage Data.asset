@@ -47,9 +47,9 @@ MonoBehaviour:
           m_Curve:
           - serializedVersion: 3
             time: 0
-            value: 15
-            inSlope: -23
-            outSlope: -23
+            value: 17
+            inSlope: -25
+            outSlope: -25
             tangentMode: 34
             weightedMode: 0
             inWeight: 0
@@ -57,8 +57,8 @@ MonoBehaviour:
           - serializedVersion: 3
             time: 1
             value: -8
-            inSlope: -23
-            outSlope: -23
+            inSlope: -25
+            outSlope: -25
             tangentMode: 34
             weightedMode: 0
             inWeight: 0.33333334
@@ -125,3 +125,7 @@ MonoBehaviour:
     Player: {fileID: 1973415817257212, guid: 2165c8a69503db9488c6eb6775697dfa, type: 2}
     MainCamera: {fileID: 1521474619529176, guid: 0c79981aa8edc184888b524e12cadd29,
       type: 2}
+    Weapon: {fileID: 1362625490901652, guid: c206468b0e614694a8c722c707484a45, type: 2}
+    WeaponPos: {fileID: 4451951703345866, guid: 2165c8a69503db9488c6eb6775697dfa,
+      type: 2}
+    GetWeaponHand: {fileID: 0}
