@@ -53,7 +53,7 @@ public class PlayerData
         public float AttackValue;
         public AudioClip AudioClip_Attack;
         public GameObject Particle_Attack;
-        public Vector3 ParticleDistanceFormPlayer;
+        public Transform ParticleDistanceFormPlayer;
     }
     [System.Serializable]
     public class PlayerParameter

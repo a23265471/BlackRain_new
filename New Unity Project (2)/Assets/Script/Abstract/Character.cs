@@ -145,38 +145,17 @@ public abstract class Character : MonoBehaviour
        
     }
 
-   /* protected void AddVerticalForce(Rigidbody rigidbody,float force)
+   
+    protected void AudioPlay(AudioSource audioSource,AudioClip audioClip)
     {
-        rigidbody.AddForce(0, force, 0, ForceMode.Impulse);
-    }*/
+        audioSource.clip = audioClip;
+        audioSource.Play();
+    }
 
-   /* protected void Gravity(Rigidbody rigidbody,bool isGrounded,float maxVelocity,ref float curVelocity,float acceleration)
+    protected void ParticlePlay(ParticleSystem particleSystem)
     {
-        
-        if (!isGrounded)
-        {
-            if (curVelocity >= maxVelocity)
-            {
-                curVelocity = maxVelocity;
-            }
-            else
-            {
-                curVelocity += acceleration*Time.deltaTime;
-            }
-
-            rigidbody.velocity = Vector3.down * curVelocity;
-           // Debug.Log("gravity");
-
-        }
-        else
-        {
-            if (curVelocity != 0)
-            {
-                curVelocity = 0;
-            }
-        }
-
-       // Debug.Log(curVelocity);
-    }*/
+        particleSystem.Stop();
+        particleSystem.Play();
+    }
 
 }

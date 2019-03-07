@@ -154,12 +154,11 @@ public class PlayerBehaviour : Character
         // Debug.Log(useGravity);
         if (useGravity)
         {
-
             if (!isGround)
             {
                 if (!isNotGraoundStep)
                 {
-                    if (((playerState & PlayerState.FallingMove) != 0) && (playerRigidbody.velocity.y != 15)) 
+                    if (playerRigidbody.velocity.y <= 0.5f && playerRigidbody.velocity.y >= -0.5f)  
                     {
                         Debug.Log("gg");
 
@@ -195,9 +194,44 @@ public class PlayerBehaviour : Character
     {
         useGravity = false;
         isGravity = false;
-    } 
+    }
 
+    private void AnimationRotation(int moveDirection_Vertical, int moveDirection_Horizontal)
+    {
+        if (moveDirection_Vertical == 1)
+        {
+            playerAnimator.SetBool("Forward", true);
+            playerAnimator.SetBool("Back", false);
 
+        }
+        else if (moveDirection_Vertical == -1)
+        {
+            playerAnimator.SetBool("Forward", false);
+            playerAnimator.SetBool("Back", true);
+        }
+        else
+        {
+            playerAnimator.SetBool("Forward", false);
+            playerAnimator.SetBool("Back", false);
+        }
+
+        if (moveDirection_Horizontal == 1)
+        {
+            playerAnimator.SetBool("Left", false);
+            playerAnimator.SetBool("Right", true);
+        }
+        else if (moveDirection_Horizontal == -1)
+        {
+            playerAnimator.SetBool("Right", false);
+            playerAnimator.SetBool("Left", true);
+        }
+        else
+        {
+            playerAnimator.SetBool("Right", false);
+            playerAnimator.SetBool("Left", false);
+        }
+
+    }
     #region 移動
     private void Rotaion()
     {       
@@ -295,11 +329,24 @@ public class PlayerBehaviour : Character
    
     }
 
-    public void FallingMove()
+    public void Jump(int moveDirection_Vertical, int moveDirection_Horizontal)
     {
+        AnimationRotation(moveDirection_Vertical, moveDirection_Horizontal);
+        if (((playerBehaviour.playerState & PlayerState.Move) != 0))
+        {
+            // Debug.Log("Jump");           
+            playerAnimator.SetTrigger("Jump");
 
+        }
+        else if (((playerBehaviour.playerState & PlayerState.CanDoubleJump) != 0) && !isGround)
+        {
+            //Debug.Log("Double");
+            playerAnimator.SetTrigger("DoubleJump");
+
+        }
 
     }
+   
     #endregion
 
     #region 迴避
@@ -332,63 +379,30 @@ public class PlayerBehaviour : Character
        
     }
 
-   
+
     #endregion
 
-    private void AnimationRotation(int moveDirection_Vertical, int moveDirection_Horizontal)
-    {      
-        if (moveDirection_Vertical == 1)
-        {           
-            playerAnimator.SetBool("Forward", true);
-            playerAnimator.SetBool("Back", false);
+    #region 攻擊
 
-        }
-        else if (moveDirection_Vertical == -1)
-        {            
-            playerAnimator.SetBool("Forward", false);
-            playerAnimator.SetBool("Back", true);
-        }
-        else
-        {           
-            playerAnimator.SetBool("Forward", false);
-            playerAnimator.SetBool("Back", false);
-        }
-
-        if (moveDirection_Horizontal == 1)
-        {           
-            playerAnimator.SetBool("Left", false);
-            playerAnimator.SetBool("Right", true);
-        }
-        else if (moveDirection_Horizontal == -1)
-        {            
-            playerAnimator.SetBool("Right", false);
-            playerAnimator.SetBool("Left", true);
-        }
-        else
-        {           
-            playerAnimator.SetBool("Right", false);
-            playerAnimator.SetBool("Left", false);
-        }
-      
-    }
-
-    public void Jump(int moveDirection_Vertical, int moveDirection_Horizontal)
+    public void NormalAttack(int Id)
     {
-        AnimationRotation(moveDirection_Vertical, moveDirection_Horizontal);
-        if (((playerBehaviour.playerState & PlayerState.Move) != 0)) 
-        {
-           // Debug.Log("Jump");           
-            playerAnimator.SetTrigger("Jump");
+        
+    }
 
-        }
-        else if(((playerBehaviour.playerState & PlayerState.CanDoubleJump)!=0) && !isGround)
-        {
-            //Debug.Log("Double");
-            playerAnimator.SetTrigger("DoubleJump");
 
-        }
+    public void EffectPlay(int Id)
+    {
+        ParticlePlay(playerParameter.normalAttack[Id].Particle_Attack.GetComponent<ParticleSystem>());       
+    }
+         
+    public void AudioPlay(int Id)
+    {
+        AudioPlay(playerParameter.normalAttack[Id].Particle_Attack.GetComponent<AudioSource>(), playerParameter.normalAttack[Id].AudioClip_Attack);
 
     }
+
+    #endregion
+
 
     #region AnimationEvent
 
@@ -406,8 +420,7 @@ public class PlayerBehaviour : Character
                 break;
 
             case (int)PlayerState.Jump:
-                playerState = PlayerState.Jump;
-             //   playerRigidbody.velocity = new Vector3(0, 0, 0);
+                playerState = PlayerState.Jump;           
                 break;
 
             case (int)PlayerState.DoubleJump:
@@ -419,18 +432,17 @@ public class PlayerBehaviour : Character
                 Displacement(playerRigidbody, transform.rotation, avoidSpeed, playerParameter.avoidParameter.AvoidDistance, avoidDirection_X, 0, avoidDirection_Z,true);                
                 break;
 
-            case (int)PlayerState.Falling:
-               // Debug.Log(playerState);
+            case (int)PlayerState.Falling:             
                 if ((playerState & PlayerState.CanFalling ) != 0)
                 {
                     playerState = PlayerState.Falling;
                     playerAnimator.ResetTrigger("Falling");
-                    StartLandingCheck();
-                    //  Debug.Log("hh");
-                    
-
+                    StartLandingCheck();                         
                 }
+                break;
 
+            case (int)PlayerState.Attack:
+                playerState = PlayerState.Attack;
                 break;
         }
     } 
