@@ -11,30 +11,31 @@ public class PlayerBehaviour : Character
 {
     [Flags]
     public enum PlayerState
-    {    
+    {
         Move = 0x01,
         Jump = 0x02,
         Falling = 0x04,
         DoubleJump = 0x08,
-        Dash = 0x10,       
+        Dash = 0x10,
         Attack = 0x20,
         DashAttack = 0x30,
         Skill = 0x40,
-        Avoid = 0x50,      
+        Avoid = 0x50,
         SkyAttack = 0x60,
         Damage = 0xc0,
         GetDown = 0xe0,
         Dead = 0xf0,
-       
+
         CanFalling = Move | Attack,
         FallingMove = Falling | Jump | DoubleJump | SkyAttack,
         CanDoubleJump = Jump | Falling,
         CanDash = Move | Attack | Jump,
-        CanDashAttack = CanDash,       
+        CanDashAttack = CanDash,
         CanSkyAttack = Jump | Falling | DoubleJump,
-        CanAvoid = Move | Attack | Skill,      
-        CanAttack= Attack | Move,
+        CanAvoid = Move | Attack | Skill,
+        CanAttack = Attack | Move,
         CanSkill = Attack | Move,
+        DoNotGroudedMove = Attack | Skill| SkyAttack ,
         CanDamage = 0xff,
         CaGetDown = 0xff,
         CanDead = 0xff,
@@ -53,9 +54,10 @@ public class PlayerBehaviour : Character
    
     private AudioSource playerAudioSource;
     private PlayerData.PlayerParameter playerParameter;
+    private PlayerData playerData;
     private AnimationHash animationHash;
 
-    public Transform GetWeaponHand;
+    IEnumerator detectAnimationStateNotAttack;
 
     #region 圖層
     int floorMask;
@@ -63,6 +65,8 @@ public class PlayerBehaviour : Character
 
     #region 子物件
     public Transform cameraLookAt;
+    public Transform GetWeaponHand;
+    public Transform WeaponPos;
     #endregion
 
     #region 移動參數
@@ -118,12 +122,17 @@ public class PlayerBehaviour : Character
         gameStageData = GameFacade.GetInstance().gameStageData;
         playerController = GameFacade.GetInstance().playerController;
         playerParameter = gameStageData.CurPlayerStageData.playerData.playerParameter;
+        playerData = gameStageData.CurPlayerStageData.playerData;
 
         floorMask = LayerMask.GetMask("Floor");
         playerState = PlayerState.Move;
         useGravity = true;
         isGravity = false;
         isNotGraoundStep = false;
+        CanTriggerNextAttack = true;
+        detectAnimationStateNotAttack = null;
+
+        CreateWeapon();
     }
 
     void Start()
@@ -140,7 +149,7 @@ public class PlayerBehaviour : Character
        // physicsCollider.height = playerAnimator.GetFloat("ColliderHeight");
         Rotaion();
         // Debug.Log(isGround);
-        // Debug.Log(animationHash.GetAnimationState("Jump"));
+        // Debug.Log(playerState);
        //  Debug.Log(playerRigidbody.velocity);
 
     }
@@ -182,6 +191,12 @@ public class PlayerBehaviour : Character
                 isGravity = false;
             }
         }
+
+    }
+
+    private void CreateWeapon()
+    {
+        GameObject weapon = Instantiate(playerData.Weapon, WeaponPos.position, WeaponPos.rotation, GetWeaponHand);
 
     }
 
@@ -280,18 +295,23 @@ public class PlayerBehaviour : Character
                 {
                     curMoveSpeed = playerParameter.moveParameter.RunSpeed;
                 }
+                
+              //  Debug.Log("jjj");
+
+            }
+
+            if((playerState & PlayerState.DoNotGroudedMove) == 0)
+            {
                 MoveX = moveAnimation_Horizontal * curMoveSpeed;
                 MoveZ = moveAnimation_Vertical * curMoveSpeed;
 
                 playerRigidbody.velocity = transform.rotation * new Vector3(MoveX, playerRigidbody.velocity.y, MoveZ);
-
-                Debug.Log("jjj");
-
             }
-           
+            
+
         }
-        
-       
+
+
     }
     public void Falling(int moveDirection_Vertical, int moveDirection_Horizontal)
     {
@@ -402,13 +422,49 @@ public class PlayerBehaviour : Character
             if (CanTriggerNextAttack && ((playerState& PlayerState.CanAttack)!=0))
             {
                 playerAnimator.SetTrigger("NormalAttack");
-
+                CanTriggerNextAttack = false;
             }
 
         }
 
     }
 
+    public void ResetCanTriggerNextAttack(string animationTag)
+    {
+        detectAnimationStateNotAttack = DetectAnimationStateNotAttack(animationTag);
+        StopCoroutine(detectAnimationStateNotAttack);
+
+        StartCoroutine(detectAnimationStateNotAttack);
+
+    }
+
+    IEnumerator DetectAnimationStateNotAttack(string animationTag)
+    {
+
+        yield return new WaitForSeconds(0.01f);
+        if (animationHash.GetCurrentAnimationTag(animationTag))
+        {
+
+            StartCoroutine(detectAnimationStateNotAttack);
+
+        }
+        else
+        {
+            CanTriggerNextAttack = true;
+            Debug.Log("hhhh");
+
+        }
+    }
+
+    public void StopDetectAnimationStateNotAttack()
+    {
+        if (detectAnimationStateNotAttack != null)
+        {
+            StopCoroutine(detectAnimationStateNotAttack);
+
+
+        }
+    }
 
     public void EffectPlay(int Id)
     {
@@ -437,7 +493,7 @@ public class PlayerBehaviour : Character
         {
             case (int)PlayerState.Move:               
                 playerState = PlayerState.Move;
-                CanTriggerNextAttack = true;
+               // CanTriggerNextAttack = true;
                 break;
 
             case (int)PlayerState.Jump:
@@ -464,6 +520,7 @@ public class PlayerBehaviour : Character
 
             case (int)PlayerState.Attack:
                 playerState = PlayerState.Attack;
+                StopDetectAnimationStateNotAttack();
                 playerRigidbody.velocity = new Vector3(0, 0, 0);
                 CanTriggerNextAttack = false;
                 break;

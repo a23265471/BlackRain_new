@@ -87,7 +87,13 @@ public class AnimationHash : MonoBehaviour
 
     }
 
+    public bool GetCurrentAnimationTag(string AnimationTag)
+    {
+        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
 
+        return stateInfo.IsTag(AnimationTag);
+
+    }
 
 
 }

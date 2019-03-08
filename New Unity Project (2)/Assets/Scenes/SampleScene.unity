@@ -219,22 +219,6 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1973415817257212, guid: 2165c8a69503db9488c6eb6775697dfa, type: 2}
       propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1448693634755570, guid: 2165c8a69503db9488c6eb6775697dfa, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4451951703345866, guid: 2165c8a69503db9488c6eb6775697dfa, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4451951703345866, guid: 2165c8a69503db9488c6eb6775697dfa, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4451951703345866, guid: 2165c8a69503db9488c6eb6775697dfa, type: 2}
-      propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -259,8 +243,9 @@ MonoBehaviour:
   useGravity: 0
   curAnimationCurvePastLong: 0
   playerState: 0
-  GetWeaponHand: {fileID: 0}
   cameraLookAt: {fileID: 0}
+  GetWeaponHand: {fileID: 0}
+  WeaponPos: {fileID: 0}
   MoveAnimationSmoothSpeed: 10
   JumpMoveAnimationSmoothSpeed: 0
   curPhysicsCollider: []
@@ -1036,52 +1021,6 @@ Prefab:
     m_RemovedComponents:
     - {fileID: 114494896129908618, guid: e24b8ff5d92bdbf4fbeee71fae8f27b7, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: e24b8ff5d92bdbf4fbeee71fae8f27b7, type: 2}
-  m_IsPrefabParent: 0
---- !u!1001 &1809767478
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4932054923994902, guid: c206468b0e614694a8c722c707484a45, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 1.302
-      objectReference: {fileID: 0}
-    - target: {fileID: 4932054923994902, guid: c206468b0e614694a8c722c707484a45, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 1.466
-      objectReference: {fileID: 0}
-    - target: {fileID: 4932054923994902, guid: c206468b0e614694a8c722c707484a45, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: -3.841
-      objectReference: {fileID: 0}
-    - target: {fileID: 4932054923994902, guid: c206468b0e614694a8c722c707484a45, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4932054923994902, guid: c206468b0e614694a8c722c707484a45, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4932054923994902, guid: c206468b0e614694a8c722c707484a45, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4932054923994902, guid: c206468b0e614694a8c722c707484a45, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4932054923994902, guid: c206468b0e614694a8c722c707484a45, type: 2}
-      propertyPath: m_RootOrder
-      value: 14
-      objectReference: {fileID: 0}
-    - target: {fileID: 1362625490901652, guid: c206468b0e614694a8c722c707484a45, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: c206468b0e614694a8c722c707484a45, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1854739024
 GameObject:

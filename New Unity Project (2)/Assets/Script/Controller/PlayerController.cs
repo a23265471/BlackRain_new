@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour {
     void Start ()
     {
         playerBehaviour = gameStageController.playerBehaviour;
-        gameStageController.Weapon.transform.parent = playerBehaviour.GetWeaponHand;
+        //gameStageController.Weapon.transform.parent = playerBehaviour.GetWeaponHand;
 
         keepKeyCode = "";
         cleanKeepKeyCode = null;

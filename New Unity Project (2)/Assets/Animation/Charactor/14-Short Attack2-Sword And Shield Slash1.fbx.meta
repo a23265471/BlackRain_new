@@ -322,7 +322,50 @@ ModelImporter:
       heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
+      curves:
+      - name: AnimationSpeed
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1.3
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.22442243
+            value: 1.8
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.56435645
+            value: 1.5
+            inSlope: -0.91732365
+            outSlope: -0.91732365
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0.47131574
+          - serializedVersion: 3
+            time: 1
+            value: 1.3
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          preInfinity: 3
+          postInfinity: 3
+          rotationOrder: 4
       events:
       - time: 0
         functionName: ChangePlayerState
@@ -332,7 +375,7 @@ ModelImporter:
         floatParameter: 0
         intParameter: 32
         messageOptions: 0
-      - time: 0.08016876
+      - time: 0.04477053
         functionName: CanTriggerAttack
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 48984eef8ea34764d8a93b59a73a6109,
@@ -340,9 +383,17 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.9222046
+      - time: 0.9530612
         functionName: CantTriggerAttack
         data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 48984eef8ea34764d8a93b59a73a6109,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 1
+        functionName: ResetCanTriggerNextAttack
+        data: NormalAttack
         objectReferenceParameter: {fileID: 11500000, guid: 48984eef8ea34764d8a93b59a73a6109,
           type: 3}
         floatParameter: 0

@@ -12,7 +12,7 @@ public class GameStageController : MonoBehaviour {
 
     public MainCamera mainCameraBehaviour;
 
-    public GameObject Weapon;
+    //public GameObject Weapon;
 
     private void Awake()
     {
@@ -20,7 +20,7 @@ public class GameStageController : MonoBehaviour {
         gameStageData = GameFacade.GetInstance().gameStageData;
         GameObject mainCamera = Instantiate(gameStageData.CurPlayerStageData.playerData.MainCamera, new Vector3(0,0,0), playerStartPos.rotation);
         GameObject player = Instantiate(gameStageData.CurPlayerStageData.playerData.Player, playerStartPos.position, playerStartPos.rotation);
-        Weapon= Instantiate(gameStageData.CurPlayerStageData.playerData.Weapon, gameStageData.CurPlayerStageData.playerData.WeaponPos.position, gameStageData.CurPlayerStageData.playerData.WeaponPos.rotation);
+   //     Weapon= Instantiate(gameStageData.CurPlayerStageData.playerData.Weapon, gameStageData.CurPlayerStageData.playerData.WeaponPos.position, gameStageData.CurPlayerStageData.playerData.WeaponPos.rotation);
 
      //   Weapon.transform.parent=
 
