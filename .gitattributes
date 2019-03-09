@@ -4,3 +4,4 @@
 .ide-shm filter=lfs diff=lfs merge=lfs -text
 .ide-suo filter=lfs diff=lfs merge=lfs -text
 .controller filter=lfs diff=lfs merge=lfs -text
+*.ide filter=lfs diff=lfs merge=lfs -text

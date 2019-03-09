@@ -348,15 +348,15 @@ ModelImporter:
           - serializedVersion: 3
             time: 0.56435645
             value: 1.5
-            inSlope: -0.91732365
-            outSlope: -0.91732365
+            inSlope: -2.0824857
+            outSlope: -2.0824857
             tangentMode: 0
             weightedMode: 0
             inWeight: 0
-            outWeight: 0.47131574
+            outWeight: 0.2159507
           - serializedVersion: 3
             time: 1
-            value: 1.3
+            value: 1
             inSlope: 0
             outSlope: 0
             tangentMode: 0
@@ -375,7 +375,7 @@ ModelImporter:
         floatParameter: 0
         intParameter: 32
         messageOptions: 0
-      - time: 0.04477053
+      - time: 0.49177513
         functionName: CanTriggerAttack
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 48984eef8ea34764d8a93b59a73a6109,
@@ -398,14 +398,6 @@ ModelImporter:
           type: 3}
         floatParameter: 0
         intParameter: 0
-        messageOptions: 0
-      - time: 1
-        functionName: ChangePlayerState
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 48984eef8ea34764d8a93b59a73a6109,
-          type: 3}
-        floatParameter: 0
-        intParameter: 1
         messageOptions: 0
       transformMask: []
       maskType: 3

@@ -56,7 +56,7 @@ public abstract class Character : MonoBehaviour
         
         StopCoroutine(moveControl);
         StartCoroutine(moveControl);
-        Debug.Log(moveTime);
+        //Debug.Log(moveTime);
     }
 
     IEnumerator MoveControl(Rigidbody rigidbody,Quaternion rotation,float startTime,float speed,float maxDis, int moveDirection_X, int moveDirection_Y, int moveDirection_Z)

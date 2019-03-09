@@ -35,7 +35,7 @@ public class PlayerBehaviour : Character
         CanAvoid = Move | Attack | Skill,
         CanAttack = Attack | Move,
         CanSkill = Attack | Move,
-        DoNotGroudedMove = Attack | Skill| SkyAttack ,
+        DoNotGroudedMove = Attack | Skill | SkyAttack | Avoid,
         CanDamage = 0xff,
         CaGetDown = 0xff,
         CanDead = 0xff,
@@ -73,7 +73,7 @@ public class PlayerBehaviour : Character
     private float rotation_Horizontal;
     private float curMoveSpeed;
     private float moveSpeed;
-    private float moveDirection;
+    //private float moveDirection;
 
     private float moveAnimation_Vertical;
     private float moveAnimation_Horizontal;
@@ -85,7 +85,7 @@ public class PlayerBehaviour : Character
     private int avoidDirection_Z;
     private float avoidSpeed;
 
-    private float curJumpMoveSpeedCurveTime;
+  
     #endregion
 
     #region 物理碰撞   
@@ -98,10 +98,9 @@ public class PlayerBehaviour : Character
     public float groundedDis;
     public bool isGround;
     public bool isNotGraoundStep;
-    private float curGravity;
-    public float GravityAcceleration;
+
     private bool isGravity;
-    //private bool useGravity;
+    private bool canMove;
     #endregion
 
     #region 攻擊
@@ -131,7 +130,7 @@ public class PlayerBehaviour : Character
         isNotGraoundStep = false;
         CanTriggerNextAttack = true;
         detectAnimationStateNotAttack = null;
-
+        canMove = true;
         CreateWeapon();
     }
 
@@ -165,7 +164,7 @@ public class PlayerBehaviour : Character
            // Debug.Log(Time.time);
         }
 
-       // Debug.Log(curJumpMoveSpeedCurveTime);
+       
         
 
         // Debug.Log(useGravity);
@@ -177,7 +176,7 @@ public class PlayerBehaviour : Character
                 {
                     if (playerRigidbody.velocity.y <= 0.5f && playerRigidbody.velocity.y >= -0.5f)  
                     {
-                        Debug.Log("gg");
+                      //  Debug.Log("gg");
 
                         isGravity = false;
                       
@@ -280,13 +279,20 @@ public class PlayerBehaviour : Character
         float MoveZ;
         if (isGround)
         {
-            if ((playerState & PlayerState.Move) != 0)
-            {
+          /*  if ((playerState & PlayerState.Move) != 0)
+            {*/
                 //  Debug.Log(playerRigidbody.velocity);
                 AnimationBlendTreeControll(playerAnimator, "Vertical", moveDirection_Vertical, ref moveAnimation_Vertical, MoveAnimationSmoothSpeed);
                 AnimationBlendTreeControll(playerAnimator, "Horizontal", moveDirection_Horizontal, ref moveAnimation_Horizontal, MoveAnimationSmoothSpeed);
                 moveSpeed = playerParameter.moveParameter.RunSpeed;
 
+                
+              //  
+
+         //   }
+
+            if(canMove)
+            {
                 if (moveDirection_Vertical == 0 || moveDirection_Horizontal == 0)
                 {
                     curMoveSpeed = Mathf.Sqrt((Mathf.Pow(playerParameter.moveParameter.RunSpeed, 2) * 2));
@@ -295,16 +301,11 @@ public class PlayerBehaviour : Character
                 {
                     curMoveSpeed = playerParameter.moveParameter.RunSpeed;
                 }
-                
-              //  Debug.Log("jjj");
 
-            }
-
-            if((playerState & PlayerState.DoNotGroudedMove) == 0)
-            {
+                Debug.Log("jjj");
                 MoveX = moveAnimation_Horizontal * curMoveSpeed;
-                MoveZ = moveAnimation_Vertical * curMoveSpeed;
-
+                MoveZ = moveAnimation_Vertical * curMoveSpeed ;
+               
                 playerRigidbody.velocity = transform.rotation * new Vector3(MoveX, playerRigidbody.velocity.y, MoveZ);
             }
             
@@ -352,7 +353,7 @@ public class PlayerBehaviour : Character
             AnimationBlendTreeControll(playerAnimator, "Horizontal", moveDirection_Horizontal, ref moveAnimation_Horizontal, MoveAnimationSmoothSpeed);
             AnimationBlendTreeControll(playerAnimator, "Jump_Rotation", direction_X, ref FallindAniamtion_Horizontal, JumpMoveAnimationSmoothSpeed);
         }
-
+       
         float fallingMoveX = moveDirection_Horizontal * playerParameter.jumpParameter.JumpMoveSpeed;
         float fallingMoveZ = direction_Y * playerParameter.jumpParameter.JumpMoveSpeed;
      
@@ -383,9 +384,7 @@ public class PlayerBehaviour : Character
     #region 迴避
     public void Avoid(int moveDirection_Vertical,int moveDirection_Horizontal)
     {
-        string xDirection;
-        string zDirection;
-        
+       
         if ((playerBehaviour.playerState & PlayerState.CanAvoid) != 0)
         {
             avoidDirection_X = moveDirection_Horizontal;
@@ -444,14 +443,22 @@ public class PlayerBehaviour : Character
         yield return new WaitForSeconds(0.01f);
         if (animationHash.GetCurrentAnimationTag(animationTag))
         {
+            Debug.Log("hhhh");
+            detectAnimationStateNotAttack = DetectAnimationStateNotAttack(animationTag);
 
             StartCoroutine(detectAnimationStateNotAttack);
 
         }
         else
         {
+           
             CanTriggerNextAttack = true;
-            Debug.Log("hhhh");
+            if (playerState == PlayerState.Attack)
+            {
+                ChangePlayerState(1);
+
+            }
+            playerAnimator.ResetTrigger("NormalAttack");
 
         }
     }
@@ -466,17 +473,7 @@ public class PlayerBehaviour : Character
         }
     }
 
-    public void EffectPlay(int Id)
-    {
-        ParticlePlay(playerParameter.normalAttack[Id].Particle_Attack.GetComponent<ParticleSystem>());       
-    }
-         
-    public void AudioPlay(int Id)
-    {
-        AudioPlay(playerParameter.normalAttack[Id].Particle_Attack.GetComponent<AudioSource>(), playerParameter.normalAttack[Id].AudioClip_Attack);
-
-    }
-
+    
     #endregion
 
 
@@ -522,7 +519,9 @@ public class PlayerBehaviour : Character
                 playerState = PlayerState.Attack;
                 StopDetectAnimationStateNotAttack();
                 playerRigidbody.velocity = new Vector3(0, 0, 0);
-                CanTriggerNextAttack = false;
+                SwitchMove(0);
+
+                // CanTriggerNextAttack = false;
                 break;
         }
     } 
@@ -551,9 +550,7 @@ public class PlayerBehaviour : Character
     }
 
     public void StartLandingCheck()
-    {
-       // Debug.Log("dd");
-
+    {     
         StopCoroutine("LandingCheck");
         StartCoroutine("LandingCheck");
     }
@@ -579,7 +576,7 @@ public class PlayerBehaviour : Character
             }
             else
             {
-                Debug.Log("Trigger Idle");
+              //  Debug.Log("Trigger Idle");
 
                 playerAnimator.SetTrigger("Idle");
                 StartCoroutine("LandingCheck");
@@ -605,6 +602,33 @@ public class PlayerBehaviour : Character
     public void CantTriggerAttack()
     {
         CanTriggerNextAttack = false;
+    }
+
+    public void EffectPlay(int Id)
+    {
+        ParticlePlay(playerParameter.normalAttack[Id].Particle_Attack.GetComponent<ParticleSystem>());
+    }
+
+    public void AudioPlay(int Id)
+    {
+        AudioPlay(playerParameter.normalAttack[Id].Particle_Attack.GetComponent<AudioSource>(), playerParameter.normalAttack[Id].AudioClip_Attack);
+
+    }
+
+    public void SwitchMove(int onOff)
+    {
+        switch (onOff)
+        {
+            case 0:
+                canMove = false;
+                break;
+            case 1:
+                canMove = true;
+                break;
+
+        }
+
+
     }
 
     #endregion
