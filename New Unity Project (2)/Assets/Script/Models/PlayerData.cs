@@ -48,9 +48,16 @@ public class PlayerData
     }
     [System.Serializable]
     public struct AttackParameter
-    {
+    {       
         public int Combo;
         public float AttackValue;
+        public float MoveSpeed;
+        public float MoveDistance;
+        public int MoveDirection_X;
+        public int MoveDirection_Y;
+        public int MoveDirection_Z;
+        public bool UseGravity;
+
         public AudioClip AudioClip_Attack;
         public GameObject Particle_Attack;
         public Transform ParticleDistanceFormPlayer;

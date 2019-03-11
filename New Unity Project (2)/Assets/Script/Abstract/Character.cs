@@ -51,12 +51,17 @@ public abstract class Character : MonoBehaviour
         useGravity = isGravity;
 
         moveTime = maxDistance / speed;
-        
+
+        if (moveControl!=null)
+        {
+            StopCoroutine(moveControl);
+            rigidbody.velocity = new Vector3(0, 0, 0);
+        }
+
         moveControl = MoveControl(rigidbody, rotation, Time.time, speed, maxDistance, moveDirection_X, moveDirection_Y, moveDirection_Z);
         
-        StopCoroutine(moveControl);
         StartCoroutine(moveControl);
-        //Debug.Log(moveTime);
+        
     }
 
     IEnumerator MoveControl(Rigidbody rigidbody,Quaternion rotation,float startTime,float speed,float maxDis, int moveDirection_X, int moveDirection_Y, int moveDirection_Z)
@@ -66,13 +71,13 @@ public abstract class Character : MonoBehaviour
         float MoveZ = moveDirection_Z * speed;
        
         rigidbody.velocity = rotation * new Vector3(MoveX, MoveY, MoveZ);
-        
         yield return new WaitForSeconds(0.01f);
 
         if (Time.time-startTime >= moveTime)
         {
             // moveDis = 0;
-            
+             Debug.Log("GG");
+
             rigidbody.velocity = new Vector3(0, 0, 0);
             
 
@@ -80,6 +85,8 @@ public abstract class Character : MonoBehaviour
         }
         else
         {
+           // Debug.Log(rigidbody.velocity);
+
             moveControl = MoveControl(rigidbody, rotation, startTime, speed, maxDis, moveDirection_X, moveDirection_Y, moveDirection_Z);
 
             StartCoroutine(moveControl);
@@ -144,8 +151,7 @@ public abstract class Character : MonoBehaviour
         }
        
     }
-
-   
+    
     protected void AudioPlay(AudioSource audioSource,AudioClip audioClip)
     {
         audioSource.clip = audioClip;
@@ -157,5 +163,7 @@ public abstract class Character : MonoBehaviour
         particleSystem.Stop();
         particleSystem.Play();
     }
+
+    
 
 }

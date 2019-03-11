@@ -12,6 +12,9 @@ public class GameStageController : MonoBehaviour {
 
     public MainCamera mainCameraBehaviour;
 
+
+    private bool CursorLocked;
+    private bool GamePause;
     //public GameObject Weapon;
 
     private void Awake()
@@ -40,8 +43,8 @@ public class GameStageController : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        CursorControl();
-
+        // CursorControl();
+        CursorLock();
     }
 
     private void CursorControl()
@@ -54,6 +57,25 @@ public class GameStageController : MonoBehaviour {
         else if(Input.GetKeyDown(KeyCode.LeftControl) && !Cursor.visible)
         {
             Cursor.visible = true;
+        }
+
+    }
+
+    private void CursorLock()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (Screen.lockCursor)
+            {
+                Screen.lockCursor = false;
+
+            }
+            else
+            {
+                Screen.lockCursor = true;
+
+            }
+
         }
 
     }

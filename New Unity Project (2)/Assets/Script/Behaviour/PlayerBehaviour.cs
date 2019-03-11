@@ -77,14 +77,13 @@ public class PlayerBehaviour : Character
 
     private float moveAnimation_Vertical;
     private float moveAnimation_Horizontal;
-    private float FallindAniamtion_Vertical;
+//    private float FallindAniamtion_Vertical;
     private float FallindAniamtion_Horizontal;
     public float MoveAnimationSmoothSpeed;
     public float JumpMoveAnimationSmoothSpeed;
     private int avoidDirection_X;
     private int avoidDirection_Z;
     private float avoidSpeed;
-
   
     #endregion
 
@@ -100,12 +99,13 @@ public class PlayerBehaviour : Character
     public bool isNotGraoundStep;
 
     private bool isGravity;
-    private bool canMove;
+    private bool ForceMove;
     #endregion
 
     #region 攻擊
 
     public bool CanTriggerNextAttack;
+    private bool isTriggerAttack;
 
     #endregion
 
@@ -130,7 +130,8 @@ public class PlayerBehaviour : Character
         isNotGraoundStep = false;
         CanTriggerNextAttack = true;
         detectAnimationStateNotAttack = null;
-        canMove = true;
+        ForceMove = false;
+        isTriggerAttack = false;
         CreateWeapon();
     }
 
@@ -149,7 +150,11 @@ public class PlayerBehaviour : Character
         Rotaion();
         // Debug.Log(isGround);
         // Debug.Log(playerState);
-       //  Debug.Log(playerRigidbody.velocity);
+        //  Debug.Log(playerRigidbody.velocity);
+       // Debug.Log(ForceMove);
+       if(animationHash.GetCurrentAnimationState("ShortAttack2"))
+        Debug.Log(CanTriggerNextAttack);
+
 
     }
 
@@ -279,19 +284,16 @@ public class PlayerBehaviour : Character
         float MoveZ;
         if (isGround)
         {
-          /*  if ((playerState & PlayerState.Move) != 0)
-            {*/
-                //  Debug.Log(playerRigidbody.velocity);
-                AnimationBlendTreeControll(playerAnimator, "Vertical", moveDirection_Vertical, ref moveAnimation_Vertical, MoveAnimationSmoothSpeed);
-                AnimationBlendTreeControll(playerAnimator, "Horizontal", moveDirection_Horizontal, ref moveAnimation_Horizontal, MoveAnimationSmoothSpeed);
-                moveSpeed = playerParameter.moveParameter.RunSpeed;
+            /*  if ((playerState & PlayerState.Move) != 0)
+              {*/
+            //  Debug.Log(playerRigidbody.velocity);
+            AnimationBlendTreeControll(playerAnimator, "Vertical", moveDirection_Vertical, ref moveAnimation_Vertical, MoveAnimationSmoothSpeed);
+            AnimationBlendTreeControll(playerAnimator, "Horizontal", moveDirection_Horizontal, ref moveAnimation_Horizontal, MoveAnimationSmoothSpeed);
+            moveSpeed = playerParameter.moveParameter.RunSpeed;
 
-                
-              //  
+            //   }
 
-         //   }
-
-            if(canMove)
+            if (ForceMove || (playerState & PlayerState.DoNotGroudedMove) == 0) 
             {
                 if (moveDirection_Vertical == 0 || moveDirection_Horizontal == 0)
                 {
@@ -307,13 +309,10 @@ public class PlayerBehaviour : Character
                 MoveZ = moveAnimation_Vertical * curMoveSpeed ;
                
                 playerRigidbody.velocity = transform.rotation * new Vector3(MoveX, playerRigidbody.velocity.y, MoveZ);
-            }
-            
-
+            }            
         }
-
-
     }
+
     public void Falling(int moveDirection_Vertical, int moveDirection_Horizontal)
     {
         if (!isGround)
@@ -422,63 +421,19 @@ public class PlayerBehaviour : Character
             {
                 playerAnimator.SetTrigger("NormalAttack");
                 CanTriggerNextAttack = false;
+                isTriggerAttack = true;
             }
 
         }
 
     }
 
-    public void ResetCanTriggerNextAttack(string animationTag)
-    {
-        detectAnimationStateNotAttack = DetectAnimationStateNotAttack(animationTag);
-        StopCoroutine(detectAnimationStateNotAttack);
-
-        StartCoroutine(detectAnimationStateNotAttack);
-
-    }
-
-    IEnumerator DetectAnimationStateNotAttack(string animationTag)
-    {
-
-        yield return new WaitForSeconds(0.01f);
-        if (animationHash.GetCurrentAnimationTag(animationTag))
-        {
-            Debug.Log("hhhh");
-            detectAnimationStateNotAttack = DetectAnimationStateNotAttack(animationTag);
-
-            StartCoroutine(detectAnimationStateNotAttack);
-
-        }
-        else
-        {
-           
-            CanTriggerNextAttack = true;
-            if (playerState == PlayerState.Attack)
-            {
-                ChangePlayerState(1);
-
-            }
-            playerAnimator.ResetTrigger("NormalAttack");
-
-        }
-    }
-
-    public void StopDetectAnimationStateNotAttack()
-    {
-        if (detectAnimationStateNotAttack != null)
-        {
-            StopCoroutine(detectAnimationStateNotAttack);
-
-
-        }
-    }
-
+   
     
     #endregion
 
 
     #region AnimationEvent
-
     public void ChangePlayerState(int ChangePlayerState)
     {
      /*   playerAnimator.SetFloat("Horizontal", 0);
@@ -502,8 +457,10 @@ public class PlayerBehaviour : Character
                 break;
 
             case (int)PlayerState.Avoid:
-                playerState = PlayerState.Avoid;               
-                Displacement(playerRigidbody, transform.rotation, avoidSpeed, playerParameter.avoidParameter.AvoidDistance, avoidDirection_X, 0, avoidDirection_Z,true);                
+                playerState = PlayerState.Avoid;
+                Debug.Log(avoidSpeed);
+                Displacement(playerRigidbody, transform.rotation, avoidSpeed, playerParameter.avoidParameter.AvoidDistance, avoidDirection_X, 0, avoidDirection_Z,true);
+
                 break;
 
             case (int)PlayerState.Falling:             
@@ -524,8 +481,33 @@ public class PlayerBehaviour : Character
                 // CanTriggerNextAttack = false;
                 break;
         }
-    } 
+    }
 
+    public void EffectPlay(int Id)
+    {
+        ParticlePlay(playerParameter.normalAttack[Id].Particle_Attack.GetComponent<ParticleSystem>());
+    }
+
+    public void AudioPlay(int Id)
+    {
+        AudioPlay(playerParameter.normalAttack[Id].Particle_Attack.GetComponent<AudioSource>(), playerParameter.normalAttack[Id].AudioClip_Attack);
+
+    }
+
+    public void SwitchMove(int onOff)
+    {
+        switch (onOff)
+        {
+            case 0:
+                ForceMove = false;
+                break;
+            case 1:
+                ForceMove = true;
+                break;
+        }
+    }
+
+    #region 跳躍動畫
     public void AddForce(int JumpState)
     {
         switch (JumpState)
@@ -554,7 +536,6 @@ public class PlayerBehaviour : Character
         StopCoroutine("LandingCheck");
         StartCoroutine("LandingCheck");
     }
-
     IEnumerator LandingCheck()
     {
         yield return new WaitForSeconds(0.01f);
@@ -569,7 +550,7 @@ public class PlayerBehaviour : Character
                 playerAnimator.ResetTrigger("Idle");
                 ChangePlayerState(1);
                 StopRigiBodyMoveWithAniamtionCurve_Y();
-                FallindAniamtion_Vertical = 0;
+              
                 FallindAniamtion_Horizontal = 0;
                 StopCoroutine("LandingCheck");
                
@@ -593,43 +574,99 @@ public class PlayerBehaviour : Character
         }
 
     }
+    #endregion
+
+    #region 攻擊動畫
 
     public void CanTriggerAttack()
     {
         CanTriggerNextAttack = true;
+        isTriggerAttack = false;
     }
 
     public void CantTriggerAttack()
     {
         CanTriggerNextAttack = false;
+        
     }
 
-    public void EffectPlay(int Id)
-    {
-        ParticlePlay(playerParameter.normalAttack[Id].Particle_Attack.GetComponent<ParticleSystem>());
-    }
+    //IEnumerator 
 
-    public void AudioPlay(int Id)
+    public void AttackMoveSwitch()
     {
-        AudioPlay(playerParameter.normalAttack[Id].Particle_Attack.GetComponent<AudioSource>(), playerParameter.normalAttack[Id].AudioClip_Attack);
-
-    }
-
-    public void SwitchMove(int onOff)
-    {
-        switch (onOff)
+        if (!isTriggerAttack)
         {
-            case 0:
-                canMove = false;
-                break;
-            case 1:
-                canMove = true;
-                break;
+            SwitchMove(1);
+        }
+    }
+
+    public void ResetCanTriggerNextAttack(string animationTag)
+    {
+        detectAnimationStateNotAttack = DetectAnimationStateNotAttack(animationTag);
+        StopCoroutine(detectAnimationStateNotAttack);
+
+        StartCoroutine(detectAnimationStateNotAttack);
+
+    }
+
+    IEnumerator DetectAnimationStateNotAttack(string animationTag)
+    {
+
+        yield return new WaitForSeconds(0.01f);
+        if (animationHash.GetCurrentAnimationTag(animationTag))
+        {
+          //  Debug.Log("hhhh");
+            detectAnimationStateNotAttack = DetectAnimationStateNotAttack(animationTag);
+
+            StartCoroutine(detectAnimationStateNotAttack);
 
         }
+        else
+        {
+            isTriggerAttack = false;
+            CanTriggerNextAttack = true;
+            ForceMove = false;
+            if (playerState == PlayerState.Attack)
+            {
+                ChangePlayerState(1);
+
+            }
+            playerAnimator.ResetTrigger("NormalAttack");
+
+        }
+    }
+
+    public void StopDetectAnimationStateNotAttack()
+    {
+        if (detectAnimationStateNotAttack != null)
+        {
+            StopCoroutine(detectAnimationStateNotAttack);
+
+
+        }
+    }
+
+    public void AttackDisplacement(int AttackId)
+    {
+        Displacement(playerRigidbody,
+            transform.rotation,             
+            playerParameter.normalAttack[AttackId].MoveSpeed,
+            playerParameter.normalAttack[AttackId].MoveDistance,
+            playerParameter.normalAttack[AttackId].MoveDirection_X, 
+            playerParameter.normalAttack[AttackId].MoveDirection_Y, 
+            playerParameter.normalAttack[AttackId].MoveDirection_Z, 
+            playerParameter.normalAttack[AttackId].UseGravity);
 
 
     }
+
+    public void StartAttackDisplacement()
+    {
+
+    }
+
+    #endregion
+
 
     #endregion
 }

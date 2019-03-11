@@ -98,7 +98,7 @@ MonoBehaviour:
         Gravity: 17
       avoidParameter:
         AvoidSpeed: 8
-        AvoidDistance: 5
+        AvoidDistance: 10
       damageParameter:
         GetupTime: 0
         AudioClip_Damage: {fileID: 0}
@@ -107,16 +107,34 @@ MonoBehaviour:
       normalAttack:
       - Combo: 0
         AttackValue: 0
+        MoveSpeed: 6
+        MoveDistance: 1
+        MoveDirection_X: 0
+        MoveDirection_Y: 0
+        MoveDirection_Z: 1
+        UseGravity: 1
         AudioClip_Attack: {fileID: 0}
         Particle_Attack: {fileID: 0}
         ParticleDistanceFormPlayer: {fileID: 0}
       - Combo: 0
         AttackValue: 0
+        MoveSpeed: 4
+        MoveDistance: 0.7
+        MoveDirection_X: 0
+        MoveDirection_Y: 0
+        MoveDirection_Z: 1
+        UseGravity: 1
         AudioClip_Attack: {fileID: 0}
         Particle_Attack: {fileID: 0}
         ParticleDistanceFormPlayer: {fileID: 0}
       - Combo: 0
         AttackValue: 0
+        MoveSpeed: 10
+        MoveDistance: 3
+        MoveDirection_X: 0
+        MoveDirection_Y: 0
+        MoveDirection_Z: 1
+        UseGravity: 1
         AudioClip_Attack: {fileID: 0}
         Particle_Attack: {fileID: 0}
         ParticleDistanceFormPlayer: {fileID: 0}
