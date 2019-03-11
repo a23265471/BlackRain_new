@@ -5,3 +5,4 @@
 .ide-suo filter=lfs diff=lfs merge=lfs -text
 .controller filter=lfs diff=lfs merge=lfs -text
 *.ide filter=lfs diff=lfs merge=lfs -text
+*.fbx filter=lfs diff=lfs merge=lfs -text

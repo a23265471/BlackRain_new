@@ -89,10 +89,10 @@ public class PlayerBehaviour : Character
 
     #region 物理碰撞   
     private Rigidbody playerRigidbody;
-    public CapsuleCollider[] curPhysicsCollider;
-    private CapsuleCollider idlePhysicsCollider;
-    private CapsuleCollider smallPhysicsCollider;
-    private CapsuleCollider mediumPhysicsCollider;
+    public CapsuleCollider GroudedCollider;
+    public GameObject IdlePhysicsCollider;
+    public GameObject SmallPhysicsCollider;
+    public GameObject MediumPhysicsCollider;
 
     public float groundedDis;
     public bool isGround;
@@ -114,7 +114,7 @@ public class PlayerBehaviour : Character
         playerBehaviour = this;
         playerAnimator = GetComponent<Animator>();
         playerAudioSource = GetComponent<AudioSource>();
-        curPhysicsCollider = GetComponents<CapsuleCollider>();
+        GroudedCollider = GetComponent<CapsuleCollider>();
         animationHash = GetComponent<AnimationHash>();
         playerRigidbody = GetComponent<Rigidbody>();
 
@@ -160,9 +160,9 @@ public class PlayerBehaviour : Character
 
     private void FixedUpdate()
     {
-        isGround = Physics.Raycast(curPhysicsCollider[0].bounds.center, -Vector3.up, curPhysicsCollider[0].bounds.extents.y + groundedDis,floorMask);
+        isGround = Physics.Raycast(GroudedCollider.bounds.center, -Vector3.up, GroudedCollider.bounds.extents.y + groundedDis,floorMask);
         //  Debug.DrawLine(curPhysicsCollider[0].bounds.center, -transform.up * (curPhysicsCollider[0].bounds.extents.y + groundedDis), Color.green);
-        isNotGraoundStep = Physics.Raycast(curPhysicsCollider[0].bounds.center, -Vector3.up, curPhysicsCollider[0].bounds.extents.y + groundedDis);
+        isNotGraoundStep = Physics.Raycast(GroudedCollider.bounds.center, -Vector3.up, GroudedCollider.bounds.extents.y + groundedDis);
 
         if (playerState == PlayerState.Jump)
         {
@@ -445,19 +445,23 @@ public class PlayerBehaviour : Character
         {
             case (int)PlayerState.Move:               
                 playerState = PlayerState.Move;
+                SwitchCollider(0);
                // CanTriggerNextAttack = true;
                 break;
 
             case (int)PlayerState.Jump:
+                SwitchCollider(1);
                 playerState = PlayerState.Jump;           
                 break;
 
             case (int)PlayerState.DoubleJump:
+                SwitchCollider(2);
                 playerState = PlayerState.DoubleJump;                  
                 break;
 
             case (int)PlayerState.Avoid:
                 playerState = PlayerState.Avoid;
+                SwitchCollider(2);
                 Debug.Log(avoidSpeed);
                 Displacement(playerRigidbody, transform.rotation, avoidSpeed, playerParameter.avoidParameter.AvoidDistance, avoidDirection_X, 0, avoidDirection_Z,true);
 
@@ -468,7 +472,8 @@ public class PlayerBehaviour : Character
                 {
                     playerState = PlayerState.Falling;
                     playerAnimator.ResetTrigger("Falling");
-                    StartLandingCheck();                         
+                    StartLandingCheck();
+                    SwitchCollider(1);
                 }
                 break;
 
@@ -505,6 +510,31 @@ public class PlayerBehaviour : Character
                 ForceMove = true;
                 break;
         }
+    }
+
+    public void SwitchCollider(int colliderSize)
+    {
+        switch (colliderSize)
+        {
+            case 0:
+                IdlePhysicsCollider.SetActive(true);
+                MediumPhysicsCollider.SetActive(false);
+                SmallPhysicsCollider.SetActive(false);
+                break;
+
+            case 1:
+                IdlePhysicsCollider.SetActive(false);
+                MediumPhysicsCollider.SetActive(true);
+                SmallPhysicsCollider.SetActive(false);
+                break;
+
+            case 2:
+                IdlePhysicsCollider.SetActive(false);
+                MediumPhysicsCollider.SetActive(false);
+                SmallPhysicsCollider.SetActive(true);
+                break;
+        }
+
     }
 
     #region 跳躍動畫
