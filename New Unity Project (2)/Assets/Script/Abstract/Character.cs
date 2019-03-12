@@ -57,7 +57,6 @@ public abstract class Character : MonoBehaviour
             StopCoroutine(moveControl);
             rigidbody.velocity = new Vector3(0, 0, 0);
         }
-
         moveControl = MoveControl(rigidbody, rotation, Time.time, speed, maxDistance, moveDirection_X, moveDirection_Y, moveDirection_Z);
         
         StartCoroutine(moveControl);
@@ -76,7 +75,7 @@ public abstract class Character : MonoBehaviour
         if (Time.time-startTime >= moveTime)
         {
             // moveDis = 0;
-             Debug.Log("GG");
+        //     Debug.Log("GG");
 
             rigidbody.velocity = new Vector3(0, 0, 0);
             

@@ -33,7 +33,7 @@ public class PlayerBehaviour : Character
         CanDashAttack = CanDash,
         CanSkyAttack = Jump | Falling | DoubleJump,
         CanAvoid = Move | Attack | Skill,
-        CanAttack = Attack | Move,
+        CanAttack = Attack | Move | Avoid,
         CanSkill = Attack | Move,
         DoNotGroudedMove = Attack | Skill | SkyAttack | Avoid,
         CanDamage = 0xff,
@@ -304,7 +304,7 @@ public class PlayerBehaviour : Character
                     curMoveSpeed = playerParameter.moveParameter.RunSpeed;
                 }
 
-                Debug.Log("jjj");
+                //Debug.Log("jjj");
                 MoveX = moveAnimation_Horizontal * curMoveSpeed;
                 MoveZ = moveAnimation_Vertical * curMoveSpeed ;
                
@@ -462,7 +462,8 @@ public class PlayerBehaviour : Character
             case (int)PlayerState.Avoid:
                 playerState = PlayerState.Avoid;
                 SwitchCollider(2);
-                Debug.Log(avoidSpeed);
+                Debug.Log("Avoid hhh");
+
                 Displacement(playerRigidbody, transform.rotation, avoidSpeed, playerParameter.avoidParameter.AvoidDistance, avoidDirection_X, 0, avoidDirection_Z,true);
 
                 break;
@@ -678,14 +679,20 @@ public class PlayerBehaviour : Character
 
     public void AttackDisplacement(int AttackId)
     {
-        Displacement(playerRigidbody,
-            transform.rotation,             
-            playerParameter.normalAttack[AttackId].MoveSpeed,
-            playerParameter.normalAttack[AttackId].MoveDistance,
-            playerParameter.normalAttack[AttackId].MoveDirection_X, 
-            playerParameter.normalAttack[AttackId].MoveDirection_Y, 
-            playerParameter.normalAttack[AttackId].MoveDirection_Z, 
-            playerParameter.normalAttack[AttackId].UseGravity);
+        Debug.Log("Attack hhh");
+        if (playerState == PlayerState.Attack) 
+        {
+            Displacement(playerRigidbody,
+               transform.rotation,
+               playerParameter.normalAttack[AttackId].MoveSpeed,
+               playerParameter.normalAttack[AttackId].MoveDistance,
+               playerParameter.normalAttack[AttackId].MoveDirection_X,
+               playerParameter.normalAttack[AttackId].MoveDirection_Y,
+               playerParameter.normalAttack[AttackId].MoveDirection_Z,
+               playerParameter.normalAttack[AttackId].UseGravity);
+
+        }
+        
 
 
     }
