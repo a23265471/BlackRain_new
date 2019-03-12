@@ -13,14 +13,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Action:
   - Idle_Run
-  - AvoidForward
-  - AvoidBack
   - Jump
-  - Falling
+  - JumpLeft
+  - JumpRight
+  - JumpForwardLeft
+  - JumpForwardRight
   - DoubleJump
-  - ShortAttack2
+  - DoubleJumpLeft
+  - DoubleJumpRight
+  - DoubleJumpForwardLeft
+  - DoubleJumpForwardRight
+  - Falling
+  - AvoidForward
+  - AvoidForwardLeft
+  - AvoidForwardRight
+  - AvoidLeft
+  - AvoidRight
+  - AvoidBack
+  - AvoidBackLeft
+  - AvoidBackRight
   - ShortAttack1
+  - ShortAttack2
   - ShortAttack3
+  - 
+  - 
+  - 
+  - 
   - 
   - 
   - 

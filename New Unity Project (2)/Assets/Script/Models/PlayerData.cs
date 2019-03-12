@@ -24,9 +24,10 @@ public class PlayerData
         public float JumpMoveSpeedPerIntervalTime;
         /*  public float JumpHigh;
           public float JumpSpeed;*/
-        public float DoubleJumpHigh;
-            
+        public float DoubleJumpHigh;            
         public float Gravity;
+
+        public GameObject DoubleJumpParticle;
     }
 
     [System.Serializable]
@@ -60,7 +61,7 @@ public class PlayerData
 
         public AudioClip AudioClip_Attack;
         public GameObject Particle_Attack;
-        public Transform ParticleDistanceFormPlayer;
+      
     }
     [System.Serializable]
     public class PlayerParameter

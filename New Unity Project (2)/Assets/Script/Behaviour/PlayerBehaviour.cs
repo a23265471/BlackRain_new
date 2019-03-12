@@ -57,6 +57,8 @@ public class PlayerBehaviour : Character
     private PlayerData playerData;
     private AnimationHash animationHash;
 
+   
+
     IEnumerator detectAnimationStateNotAttack;
 
     #region 圖層
@@ -84,7 +86,9 @@ public class PlayerBehaviour : Character
     private int avoidDirection_X;
     private int avoidDirection_Z;
     private float avoidSpeed;
-  
+
+    private ParticleSystem jumpParticleSytem;
+    public Transform jumpParticleTransform;
     #endregion
 
     #region 物理碰撞   
@@ -104,9 +108,29 @@ public class PlayerBehaviour : Character
 
     #region 攻擊
 
+    [System.Serializable]
+    public struct NormalAttackParticleTransform
+    {
+        public Transform[] NormalAttack;
+    }
+    [System.Serializable]
+    public struct SkillParticleTransform
+    {
+        public Transform[] Skill;
+    }
+
+    [System.Serializable]
+    public struct AttackParticleTransform
+    {
+        public NormalAttackParticleTransform normalAttackParticleTransform;
+        public SkillParticleTransform skillParticleTransform;
+    }
+
+   
     public bool CanTriggerNextAttack;
     private bool isTriggerAttack;
-
+    public AttackParticleTransform attackParticleTransform;
+    public ParticleSystem[] NormalAttackParticleSystem;
     #endregion
 
     private void Awake()
@@ -133,6 +157,7 @@ public class PlayerBehaviour : Character
         ForceMove = false;
         isTriggerAttack = false;
         CreateWeapon();
+        CreateParticle();
     }
 
     void Start()
@@ -197,13 +222,7 @@ public class PlayerBehaviour : Character
         }
 
     }
-
-    private void CreateWeapon()
-    {
-        GameObject weapon = Instantiate(playerData.Weapon, WeaponPos.position, WeaponPos.rotation, GetWeaponHand);
-
-    }
-
+   
     public void Gravity()
     {
         if (!isGravity)
@@ -259,6 +278,32 @@ public class PlayerBehaviour : Character
         }
 
     }
+
+    #region 初始化
+    private void CreateWeapon()
+    {
+        GameObject weapon = Instantiate(playerData.Weapon, WeaponPos.position, WeaponPos.rotation, GetWeaponHand);
+
+    }
+
+    private void CreateParticle()//-----
+    {
+        NormalAttackParticleSystem = new ParticleSystem[attackParticleTransform.normalAttackParticleTransform.NormalAttack.Length];
+
+        for(int i=0;i< attackParticleTransform.normalAttackParticleTransform.NormalAttack.Length; i++)
+        {
+            GameObject normalAttackParticle = Instantiate(playerParameter.normalAttack[i].Particle_Attack, attackParticleTransform.normalAttackParticleTransform.NormalAttack[i].position, attackParticleTransform.normalAttackParticleTransform.NormalAttack[i].rotation, transform);
+
+            NormalAttackParticleSystem[i] = normalAttackParticle.GetComponent<ParticleSystem>();
+        }
+
+        GameObject jumpParticle = Instantiate(playerParameter.jumpParameter.DoubleJumpParticle, jumpParticleTransform.position, jumpParticleTransform.rotation, transform);
+        jumpParticleSytem = jumpParticle.GetComponent<ParticleSystem>();
+
+    }
+
+    #endregion
+
     #region 移動
     private void Rotaion()
     {       
@@ -489,9 +534,14 @@ public class PlayerBehaviour : Character
         }
     }
 
-    public void EffectPlay(int Id)
+    public void EffectPlay(int Id)//------
     {
-        ParticlePlay(playerParameter.normalAttack[Id].Particle_Attack.GetComponent<ParticleSystem>());
+        ParticlePlay(NormalAttackParticleSystem[Id]);
+    }
+
+    public void JumpParticle()
+    {
+        ParticlePlay(jumpParticleSytem);
     }
 
     public void AudioPlay(int Id)
@@ -537,6 +587,17 @@ public class PlayerBehaviour : Character
         }
 
     }
+
+    public void ChangeToIdle(int curState)
+    {
+        if ((int)playerState == curState)
+        {
+            ChangePlayerState(1);
+        }
+
+    }
+
+
 
     #region 跳躍動畫
     public void AddForce(int JumpState)
