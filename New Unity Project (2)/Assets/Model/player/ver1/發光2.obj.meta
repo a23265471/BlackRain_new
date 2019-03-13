@@ -1,16 +1,16 @@
 fileFormatVersion: 2
-guid: 26cb34d1635336447b78ae26d777ab25
+guid: a14bea4e2ceee11429f7a73172ae8288
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
-    100000: Mesh_Slash
+    100000: ???
     100002: //RootNode
-    400000: Mesh_Slash
+    400000: ???
     400002: //RootNode
-    2100000: Mesh_SlashMat
-    2300000: Mesh_Slash
-    3300000: Mesh_Slash
-    4300000: Mesh_Slash
+    2100000: ___Mat
+    2300000: ???
+    3300000: ???
+    4300000: ???
   externalObjects: {}
   materials:
     importMaterials: 1
