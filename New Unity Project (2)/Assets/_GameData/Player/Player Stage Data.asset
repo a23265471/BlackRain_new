@@ -116,7 +116,7 @@ MonoBehaviour:
         MoveDirection_Z: 1
         UseGravity: 1
         AudioClip_Attack: {fileID: 0}
-        Particle_Attack: {fileID: 1185169211852186, guid: b0f5aedc60de6624ab81e0f0e2fe53b6,
+        Particle_Attack: {fileID: 1185169211852186, guid: bbd5086af88fbdd4288dbf99116376e9,
           type: 2}
       - Combo: 0
         AttackValue: 0
@@ -127,7 +127,7 @@ MonoBehaviour:
         MoveDirection_Z: 1
         UseGravity: 1
         AudioClip_Attack: {fileID: 0}
-        Particle_Attack: {fileID: 1530112499070714, guid: bbd5086af88fbdd4288dbf99116376e9,
+        Particle_Attack: {fileID: 1530112499070714, guid: b0f5aedc60de6624ab81e0f0e2fe53b6,
           type: 2}
       - Combo: 0
         AttackValue: 0
