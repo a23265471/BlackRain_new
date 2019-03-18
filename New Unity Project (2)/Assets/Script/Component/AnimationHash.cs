@@ -9,6 +9,7 @@ public class AnimationHash : MonoBehaviour
     private GameStageController gameStagecontroller;
 
     public Dictionary<int, string> playerAniamtionDictionary;
+    
 
     private void Awake()
     {
@@ -20,7 +21,7 @@ public class AnimationHash : MonoBehaviour
         {
           //  Debug.Log(Animator.StringToHash(actionState.Action[i]));
             
-        } 
+        }
         
     }
 
@@ -32,6 +33,7 @@ public class AnimationHash : MonoBehaviour
     private void Initialize()
     {
         playerAniamtionDictionary = new Dictionary<int, string>();
+       
 
 
         for(int i = 0; i < actionState.Action.Length; i++)

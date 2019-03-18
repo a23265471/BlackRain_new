@@ -142,6 +142,47 @@ MonoBehaviour:
           type: 2}
       specialAttack: []
       changeAttack: []
+      particlesCollection:
+      - Id: ShortAttack_1
+        Particle: {fileID: 0}
+      - Id: ShortAttack_2
+        Particle: {fileID: 0}
+      - Id: ShortAttack_3
+        Particle: {fileID: 0}
+      - Id: 
+        Particle: {fileID: 0}
+      - Id: 
+        Particle: {fileID: 0}
+      - Id: 
+        Particle: {fileID: 0}
+      - Id: 
+        Particle: {fileID: 0}
+      - Id: 
+        Particle: {fileID: 0}
+      - Id: 
+        Particle: {fileID: 0}
+      - Id: 
+        Particle: {fileID: 0}
+      - Id: 
+        Particle: {fileID: 0}
+      - Id: 
+        Particle: {fileID: 0}
+      - Id: 
+        Particle: {fileID: 0}
+      - Id: 
+        Particle: {fileID: 0}
+      - Id: 
+        Particle: {fileID: 0}
+      - Id: 
+        Particle: {fileID: 0}
+      - Id: 
+        Particle: {fileID: 0}
+      - Id: 
+        Particle: {fileID: 0}
+      - Id: 
+        Particle: {fileID: 0}
+      - Id: 
+        Particle: {fileID: 0}
     Player: {fileID: 1973415817257212, guid: 2165c8a69503db9488c6eb6775697dfa, type: 2}
     MainCamera: {fileID: 1521474619529176, guid: 0c79981aa8edc184888b524e12cadd29,
       type: 2}

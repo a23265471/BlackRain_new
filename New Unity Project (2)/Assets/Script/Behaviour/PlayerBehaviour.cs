@@ -57,6 +57,8 @@ public class PlayerBehaviour : Character
     private PlayerData playerData;
     private AnimationHash animationHash;
 
+    private Dictionary<string, ParticleSystem> ParticleCollection;
+
    
 
     IEnumerator detectAnimationStateNotAttack;
@@ -87,8 +89,8 @@ public class PlayerBehaviour : Character
     private int avoidDirection_Z;
     private float avoidSpeed;
 
-    private ParticleSystem jumpParticleSytem;
-    public Transform jumpParticleTransform;
+    //private ParticleSystem jumpParticleSytem;
+   // public Transform jumpParticleTransform;
     #endregion
 
     #region 物理碰撞   
@@ -130,7 +132,7 @@ public class PlayerBehaviour : Character
     public bool CanTriggerNextAttack;
     private bool isTriggerAttack;
     public AttackParticleTransform attackParticleTransform;
-    public ParticleSystem[] NormalAttackParticleSystem;
+   // public ParticleSystem[] NormalAttackParticleSystem;
     #endregion
 
     private void Awake()
@@ -157,7 +159,7 @@ public class PlayerBehaviour : Character
         ForceMove = false;
         isTriggerAttack = false;
         CreateWeapon();
-        CreateParticle();
+      //  CreateParticle();
     }
 
     void Start()
@@ -188,14 +190,6 @@ public class PlayerBehaviour : Character
         isGround = Physics.Raycast(GroudedCollider.bounds.center, -Vector3.up, GroudedCollider.bounds.extents.y + groundedDis,floorMask);
         //  Debug.DrawLine(curPhysicsCollider[0].bounds.center, -transform.up * (curPhysicsCollider[0].bounds.extents.y + groundedDis), Color.green);
         isNotGraoundStep = Physics.Raycast(GroudedCollider.bounds.center, -Vector3.up, GroudedCollider.bounds.extents.y + groundedDis);
-
-        if (playerState == PlayerState.Jump)
-        {
-           // Debug.Log(Time.time);
-        }
-
-       
-        
 
         // Debug.Log(useGravity);
         if (useGravity)
@@ -286,7 +280,7 @@ public class PlayerBehaviour : Character
 
     }
 
-    private void CreateParticle()//-----
+ /*   private void CreateParticle()//-----
     {
         NormalAttackParticleSystem = new ParticleSystem[attackParticleTransform.normalAttackParticleTransform.NormalAttack.Length];
 
@@ -297,8 +291,23 @@ public class PlayerBehaviour : Character
             NormalAttackParticleSystem[i] = normalAttackParticle.GetComponent<ParticleSystem>();
         }
 
-        GameObject jumpParticle = Instantiate(playerParameter.jumpParameter.DoubleJumpParticle, jumpParticleTransform.position, jumpParticleTransform.rotation, transform);
-        jumpParticleSytem = jumpParticle.GetComponent<ParticleSystem>();
+      //  GameObject jumpParticle = Instantiate(playerParameter.jumpParameter.DoubleJumpParticle, jumpParticleTransform.position, jumpParticleTransform.rotation, transform);
+       // jumpParticleSytem = jumpParticle.GetComponent<ParticleSystem>();
+
+    }*/
+
+    private void CreateParticleCollection()
+    {
+        ParticleCollection = new Dictionary<string, ParticleSystem>();
+
+        for (int i = 0; i < playerParameter.particlesCollection.Length; i++) 
+        {
+            ParticleCollection.Add(playerParameter.particlesCollection[i].Id, playerParameter.particlesCollection[i].Particle.GetComponent<ParticleSystem>());
+        }
+
+
+
+      //  ParticleCollection
 
     }
 
@@ -534,15 +543,15 @@ public class PlayerBehaviour : Character
         }
     }
 
-    public void EffectPlay(int Id)//------
+    public void EffectPlay(string Id)//------
     {
-        ParticlePlay(NormalAttackParticleSystem[Id]);
+        ParticlePlay(ParticleCollection[Id]);
     }
 
-    public void JumpParticle()
+   /* public void JumpParticle()
     {
         ParticlePlay(jumpParticleSytem);
-    }
+    }*/
 
     public void AudioPlay(int Id)
     {

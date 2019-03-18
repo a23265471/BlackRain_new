@@ -64,6 +64,14 @@ public class PlayerData
       
     }
     [System.Serializable]
+    public struct ParticlesCollection
+    {
+        public string Id;
+        public GameObject Particle;
+    }
+
+
+    [System.Serializable]
     public class PlayerParameter
     {
         public MoveParameter moveParameter;
@@ -74,6 +82,7 @@ public class PlayerData
         public AttackParameter[] normalAttack;
         public AttackParameter[] specialAttack;
         public AttackParameter[] changeAttack;
+        public ParticlesCollection[] particlesCollection;
 
     }
 
@@ -83,5 +92,6 @@ public class PlayerData
     public GameObject Weapon;
     public Transform WeaponPos;
     public Transform GetWeaponHand;
+
     
 }
