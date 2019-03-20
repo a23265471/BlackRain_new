@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5362051aaf3ca204fafcede5d89135b4, type: 3}
+  m_Name: PlayerParticleList
+  m_EditorClassIdentifier: 
+  particlesCollection:
+  - Id: ShortAttck_1
+    Particle: {fileID: 1185169211852186, guid: bbd5086af88fbdd4288dbf99116376e9, type: 2}
+  - Id: ShortAttck_2
+    Particle: {fileID: 1530112499070714, guid: b0f5aedc60de6624ab81e0f0e2fe53b6, type: 2}

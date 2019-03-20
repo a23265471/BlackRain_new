@@ -27,7 +27,7 @@ public class PlayerData
         public float DoubleJumpHigh;            
         public float Gravity;
 
-        public GameObject DoubleJumpParticle;
+       // public GameObject DoubleJumpParticle;
     }
 
     [System.Serializable]
@@ -60,7 +60,7 @@ public class PlayerData
         public bool UseGravity;
 
         public AudioClip AudioClip_Attack;
-        public GameObject Particle_Attack;
+       // public GameObject Particle_Attack;
       
     }
     [System.Serializable]

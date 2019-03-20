@@ -56,10 +56,8 @@ public class PlayerBehaviour : Character
     private PlayerData.PlayerParameter playerParameter;
     private PlayerData playerData;
     private AnimationHash animationHash;
+    private ParticleManager particleManager;
 
-    private Dictionary<string, ParticleSystem> ParticleCollection;
-
-   
 
     IEnumerator detectAnimationStateNotAttack;
 
@@ -110,7 +108,7 @@ public class PlayerBehaviour : Character
 
     #region 攻擊
 
-    [System.Serializable]
+    /*[System.Serializable]
     public struct NormalAttackParticleTransform
     {
         public Transform[] NormalAttack;
@@ -126,12 +124,12 @@ public class PlayerBehaviour : Character
     {
         public NormalAttackParticleTransform normalAttackParticleTransform;
         public SkillParticleTransform skillParticleTransform;
-    }
+    }*/
 
    
     public bool CanTriggerNextAttack;
     private bool isTriggerAttack;
-    public AttackParticleTransform attackParticleTransform;
+  //  public AttackParticleTransform attackParticleTransform;
    // public ParticleSystem[] NormalAttackParticleSystem;
     #endregion
 
@@ -143,6 +141,7 @@ public class PlayerBehaviour : Character
         GroudedCollider = GetComponent<CapsuleCollider>();
         animationHash = GetComponent<AnimationHash>();
         playerRigidbody = GetComponent<Rigidbody>();
+        particleManager = GetComponent<ParticleManager>();
 
         gameStageData = GameFacade.GetInstance().gameStageData;
         playerController = GameFacade.GetInstance().playerController;
@@ -296,20 +295,7 @@ public class PlayerBehaviour : Character
 
     }*/
 
-    private void CreateParticleCollection()
-    {
-        ParticleCollection = new Dictionary<string, ParticleSystem>();
-
-        for (int i = 0; i < playerParameter.particlesCollection.Length; i++) 
-        {
-            ParticleCollection.Add(playerParameter.particlesCollection[i].Id, playerParameter.particlesCollection[i].Particle.GetComponent<ParticleSystem>());
-        }
-
-
-
-      //  ParticleCollection
-
-    }
+    
 
     #endregion
 
@@ -545,7 +531,7 @@ public class PlayerBehaviour : Character
 
     public void EffectPlay(string Id)//------
     {
-        ParticlePlay(ParticleCollection[Id]);
+        ParticlePlay(particleManager.GetParticle(Id));
     }
 
    /* public void JumpParticle()
@@ -555,7 +541,7 @@ public class PlayerBehaviour : Character
 
     public void AudioPlay(int Id)
     {
-        AudioPlay(playerParameter.normalAttack[Id].Particle_Attack.GetComponent<AudioSource>(), playerParameter.normalAttack[Id].AudioClip_Attack);
+      //  AudioPlay(playerParameter.normalAttack[Id].Particle_Attack.GetComponent<AudioSource>(), playerParameter.normalAttack[Id].AudioClip_Attack);
 
     }
 

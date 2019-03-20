@@ -1149,6 +1149,7 @@ GameObject:
   - component: {fileID: 136272365968025632}
   - component: {fileID: 114161194625199638}
   - component: {fileID: 114976038100174930}
+  - component: {fileID: 114052332421362154}
   m_Layer: 0
   m_Name: New_Noir0311
   m_TagString: Player
@@ -2554,6 +2555,23 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114052332421362154
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1973415817257212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d22c9cef4239a004c96377285d810cd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ParticleData: {fileID: 11400000, guid: 595ea285b06ef6940af01b1e725fc139, type: 2}
+  particleTransform:
+  - Id: ShortAttck_1
+    ParticlePos: {fileID: 4349417686659496}
+  - Id: ShortAttck_2
+    ParticlePos: {fileID: 4297411957946858}
 --- !u!114 &114161194625199638
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2573,7 +2591,6 @@ MonoBehaviour:
   WeaponPos: {fileID: 4451951703345866}
   MoveAnimationSmoothSpeed: 0.2
   JumpMoveAnimationSmoothSpeed: 0.1
-  jumpParticleTransform: {fileID: 4639790036699936}
   GroudedCollider: {fileID: 0}
   IdlePhysicsCollider: {fileID: 1346188311990356}
   SmallPhysicsCollider: {fileID: 1920100227352296}
@@ -2582,15 +2599,6 @@ MonoBehaviour:
   isGround: 1
   isNotGraoundStep: 0
   CanTriggerNextAttack: 0
-  attackParticleTransform:
-    normalAttackParticleTransform:
-      NormalAttack:
-      - {fileID: 4349417686659496}
-      - {fileID: 4297411957946858}
-      - {fileID: 4020510647089866}
-    skillParticleTransform:
-      Skill: []
-  NormalAttackParticleSystem: []
 --- !u!114 &114976038100174930
 MonoBehaviour:
   m_ObjectHideFlags: 1
