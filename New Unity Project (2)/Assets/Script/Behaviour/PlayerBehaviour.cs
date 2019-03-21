@@ -108,29 +108,9 @@ public class PlayerBehaviour : Character
 
     #region 攻擊
 
-    /*[System.Serializable]
-    public struct NormalAttackParticleTransform
-    {
-        public Transform[] NormalAttack;
-    }
-    [System.Serializable]
-    public struct SkillParticleTransform
-    {
-        public Transform[] Skill;
-    }
-
-    [System.Serializable]
-    public struct AttackParticleTransform
-    {
-        public NormalAttackParticleTransform normalAttackParticleTransform;
-        public SkillParticleTransform skillParticleTransform;
-    }*/
-
-   
     public bool CanTriggerNextAttack;
     private bool isTriggerAttack;
-  //  public AttackParticleTransform attackParticleTransform;
-   // public ParticleSystem[] NormalAttackParticleSystem;
+  
     #endregion
 
     private void Awake()
@@ -177,8 +157,9 @@ public class PlayerBehaviour : Character
         // Debug.Log(isGround);
         // Debug.Log(playerState);
         //  Debug.Log(playerRigidbody.velocity);
-       // Debug.Log(ForceMove);
-       if(animationHash.GetCurrentAnimationState("ShortAttack2"))
+        // Debug.Log(ForceMove);
+        //     if(animationHash.GetCurrentAnimationState("ShortAttack2"))
+        
         Debug.Log(CanTriggerNextAttack);
 
 
@@ -459,6 +440,7 @@ public class PlayerBehaviour : Character
         {
             if (CanTriggerNextAttack && ((playerState& PlayerState.CanAttack)!=0))
             {
+             ///   Debug.Log("gggg");
                 playerAnimator.SetTrigger("NormalAttack");
                 CanTriggerNextAttack = false;
                 isTriggerAttack = true;
@@ -654,7 +636,7 @@ public class PlayerBehaviour : Character
         else
         {
             StartCoroutine("LandingCheck");
-            Debug.Log("LC");
+           // Debug.Log("LC");
 
            // FallingMove();
             
@@ -673,11 +655,17 @@ public class PlayerBehaviour : Character
 
     public void CantTriggerAttack()
     {
-        CanTriggerNextAttack = false;
-        
+        StopCoroutine("cantTriggerAttack");
+        StartCoroutine("cantTriggerAttack");
+
     }
 
-    //IEnumerator 
+    IEnumerator cantTriggerAttack()
+    {
+        yield return new WaitForSeconds(1f);
+        CanTriggerNextAttack = false;
+        ResetCanTriggerNextAttack("NormalAttack");
+    }
 
     public void AttackMoveSwitch()
     {
@@ -702,7 +690,8 @@ public class PlayerBehaviour : Character
         yield return new WaitForSeconds(0.01f);
         if (animationHash.GetCurrentAnimationTag(animationTag))
         {
-          //  Debug.Log("hhhh");
+            
+
             detectAnimationStateNotAttack = DetectAnimationStateNotAttack(animationTag);
 
             StartCoroutine(detectAnimationStateNotAttack);
@@ -735,7 +724,7 @@ public class PlayerBehaviour : Character
 
     public void AttackDisplacement(int AttackId)
     {
-        Debug.Log("Attack hhh");
+      //  Debug.Log("Attack hhh");
         if (playerState == PlayerState.Attack) 
         {
             Displacement(playerRigidbody,

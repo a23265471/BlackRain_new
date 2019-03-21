@@ -96,8 +96,6 @@ MonoBehaviour:
         JumpMoveSpeedPerIntervalTime: 0
         DoubleJumpHigh: 5000
         Gravity: 17
-        DoubleJumpParticle: {fileID: 1300409414448602, guid: 5692de61a76526b4a9ba75b23275c25d,
-          type: 2}
       avoidParameter:
         AvoidSpeed: 8
         AvoidDistance: 6
@@ -116,8 +114,6 @@ MonoBehaviour:
         MoveDirection_Z: 1
         UseGravity: 1
         AudioClip_Attack: {fileID: 0}
-        Particle_Attack: {fileID: 1185169211852186, guid: b0f5aedc60de6624ab81e0f0e2fe53b6,
-          type: 2}
       - Combo: 0
         AttackValue: 0
         MoveSpeed: 4
@@ -127,19 +123,15 @@ MonoBehaviour:
         MoveDirection_Z: 1
         UseGravity: 1
         AudioClip_Attack: {fileID: 0}
-        Particle_Attack: {fileID: 1530112499070714, guid: bbd5086af88fbdd4288dbf99116376e9,
-          type: 2}
       - Combo: 0
         AttackValue: 0
         MoveSpeed: 10
-        MoveDistance: 3
+        MoveDistance: 4
         MoveDirection_X: 0
         MoveDirection_Y: 0
         MoveDirection_Z: 1
         UseGravity: 1
         AudioClip_Attack: {fileID: 0}
-        Particle_Attack: {fileID: 1509779169406792, guid: 3eb6fbffa3fc1f242b67ddddcef9f1f0,
-          type: 2}
       specialAttack: []
       changeAttack: []
       particlesCollection:

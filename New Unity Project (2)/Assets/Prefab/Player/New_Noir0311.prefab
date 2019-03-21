@@ -2572,6 +2572,8 @@ MonoBehaviour:
     ParticlePos: {fileID: 4349417686659496}
   - Id: ShortAttck_2
     ParticlePos: {fileID: 4297411957946858}
+  - Id: ShortAttck_3
+    ParticlePos: {fileID: 4020510647089866}
 --- !u!114 &114161194625199638
 MonoBehaviour:
   m_ObjectHideFlags: 1

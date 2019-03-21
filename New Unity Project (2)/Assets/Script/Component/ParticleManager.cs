@@ -44,7 +44,7 @@ public class ParticleManager : MonoBehaviour
                         }
                         else
                         {
-                            Debug.Log("dd");
+                          //  Debug.Log("dd");
                             if(ParticleData.particlesCollection[j].Particle!=null&& particleTransform[i].ParticlePos != null)
                             {
                                 GameObject particle = Instantiate(ParticleData.particlesCollection[j].Particle, particleTransform[i].ParticlePos.position, particleTransform[i].ParticlePos.transform.rotation, transform);
