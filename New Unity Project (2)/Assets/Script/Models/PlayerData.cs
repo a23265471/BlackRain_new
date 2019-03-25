@@ -49,7 +49,8 @@ public class PlayerData
     }
     [System.Serializable]
     public struct AttackParameter
-    {       
+    {
+        public int AttackOder;
         public int Combo;
         public float AttackValue;
         public float MoveSpeed;
@@ -63,12 +64,7 @@ public class PlayerData
        // public GameObject Particle_Attack;
       
     }
-    [System.Serializable]
-    public struct ParticlesCollection
-    {
-        public string Id;
-        public GameObject Particle;
-    }
+   
 
 
     [System.Serializable]
@@ -82,7 +78,7 @@ public class PlayerData
         public AttackParameter[] normalAttack;
         public AttackParameter[] specialAttack;
         public AttackParameter[] changeAttack;
-        public ParticlesCollection[] particlesCollection;
+       
 
     }
 

@@ -216,6 +216,12 @@ public class PlayerBehaviour : Character
         isGravity = false;
     }
 
+    public void StartUseGravity()
+    {
+        useGravity = true;
+
+    }
+
     private void AnimationRotation(int moveDirection_Vertical, int moveDirection_Horizontal)
     {
         if (moveDirection_Vertical == 1)
@@ -440,7 +446,7 @@ public class PlayerBehaviour : Character
         {
             if (CanTriggerNextAttack && ((playerState& PlayerState.CanAttack)!=0))
             {
-             ///   Debug.Log("gggg");
+             // Debug.Log("gggg");
                 playerAnimator.SetTrigger("NormalAttack");
                 CanTriggerNextAttack = false;
                 isTriggerAttack = true;
@@ -450,19 +456,28 @@ public class PlayerBehaviour : Character
 
     }
 
-   
-    
     #endregion
+
+    #region 衝刺
+
+    public void Dash()
+    {
+        if ((playerState & PlayerState.CanDash) != 0)
+        {
+            Debug.Log("jjj");
+            playerAnimator.SetTrigger("Dash");
+        } 
+       
+
+    }
+
+    #endregion
+
 
 
     #region AnimationEvent
     public void ChangePlayerState(int ChangePlayerState)
-    {
-     /*   playerAnimator.SetFloat("Horizontal", 0);
-        playerAnimator.SetFloat("Vertical", 0);
-        
-        moveAnimation_Vertical = 0;
-        moveAnimation_Horizontal = 0;*/
+    {    
         switch (ChangePlayerState)
         {
             case (int)PlayerState.Move:               
@@ -503,11 +518,18 @@ public class PlayerBehaviour : Character
             case (int)PlayerState.Attack:
                 playerState = PlayerState.Attack;
                 StopDetectAnimationStateNotAttack();
-                playerRigidbody.velocity = new Vector3(0, 0, 0);
+                playerRigidbody.velocity = playerRigidbody.velocity*0.1f;
                 SwitchMove(0);
 
                 // CanTriggerNextAttack = false;
                 break;
+            case (int)PlayerState.Dash:
+                playerState = PlayerState.Dash;
+                StopRigiBodyMoveWithAniamtionCurve_Y();
+                StopUseGravity();
+                playerRigidbody.velocity = new Vector3(0, 0, 0);
+                break;
+
         }
     }
 
@@ -651,6 +673,7 @@ public class PlayerBehaviour : Character
     {
         CanTriggerNextAttack = true;
         isTriggerAttack = false;
+        
     }
 
     public void CantTriggerAttack()
@@ -662,7 +685,7 @@ public class PlayerBehaviour : Character
 
     IEnumerator cantTriggerAttack()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.2f);
         CanTriggerNextAttack = false;
         ResetCanTriggerNextAttack("NormalAttack");
     }
@@ -742,10 +765,6 @@ public class PlayerBehaviour : Character
 
     }
 
-    public void StartAttackDisplacement()
-    {
-
-    }
 
     #endregion
 

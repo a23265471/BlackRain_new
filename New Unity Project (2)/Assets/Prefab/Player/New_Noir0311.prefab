@@ -1145,11 +1145,12 @@ GameObject:
   - component: {fileID: 4460746209344996}
   - component: {fileID: 95207089039407238}
   - component: {fileID: 54702865173549662}
-  - component: {fileID: 82629826815989912}
   - component: {fileID: 136272365968025632}
+  - component: {fileID: 114474096384312178}
   - component: {fileID: 114161194625199638}
   - component: {fileID: 114976038100174930}
   - component: {fileID: 114052332421362154}
+  - component: {fileID: 82629826815989912}
   m_Layer: 0
   m_Name: New_Noir0311
   m_TagString: Player
@@ -2601,6 +2602,19 @@ MonoBehaviour:
   isGround: 1
   isNotGraoundStep: 0
   CanTriggerNextAttack: 0
+--- !u!114 &114474096384312178
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1973415817257212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b95ce293f0484d04e9bb97351450c84e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveDirection_Vertical: 0
+  moveDirection_Horizontal: 0
 --- !u!114 &114976038100174930
 MonoBehaviour:
   m_ObjectHideFlags: 1

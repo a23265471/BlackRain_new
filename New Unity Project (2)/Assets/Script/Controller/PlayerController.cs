@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
-    private GameStageController gameStageController;
+   // private GameStageController gameStageController;
     private PlayerBehaviour playerBehaviour;
     private GameStageData gameStageData;
     private InputSetting inputSetting;
@@ -20,17 +20,15 @@ public class PlayerController : MonoBehaviour {
     private void Awake()
     {
         gameStageData = GameFacade.GetInstance().gameStageData;
-        gameStageController = GameFacade.GetInstance().gameStageController;
+      //  gameStageController = GameFacade.GetInstance().gameStageController;
         inputSetting=GameFacade.GetInstance().inputSetting;
 
-        //  Debug.Log((KeyCode)System.Enum.Parse(typeof(KeyCode), "Whatever"));
-
+        playerBehaviour = GetComponent<PlayerBehaviour>();
     }
 
     void Start ()
     {
-        playerBehaviour = gameStageController.playerBehaviour;
-        //gameStageController.Weapon.transform.parent = playerBehaviour.GetWeaponHand;
+      //  playerBehaviour = gameStageController.playerBehaviour;
 
         keepKeyCode = "";
         cleanKeepKeyCode = null;
@@ -66,6 +64,7 @@ public class PlayerController : MonoBehaviour {
         Falling();
         Jump();
         NormalAttack();
+        Dash();
         Avoid();
       // Debug.Log(Input.inputString.GetHashCode());
     }
@@ -109,9 +108,18 @@ public class PlayerController : MonoBehaviour {
         {
             playerBehaviour.NormalAttack();
         }
+    }
+
+    public void Dash()
+    {
+        if (Input.GetKeyDown(inputSetting.inputKey.Dash))
+        {
+            playerBehaviour.Dash();
+        }
 
 
     }
+
 
     private void PlayerDirectionControl()
     {     

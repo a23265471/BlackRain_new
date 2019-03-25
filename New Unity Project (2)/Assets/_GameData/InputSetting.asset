@@ -18,6 +18,6 @@ MonoBehaviour:
     Left: 97
     Jump: 32
     Avoid: 304
-    Dash: 306
+    Dash: 113
     NormalAttack: 323
     Aim_Shoot: 324

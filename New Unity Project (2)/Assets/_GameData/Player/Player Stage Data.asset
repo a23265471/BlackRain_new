@@ -98,14 +98,15 @@ MonoBehaviour:
         Gravity: 17
       avoidParameter:
         AvoidSpeed: 8
-        AvoidDistance: 6
+        AvoidDistance: 3
       damageParameter:
         GetupTime: 0
         AudioClip_Damage: {fileID: 0}
       dieParameter:
         AudioClip_Damage: {fileID: 0}
       normalAttack:
-      - Combo: 0
+      - AttackOder: 1
+        Combo: 0
         AttackValue: 0
         MoveSpeed: 6
         MoveDistance: 1
@@ -114,7 +115,8 @@ MonoBehaviour:
         MoveDirection_Z: 1
         UseGravity: 1
         AudioClip_Attack: {fileID: 0}
-      - Combo: 0
+      - AttackOder: 2
+        Combo: 0
         AttackValue: 0
         MoveSpeed: 4
         MoveDistance: 0.7
@@ -123,7 +125,8 @@ MonoBehaviour:
         MoveDirection_Z: 1
         UseGravity: 1
         AudioClip_Attack: {fileID: 0}
-      - Combo: 0
+      - AttackOder: 3
+        Combo: 0
         AttackValue: 0
         MoveSpeed: 10
         MoveDistance: 4
@@ -134,47 +137,6 @@ MonoBehaviour:
         AudioClip_Attack: {fileID: 0}
       specialAttack: []
       changeAttack: []
-      particlesCollection:
-      - Id: ShortAttack_1
-        Particle: {fileID: 0}
-      - Id: ShortAttack_2
-        Particle: {fileID: 0}
-      - Id: ShortAttack_3
-        Particle: {fileID: 0}
-      - Id: 
-        Particle: {fileID: 0}
-      - Id: 
-        Particle: {fileID: 0}
-      - Id: 
-        Particle: {fileID: 0}
-      - Id: 
-        Particle: {fileID: 0}
-      - Id: 
-        Particle: {fileID: 0}
-      - Id: 
-        Particle: {fileID: 0}
-      - Id: 
-        Particle: {fileID: 0}
-      - Id: 
-        Particle: {fileID: 0}
-      - Id: 
-        Particle: {fileID: 0}
-      - Id: 
-        Particle: {fileID: 0}
-      - Id: 
-        Particle: {fileID: 0}
-      - Id: 
-        Particle: {fileID: 0}
-      - Id: 
-        Particle: {fileID: 0}
-      - Id: 
-        Particle: {fileID: 0}
-      - Id: 
-        Particle: {fileID: 0}
-      - Id: 
-        Particle: {fileID: 0}
-      - Id: 
-        Particle: {fileID: 0}
     Player: {fileID: 1973415817257212, guid: 2165c8a69503db9488c6eb6775697dfa, type: 2}
     MainCamera: {fileID: 1521474619529176, guid: 0c79981aa8edc184888b524e12cadd29,
       type: 2}
