@@ -31,6 +31,13 @@ public class PlayerData
     }
 
     [System.Serializable]
+    public struct DashParameter
+    {
+        public float DashSpeed;
+        public float DashDistance;
+    }
+
+    [System.Serializable]
     public struct AvoidParameter
     {
         public float AvoidSpeed;
@@ -73,6 +80,7 @@ public class PlayerData
         public MoveParameter moveParameter;
         public JumpParameter jumpParameter;
         public AvoidParameter avoidParameter;
+        public DashParameter dashParameter;
         public DamageParameter damageParameter;
         public DieParameter dieParameter;
         public AttackParameter[] normalAttack;

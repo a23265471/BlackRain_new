@@ -99,6 +99,9 @@ MonoBehaviour:
       avoidParameter:
         AvoidSpeed: 8
         AvoidDistance: 3
+      dashParameter:
+        DashSpeed: 40
+        DashDistance: 10
       damageParameter:
         GetupTime: 0
         AudioClip_Damage: {fileID: 0}

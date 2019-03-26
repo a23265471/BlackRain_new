@@ -114,7 +114,7 @@ public class PlayerController : MonoBehaviour {
     {
         if (Input.GetKeyDown(inputSetting.inputKey.Dash))
         {
-            playerBehaviour.Dash();
+            playerBehaviour.Dash(moveDirection_Vertical, moveDirection_Horizontal);
         }
 
 

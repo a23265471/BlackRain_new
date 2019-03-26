@@ -26,10 +26,10 @@ public class PlayerBehaviour : Character
         GetDown = 0xe0,
         Dead = 0xf0,
 
-        CanFalling = Move | Attack,
+        CanFalling = Move | Attack | Dash | SkyAttack,
         FallingMove = Falling | Jump | DoubleJump | SkyAttack,
         CanDoubleJump = Jump | Falling,
-        CanDash = Move | Attack | Jump,
+        CanDash = Move | Attack | Jump | DoubleJump | SkyAttack | Falling,
         CanDashAttack = CanDash,
         CanSkyAttack = Jump | Falling | DoubleJump,
         CanAvoid = Move | Attack | Skill,
@@ -83,8 +83,8 @@ public class PlayerBehaviour : Character
     private float FallindAniamtion_Horizontal;
     public float MoveAnimationSmoothSpeed;
     public float JumpMoveAnimationSmoothSpeed;
-    private int avoidDirection_X;
-    private int avoidDirection_Z;
+    private int Direction_X;
+    private int Direction_Z;
     private float avoidSpeed;
 
     //private ParticleSystem jumpParticleSytem;
@@ -151,18 +151,8 @@ public class PlayerBehaviour : Character
      
     void Update()
     {
-       
-       // physicsCollider.height = playerAnimator.GetFloat("ColliderHeight");
         Rotaion();
-        // Debug.Log(isGround);
-        // Debug.Log(playerState);
-        //  Debug.Log(playerRigidbody.velocity);
-        // Debug.Log(ForceMove);
-        //     if(animationHash.GetCurrentAnimationState("ShortAttack2"))
-        
-        Debug.Log(CanTriggerNextAttack);
-
-
+     
     }
 
     private void FixedUpdate()
@@ -266,24 +256,6 @@ public class PlayerBehaviour : Character
 
     }
 
- /*   private void CreateParticle()//-----
-    {
-        NormalAttackParticleSystem = new ParticleSystem[attackParticleTransform.normalAttackParticleTransform.NormalAttack.Length];
-
-        for(int i=0;i< attackParticleTransform.normalAttackParticleTransform.NormalAttack.Length; i++)
-        {
-            GameObject normalAttackParticle = Instantiate(playerParameter.normalAttack[i].Particle_Attack, attackParticleTransform.normalAttackParticleTransform.NormalAttack[i].position, attackParticleTransform.normalAttackParticleTransform.NormalAttack[i].rotation, transform);
-
-            NormalAttackParticleSystem[i] = normalAttackParticle.GetComponent<ParticleSystem>();
-        }
-
-      //  GameObject jumpParticle = Instantiate(playerParameter.jumpParameter.DoubleJumpParticle, jumpParticleTransform.position, jumpParticleTransform.rotation, transform);
-       // jumpParticleSytem = jumpParticle.GetComponent<ParticleSystem>();
-
-    }*/
-
-    
-
     #endregion
 
     #region 移動
@@ -305,33 +277,20 @@ public class PlayerBehaviour : Character
         
     }
 
-    public void GroundedMove(float moveDirection_Vertical, float moveDirection_Horizontal)
+    public void GroundedMove(int moveDirection_Vertical, int moveDirection_Horizontal)
     {
         float MoveX;
         float MoveZ;
         if (isGround)
-        {
-            /*  if ((playerState & PlayerState.Move) != 0)
-              {*/
-            //  Debug.Log(playerRigidbody.velocity);
+        {      
             AnimationBlendTreeControll(playerAnimator, "Vertical", moveDirection_Vertical, ref moveAnimation_Vertical, MoveAnimationSmoothSpeed);
             AnimationBlendTreeControll(playerAnimator, "Horizontal", moveDirection_Horizontal, ref moveAnimation_Horizontal, MoveAnimationSmoothSpeed);
             moveSpeed = playerParameter.moveParameter.RunSpeed;
 
-            //   }
-
             if (ForceMove || (playerState & PlayerState.DoNotGroudedMove) == 0) 
             {
-                if (moveDirection_Vertical == 0 || moveDirection_Horizontal == 0)
-                {
-                    curMoveSpeed = Mathf.Sqrt((Mathf.Pow(playerParameter.moveParameter.RunSpeed, 2) * 2));
-                }
-                else
-                {
-                    curMoveSpeed = playerParameter.moveParameter.RunSpeed;
-                }
-
-                //Debug.Log("jjj");
+               
+                curMoveSpeed = FixSpeed(moveDirection_Vertical, moveDirection_Horizontal, playerParameter.moveParameter.RunSpeed);
                 MoveX = moveAnimation_Horizontal * curMoveSpeed;
                 MoveZ = moveAnimation_Vertical * curMoveSpeed ;
                
@@ -374,17 +333,18 @@ public class PlayerBehaviour : Character
                 }
 
             }
-            // Debug.Log(FallindAniamtion_Vertical);       
             AnimationBlendTreeControll(playerAnimator, "Vertical", moveDirection_Vertical, ref moveAnimation_Vertical, MoveAnimationSmoothSpeed);
             AnimationBlendTreeControll(playerAnimator, "Horizontal", moveDirection_Horizontal, ref moveAnimation_Horizontal, MoveAnimationSmoothSpeed);
             AnimationBlendTreeControll(playerAnimator, "Jump_Rotation", direction_X, ref FallindAniamtion_Horizontal, JumpMoveAnimationSmoothSpeed);
+
+            float fallingMoveX = moveDirection_Horizontal * playerParameter.jumpParameter.JumpMoveSpeed;
+            float fallingMoveZ = direction_Y * playerParameter.jumpParameter.JumpMoveSpeed;
+
+            playerRigidbody.velocity = transform.rotation * new Vector3(fallingMoveX, playerRigidbody.velocity.y, fallingMoveZ);
+
         }
-       
-        float fallingMoveX = moveDirection_Horizontal * playerParameter.jumpParameter.JumpMoveSpeed;
-        float fallingMoveZ = direction_Y * playerParameter.jumpParameter.JumpMoveSpeed;
-     
-        playerRigidbody.velocity = transform.rotation * new Vector3(fallingMoveX, playerRigidbody.velocity.y, fallingMoveZ);
-   
+
+
     }
 
     public void Jump(int moveDirection_Vertical, int moveDirection_Horizontal)
@@ -404,6 +364,20 @@ public class PlayerBehaviour : Character
         }
 
     }
+
+    private float FixSpeed(int moveDirection_Vertical, int moveDirection_Horizontal, float value)
+    {
+
+        if (moveDirection_Vertical == 0 || moveDirection_Horizontal == 0)
+        {
+            return Mathf.Sqrt((Mathf.Pow(value, 2) * 2));
+        }
+        else
+        {
+            return value;
+        }
+ 
+    }
    
     #endregion
 
@@ -413,19 +387,15 @@ public class PlayerBehaviour : Character
        
         if ((playerBehaviour.playerState & PlayerState.CanAvoid) != 0)
         {
-            avoidDirection_X = moveDirection_Horizontal;
-            avoidDirection_Z = moveDirection_Vertical;
+            Direction_X = moveDirection_Horizontal;
+            Direction_Z = moveDirection_Vertical;
 
             AnimationRotation(moveDirection_Vertical, moveDirection_Horizontal);
 
-            if (moveDirection_Vertical == 0 || moveDirection_Horizontal == 0)
-            {
-                avoidSpeed = Mathf.Sqrt((Mathf.Pow(playerParameter.avoidParameter.AvoidSpeed, 2) * 2));
-            }
-            else
-            {
-                avoidSpeed = playerParameter.avoidParameter.AvoidSpeed;
-            }
+            
+            avoidSpeed = FixSpeed(moveDirection_Vertical, moveDirection_Horizontal, playerParameter.avoidParameter.AvoidSpeed);
+
+            Debug.Log(avoidSpeed);
 
             playerAnimator.SetTrigger("Avoid");
           
@@ -460,8 +430,22 @@ public class PlayerBehaviour : Character
 
     #region 衝刺
 
-    public void Dash()
+    public void Dash(int moveDirection_Vertical, int moveDirection_Horizontal)
     {
+
+        if (moveDirection_Horizontal == 0 && moveDirection_Vertical == 0) 
+        {
+            Direction_Z = 1;
+            Direction_X = 0;
+        }
+        else
+        {
+            Direction_X = moveDirection_Horizontal;
+            Direction_Z = moveDirection_Vertical;
+
+
+        }
+
         if ((playerState & PlayerState.CanDash) != 0)
         {
             Debug.Log("jjj");
@@ -473,14 +457,13 @@ public class PlayerBehaviour : Character
 
     #endregion
 
-
-
     #region AnimationEvent
     public void ChangePlayerState(int ChangePlayerState)
     {    
         switch (ChangePlayerState)
         {
-            case (int)PlayerState.Move:               
+            case (int)PlayerState.Move:        
+                
                 playerState = PlayerState.Move;
                 SwitchCollider(0);
                // CanTriggerNextAttack = true;
@@ -499,9 +482,8 @@ public class PlayerBehaviour : Character
             case (int)PlayerState.Avoid:
                 playerState = PlayerState.Avoid;
                 SwitchCollider(2);
-                Debug.Log("Avoid hhh");
 
-                Displacement(playerRigidbody, transform.rotation, avoidSpeed, playerParameter.avoidParameter.AvoidDistance, avoidDirection_X, 0, avoidDirection_Z,true);
+                Displacement(playerRigidbody, transform.rotation, avoidSpeed, playerParameter.avoidParameter.AvoidDistance, Direction_X, 0, Direction_Z);
 
                 break;
 
@@ -756,8 +738,8 @@ public class PlayerBehaviour : Character
                playerParameter.normalAttack[AttackId].MoveDistance,
                playerParameter.normalAttack[AttackId].MoveDirection_X,
                playerParameter.normalAttack[AttackId].MoveDirection_Y,
-               playerParameter.normalAttack[AttackId].MoveDirection_Z,
-               playerParameter.normalAttack[AttackId].UseGravity);
+               playerParameter.normalAttack[AttackId].MoveDirection_Z
+               );
 
         }
         
@@ -768,6 +750,27 @@ public class PlayerBehaviour : Character
 
     #endregion
 
+    #region 衝刺
+    public void EndDash()
+    {
+        StartUseGravity();
+
+        if (isGround)
+        {
+            ChangeToIdle(16);
+
+        }
+
+    }
+
+    public void DashMove()
+    {
+        Displacement(playerRigidbody, transform.rotation, playerParameter.dashParameter.DashSpeed, playerParameter.dashParameter.DashDistance, Direction_X, 0, Direction_Z);
+
+
+    }
+
+    #endregion
 
     #endregion
 }

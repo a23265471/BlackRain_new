@@ -45,10 +45,10 @@ public abstract class Character : MonoBehaviour
         animator.SetTrigger(parameterName);
     }
 
-    protected virtual void Displacement(Rigidbody rigidbody, Quaternion rotation, float speed,float maxDistance, int moveDirection_X,int moveDirection_Y, int moveDirection_Z,bool isGravity)
+    protected virtual void Displacement(Rigidbody rigidbody, Quaternion rotation, float speed,float maxDistance, int moveDirection_X,int moveDirection_Y, int moveDirection_Z)
     {
         // preTransform = CharactorTransform.position;
-        useGravity = isGravity;
+      //  useGravity = isGravity;
 
         moveTime = maxDistance / speed;
 
@@ -69,7 +69,7 @@ public abstract class Character : MonoBehaviour
         float MoveY = moveDirection_Y * speed;
         float MoveZ = moveDirection_Z * speed;
        
-        rigidbody.velocity = rotation * new Vector3(MoveX, MoveY, MoveZ);
+        rigidbody.velocity = transform.rotation * new Vector3(MoveX, MoveY, MoveZ);
         yield return new WaitForSeconds(0.01f);
 
         if (Time.time-startTime >= moveTime)
