@@ -305,9 +305,8 @@ public class PlayerBehaviour : Character
         {
             if ((playerState & PlayerState.CanFalling) != 0)
             {
-               // Debug.Log("Falling");
                 playerAnimator.SetTrigger("Falling");
-               
+               // playerState = PlayerState.Falling;
             }
             FallingAniamtion(moveDirection_Vertical, moveDirection_Horizontal);
         }
@@ -612,33 +611,40 @@ public class PlayerBehaviour : Character
     IEnumerator LandingCheck()
     {
         yield return new WaitForSeconds(0.01f);
-      //  Debug.Log(animationHash.GetCurrentAnimationState("Idle_Run"));
-       // Debug.Log(playerState);
+        //  Debug.Log(animationHash.GetCurrentAnimationState("Idle_Run"));
+        // Debug.Log(playerState);
+     /*   if (animationHash.GetCurrentAnimationState("Falling"))
+        {
+
+        }*/
         if (isGround)
-        {            
-            if (animationHash.GetCurrentAnimationState("Idle_Run"))
+        {
+            if ((playerState & PlayerState.FallingMove) == 0) 
             {
-            //    Debug.Log("Idle");
+                //  Debug.Log("Idle");
+                Debug.Log(playerState);
 
                 playerAnimator.ResetTrigger("Idle");
-                ChangePlayerState(1);
-                StopRigiBodyMoveWithAniamtionCurve_Y();
-              
+                StopRigiBodyMoveWithAniamtionCurve_Y();             
                 FallindAniamtion_Horizontal = 0;
                 StopCoroutine("LandingCheck");
-               
+
             }
             else
             {
-              //  Debug.Log("Trigger Idle");
+                //  Debug.Log("Trigger Idle");
 
                 playerAnimator.SetTrigger("Idle");
+                ChangePlayerState(1);
+
+                StopCoroutine("LandingCheck");
                 StartCoroutine("LandingCheck");
                 
             } 
         }
         else
         {
+
             StartCoroutine("LandingCheck");
            // Debug.Log("LC");
 
