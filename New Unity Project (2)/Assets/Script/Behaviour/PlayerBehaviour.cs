@@ -58,6 +58,8 @@ public class PlayerBehaviour : Character
     private AnimationHash animationHash;
     private ParticleManager particleManager;
 
+   // public GameObject GroundCheckObject;
+    public Gravity gravity;
 
     IEnumerator detectAnimationStateNotAttack;
 
@@ -99,8 +101,8 @@ public class PlayerBehaviour : Character
     public GameObject MediumPhysicsCollider;
 
     public float groundedDis;
-    public bool isGround;
-    public bool isNotGraoundStep;
+  //  public bool isGround;
+    //public bool isNotGraoundStep;
 
     private bool isGravity;
     private bool ForceMove;
@@ -123,6 +125,9 @@ public class PlayerBehaviour : Character
         playerRigidbody = GetComponent<Rigidbody>();
         particleManager = GetComponent<ParticleManager>();
 
+        gravity = GetComponent<Gravity>();
+      //  groundCheck = GroundCheckObject.GetComponent<GroundCheck>();
+
         gameStageData = GameFacade.GetInstance().gameStageData;
         playerController = GameFacade.GetInstance().playerController;
         playerParameter = gameStageData.CurPlayerStageData.playerData.playerParameter;
@@ -132,7 +137,7 @@ public class PlayerBehaviour : Character
         playerState = PlayerState.Move;
         useGravity = true;
         isGravity = false;
-        isNotGraoundStep = false;
+      //  isNotGraoundStep = false;
         CanTriggerNextAttack = true;
         detectAnimationStateNotAttack = null;
         ForceMove = false;
@@ -152,64 +157,12 @@ public class PlayerBehaviour : Character
     void Update()
     {
         Rotaion();
-     
+      //  Debug.Log(playerRigidbody.velocity.y);
     }
 
     private void FixedUpdate()
     {
-        isGround = Physics.Raycast(GroudedCollider.bounds.center, -Vector3.up, GroudedCollider.bounds.extents.y + groundedDis,floorMask);
-        //  Debug.DrawLine(curPhysicsCollider[0].bounds.center, -transform.up * (curPhysicsCollider[0].bounds.extents.y + groundedDis), Color.green);
-        isNotGraoundStep = Physics.Raycast(GroudedCollider.bounds.center, -Vector3.up, GroudedCollider.bounds.extents.y + groundedDis);
-
-        // Debug.Log(useGravity);
-        if (useGravity)
-        {
-            if (!isGround)
-            {
-                if (!isNotGraoundStep)
-                {
-                    if (playerRigidbody.velocity.y <= 0.5f && playerRigidbody.velocity.y >= -0.5f)  
-                    {
-                      //  Debug.Log("gg");
-
-                        isGravity = false;
-                      
-                    }
-
-                }
-                Gravity();
-            }
-            else
-            {
-                isGravity = false;
-            }
-        }
-
-    }
-   
-    public void Gravity()
-    {
-        if (!isGravity)
-        {
-            isGravity = true;
-            StopRigiBodyMoveWithAniamtionCurve_Y();
-            Keyframe gravityKey = playerParameter.jumpParameter.GravityCurve.keys[playerParameter.jumpParameter.GravityCurve.keys.Length - 1];
-            RigiBodyMoveWithAniamtionCurve_Y(playerRigidbody, playerParameter.jumpParameter.GravityCurve, 0, gravityKey.time, 12, playerParameter.jumpParameter.GravityPerIntervalTime);
-
-        }
-
-    }
-
-    public void StopUseGravity()
-    {
-        useGravity = false;
-        isGravity = false;
-    }
-
-    public void StartUseGravity()
-    {
-        useGravity = true;
-
+            
     }
 
     private void AnimationRotation(int moveDirection_Vertical, int moveDirection_Horizontal)
@@ -281,7 +234,7 @@ public class PlayerBehaviour : Character
     {
         float MoveX;
         float MoveZ;
-        if (isGround)
+        if (gravity.groundCheck.IsGround)
         {      
             AnimationBlendTreeControll(playerAnimator, "Vertical", moveDirection_Vertical, ref moveAnimation_Vertical, MoveAnimationSmoothSpeed);
             AnimationBlendTreeControll(playerAnimator, "Horizontal", moveDirection_Horizontal, ref moveAnimation_Horizontal, MoveAnimationSmoothSpeed);
@@ -301,7 +254,7 @@ public class PlayerBehaviour : Character
 
     public void Falling(int moveDirection_Vertical, int moveDirection_Horizontal)
     {
-        if (!isGround)
+        if (!gravity.groundCheck.IsGround)
         {
             if ((playerState & PlayerState.CanFalling) != 0)
             {
@@ -355,7 +308,7 @@ public class PlayerBehaviour : Character
             playerAnimator.SetTrigger("Jump");
 
         }
-        else if (((playerBehaviour.playerState & PlayerState.CanDoubleJump) != 0) && !isGround)
+        else if (((playerBehaviour.playerState & PlayerState.CanDoubleJump) != 0) && !gravity.groundCheck.IsGround)
         {
             //Debug.Log("Double");
             playerAnimator.SetTrigger("DoubleJump");
@@ -394,7 +347,7 @@ public class PlayerBehaviour : Character
             
             avoidSpeed = FixSpeed(moveDirection_Vertical, moveDirection_Horizontal, playerParameter.avoidParameter.AvoidSpeed);
 
-            Debug.Log(avoidSpeed);
+      //      Debug.Log(avoidSpeed);
 
             playerAnimator.SetTrigger("Avoid");
           
@@ -411,7 +364,7 @@ public class PlayerBehaviour : Character
 
     public void NormalAttack()
     {
-        if (isGround)
+        if (gravity.groundCheck.IsGround)
         {
             if (CanTriggerNextAttack && ((playerState& PlayerState.CanAttack)!=0))
             {
@@ -447,7 +400,7 @@ public class PlayerBehaviour : Character
 
         if ((playerState & PlayerState.CanDash) != 0)
         {
-            Debug.Log("jjj");
+           // Debug.Log("jjj");
             playerAnimator.SetTrigger("Dash");
         } 
        
@@ -507,7 +460,7 @@ public class PlayerBehaviour : Character
             case (int)PlayerState.Dash:
                 playerState = PlayerState.Dash;
                 StopRigiBodyMoveWithAniamtionCurve_Y();
-                StopUseGravity();
+                gravity.StopUseGravity();
                 playerRigidbody.velocity = new Vector3(0, 0, 0);
                 break;
 
@@ -577,8 +530,6 @@ public class PlayerBehaviour : Character
 
     }
 
-
-
     #region 跳躍動畫
     public void AddForce(int JumpState)
     {
@@ -586,21 +537,35 @@ public class PlayerBehaviour : Character
         {
             case (int)PlayerState.Jump:
                 Keyframe jumpEndKey = playerParameter.jumpParameter.JumpCurve.keys[playerParameter.jumpParameter.JumpCurve.keys.Length - 1];
-                StopUseGravity();
+                gravity.StopUseGravity();
                 StopRigiBodyMoveWithAniamtionCurve_Y();
-                RigiBodyMoveWithAniamtionCurve_Y(playerRigidbody,playerParameter.jumpParameter.JumpCurve, 0, jumpEndKey.time, 12, playerParameter.jumpParameter.JumpPerIntervalTime);              
+                RigiBodyMoveWithAniamtionCurve_Y(playerRigidbody,playerParameter.jumpParameter.JumpCurve, 0, jumpEndKey.time, 12, playerParameter.jumpParameter.JumpPerIntervalTime);
+                StopCoroutine("StartUseGravity");
+                StartCoroutine("StartUseGravity");
                 break;
 
             case (int)PlayerState.DoubleJump:
                 Keyframe doubleJumpEndKey = playerParameter.jumpParameter.DoubleJumpCurve.keys[playerParameter.jumpParameter.DoubleJumpCurve.keys.Length - 1];
                 StopRigiBodyMoveWithAniamtionCurve_Y();
-                StopUseGravity();
+                gravity.StopUseGravity();
                 // playerRigidbody.velocity = new Vector3(playerRigidbody.velocity.x, 0, playerRigidbody.velocity.z);
                 RigiBodyMoveWithAniamtionCurve_Y(playerRigidbody, playerParameter.jumpParameter.DoubleJumpCurve, 0, doubleJumpEndKey.time, 12, playerParameter.jumpParameter.JumpPerIntervalTime);
+                StopCoroutine("StartUseGravity");
+
+                StartCoroutine("StartUseGravity");
+
                 StartLandingCheck();
+
                 break;
         }
        
+    }
+
+    IEnumerator StartUseGravity()
+    {
+
+        yield return new WaitUntil(() => !RigibodyAnimationCurveIsRunning);
+        gravity.StartUseGravity();
     }
 
     public void StartLandingCheck()
@@ -611,15 +576,10 @@ public class PlayerBehaviour : Character
     IEnumerator LandingCheck()
     {
         yield return new WaitForSeconds(0.01f);
-        //  Debug.Log(animationHash.GetCurrentAnimationState("Idle_Run"));
-        // Debug.Log(playerState);
-     /*   if (animationHash.GetCurrentAnimationState("Falling"))
+        
+        if (gravity.groundCheck.IsGround)
         {
-
-        }*/
-        if (isGround)
-        {
-            if ((playerState & PlayerState.FallingMove) == 0) 
+            if (animationHash.GetCurrentAnimationState("Idle_Run")) 
             {
                 //  Debug.Log("Idle");
                 Debug.Log(playerState);
@@ -628,6 +588,7 @@ public class PlayerBehaviour : Character
                 StopRigiBodyMoveWithAniamtionCurve_Y();             
                 FallindAniamtion_Horizontal = 0;
                 StopCoroutine("LandingCheck");
+                ChangePlayerState(1);
 
             }
             else
@@ -635,7 +596,6 @@ public class PlayerBehaviour : Character
                 //  Debug.Log("Trigger Idle");
 
                 playerAnimator.SetTrigger("Idle");
-                ChangePlayerState(1);
 
                 StopCoroutine("LandingCheck");
                 StartCoroutine("LandingCheck");
@@ -644,12 +604,7 @@ public class PlayerBehaviour : Character
         }
         else
         {
-
-            StartCoroutine("LandingCheck");
-           // Debug.Log("LC");
-
-           // FallingMove();
-            
+            StartCoroutine("LandingCheck");                  
         }
 
     }
@@ -759,9 +714,9 @@ public class PlayerBehaviour : Character
     #region 衝刺
     public void EndDash()
     {
-        StartUseGravity();
+        gravity.StartUseGravity();
 
-        if (isGround)
+        if (gravity.groundCheck.IsGround)
         {
             ChangeToIdle(16);
 
@@ -779,4 +734,6 @@ public class PlayerBehaviour : Character
     #endregion
 
     #endregion
+
+
 }

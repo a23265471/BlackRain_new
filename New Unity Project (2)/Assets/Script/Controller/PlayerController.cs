@@ -51,15 +51,7 @@ public class PlayerController : MonoBehaviour {
                Falling(playerBehaviour);
                Debug.Log("tttttt");
            }*/
-        if (playerBehaviour.isGround)
-        {
-            
-
-        }
-        else
-        {
-           // FallingAnimation();
-        }
+        
         GroundedMove();
         Falling();
         Jump();

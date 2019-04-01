@@ -16,7 +16,7 @@ public abstract class Character : MonoBehaviour
     float moveTime;
     public bool useGravity;
     private bool StopRigibodyWithAnimationCurve;
-    private bool RigibodyAnimationCurveIsRunning;
+    public bool RigibodyAnimationCurveIsRunning;
 
     public float curAnimationCurvePastLong = 0 ; 
 
@@ -119,7 +119,7 @@ public abstract class Character : MonoBehaviour
         if (curAnimationCurvePastLong >= endTime)
         {
             curAnimationCurvePastLong = 0;
-            useGravity = true;
+           // useGravity = true;
             RigibodyAnimationCurveIsRunning = false;         
             StopCoroutine(rigibodyWithAnimationCurve);
         }
