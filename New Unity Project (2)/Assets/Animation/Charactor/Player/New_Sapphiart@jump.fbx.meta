@@ -420,9 +420,7 @@ ModelImporter:
       clip's valid range (0.000000..0.083333). It will never be firedEvent StartLandingCheck
       has a time (0.083333) outside the clip's valid range (0.000000..0.083333). It
       will never be firedEvent StartLandingCheck has a time (0.083333) outside the
-      clip's valid range (0.000000..0.083333). It will never be firedEvent StartLandingCheck
-      has a time (0.083333) outside the clip's valid range (0.000000..0.083333). It
-      will never be fired"
+      clip's valid range (0.000000..0.083333). It will never be fired"
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
@@ -474,14 +472,6 @@ ModelImporter:
           type: 3}
         floatParameter: 0
         intParameter: 2
-        messageOptions: 0
-      - time: 1
-        functionName: StartLandingCheck
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 48984eef8ea34764d8a93b59a73a6109,
-          type: 3}
-        floatParameter: 0
-        intParameter: 0
         messageOptions: 0
       transformMask: []
       maskType: 3
@@ -747,14 +737,6 @@ ModelImporter:
         floatParameter: 0
         intParameter: 2
         messageOptions: 0
-      - time: 1
-        functionName: StartLandingCheck
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 48984eef8ea34764d8a93b59a73a6109,
-          type: 3}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
@@ -798,14 +780,6 @@ ModelImporter:
           type: 3}
         floatParameter: 0
         intParameter: 2
-        messageOptions: 0
-      - time: 1
-        functionName: StartLandingCheck
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 48984eef8ea34764d8a93b59a73a6109,
-          type: 3}
-        floatParameter: 0
-        intParameter: 0
         messageOptions: 0
       transformMask: []
       maskType: 3
@@ -851,14 +825,6 @@ ModelImporter:
         floatParameter: 0
         intParameter: 2
         messageOptions: 0
-      - time: 1
-        functionName: StartLandingCheck
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 48984eef8ea34764d8a93b59a73a6109,
-          type: 3}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
@@ -902,14 +868,6 @@ ModelImporter:
           type: 3}
         floatParameter: 0
         intParameter: 2
-        messageOptions: 0
-      - time: 1
-        functionName: StartLandingCheck
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 48984eef8ea34764d8a93b59a73a6109,
-          type: 3}
-        floatParameter: 0
-        intParameter: 0
         messageOptions: 0
       transformMask: []
       maskType: 3

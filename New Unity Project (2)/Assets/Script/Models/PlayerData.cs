@@ -18,6 +18,7 @@ public class PlayerData
         public AnimationCurve JumpCurve;
         public AnimationCurve DoubleJumpCurve;
         public AnimationCurve GravityCurve;
+        public int SkyJumpCount;
         public float JumpMoveSpeed;
         public float JumpPerIntervalTime;
         public float GravityPerIntervalTime;
@@ -57,9 +58,10 @@ public class PlayerData
     [System.Serializable]
     public struct AttackParameter
     {
+        public string Name;
+        public int Id;
         public int AttackOder;
-        public int Combo;
-        public float AttackValue;
+        public ChangeToDeputyAttack[] deputyAttack;
         public float MoveSpeed;
         public float MoveDistance;
         public int MoveDirection_X;
@@ -68,11 +70,21 @@ public class PlayerData
         public bool UseGravity;
 
         public AudioClip AudioClip_Attack;
-       // public GameObject Particle_Attack;
-      
+       // public GameObject Particle_Attack;    
     }
-   
 
+    [System.Serializable]
+    public struct DeputyAttackCollection
+    {
+        public AttackParameter[] DeputyAttack;
+    }
+
+    [System.Serializable]
+    public struct ChangeToDeputyAttack
+    {
+        public string Id;
+        public KeyCode keyCode;
+    }
 
     [System.Serializable]
     public class PlayerParameter
@@ -85,8 +97,7 @@ public class PlayerData
         public DieParameter dieParameter;
         public AttackParameter[] normalAttack;
         public AttackParameter[] specialAttack;
-        public AttackParameter[] changeAttack;
-       
+        public DeputyAttackCollection[] deputyAttackCollections;
 
     }
 

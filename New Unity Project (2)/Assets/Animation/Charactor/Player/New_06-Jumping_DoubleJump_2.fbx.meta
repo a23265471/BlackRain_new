@@ -313,6 +313,14 @@ ModelImporter:
         intParameter: 8
         messageOptions: 0
       - time: 1
+        functionName: JumpDoExitGround
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 48984eef8ea34764d8a93b59a73a6109,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 1
         functionName: SwitchCollider
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 48984eef8ea34764d8a93b59a73a6109,
@@ -372,6 +380,14 @@ ModelImporter:
         floatParameter: 0
         intParameter: 1
         messageOptions: 0
+      - time: 1
+        functionName: JumpDoExitGround
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 48984eef8ea34764d8a93b59a73a6109,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
@@ -424,6 +440,14 @@ ModelImporter:
         floatParameter: 0
         intParameter: 1
         messageOptions: 0
+      - time: 1
+        functionName: JumpDoExitGround
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 48984eef8ea34764d8a93b59a73a6109,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
@@ -467,6 +491,14 @@ ModelImporter:
           type: 3}
         floatParameter: 0
         intParameter: 8
+        messageOptions: 0
+      - time: 1
+        functionName: JumpDoExitGround
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 48984eef8ea34764d8a93b59a73a6109,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
         messageOptions: 0
       - time: 1
         functionName: SwitchCollider
@@ -527,6 +559,14 @@ ModelImporter:
           type: 3}
         floatParameter: 0
         intParameter: 1
+        messageOptions: 0
+      - time: 1
+        functionName: JumpDoExitGround
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 48984eef8ea34764d8a93b59a73a6109,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
         messageOptions: 0
       transformMask: []
       maskType: 3

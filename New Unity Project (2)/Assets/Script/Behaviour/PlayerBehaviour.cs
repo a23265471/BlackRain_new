@@ -26,9 +26,9 @@ public class PlayerBehaviour : Character
         GetDown = 0xe0,
         Dead = 0xf0,
 
-        CanFalling = Move | Attack | Dash | SkyAttack,
+        CanFalling = Move | Attack | Dash | SkyAttack ,
         FallingMove = Falling | Jump | DoubleJump | SkyAttack,
-        CanDoubleJump = Jump | Falling,
+        CanDoubleJump = Jump | Falling | Dash,
         CanDash = Move | Attack | Jump | DoubleJump | SkyAttack | Falling,
         CanDashAttack = CanDash,
         CanSkyAttack = Jump | Falling | DoubleJump,
@@ -77,20 +77,21 @@ public class PlayerBehaviour : Character
     private float rotation_Horizontal;
     private float curMoveSpeed;
     private float moveSpeed;
-    //private float moveDirection;
 
     private float moveAnimation_Vertical;
     private float moveAnimation_Horizontal;
-//    private float FallindAniamtion_Vertical;
     private float FallindAniamtion_Horizontal;
     public float MoveAnimationSmoothSpeed;
     public float JumpMoveAnimationSmoothSpeed;
+    private int jumpCount;
     private int Direction_X;
     private int Direction_Z;
     private float avoidSpeed;
+    private bool canfall;
+    private bool canTriggerFallingCoroutine;
 
     //private ParticleSystem jumpParticleSytem;
-   // public Transform jumpParticleTransform;
+    // public Transform jumpParticleTransform;
     #endregion
 
     #region 物理碰撞   
@@ -104,7 +105,6 @@ public class PlayerBehaviour : Character
   //  public bool isGround;
     //public bool isNotGraoundStep;
 
-    private bool isGravity;
     private bool ForceMove;
     #endregion
 
@@ -135,13 +135,13 @@ public class PlayerBehaviour : Character
 
         floorMask = LayerMask.GetMask("Floor");
         playerState = PlayerState.Move;
-        useGravity = true;
-        isGravity = false;
       //  isNotGraoundStep = false;
         CanTriggerNextAttack = true;
         detectAnimationStateNotAttack = null;
         ForceMove = false;
         isTriggerAttack = false;
+        canfall = true;
+        canTriggerFallingCoroutine = true;
         CreateWeapon();
       //  CreateParticle();
     }
@@ -253,18 +253,45 @@ public class PlayerBehaviour : Character
     }
 
     public void Falling(int moveDirection_Vertical, int moveDirection_Horizontal)
-    {
+    {      
         if (!gravity.groundCheck.IsGround)
         {
-            if ((playerState & PlayerState.CanFalling) != 0)
+            /*  if ((playerState & PlayerState.Move) != 0)
+              {
+                  playerAnimator.SetTrigger("Falling");
+                 // playerState = PlayerState.Falling;
+              }*/
+            if((playerState & PlayerState.Move) != 0)
             {
-                playerAnimator.SetTrigger("Falling");
-               // playerState = PlayerState.Falling;
+                if (canTriggerFallingCoroutine)
+                {
+                    StopCoroutine("StartFalling");
+                    StartCoroutine("StartFalling");
+                }
             }
             FallingAniamtion(moveDirection_Vertical, moveDirection_Horizontal);
         }
 
     }
+
+    IEnumerator StartFalling()
+    {
+        canTriggerFallingCoroutine = false;
+        yield return new WaitForSeconds(0.1f);       
+        if (!gravity.groundCheck.IsGround)
+        {
+            playerAnimator.SetTrigger("Falling");         
+            // playerState = PlayerState.Falling;
+            Debug.Log("Start Falling");
+        }
+        else
+        {           
+            Debug.Log("Stop Falling");
+        }
+        canTriggerFallingCoroutine = true;
+
+    }
+
     public void FallingAniamtion(int moveDirection_Vertical, int moveDirection_Horizontal)
     {
         float direction_X = moveDirection_Horizontal;
@@ -308,10 +335,11 @@ public class PlayerBehaviour : Character
             playerAnimator.SetTrigger("Jump");
 
         }
-        else if (((playerBehaviour.playerState & PlayerState.CanDoubleJump) != 0) && !gravity.groundCheck.IsGround)
+        else if (((playerBehaviour.playerState & PlayerState.CanDoubleJump) != 0) && !gravity.groundCheck.IsGround && jumpCount < playerParameter.jumpParameter.SkyJumpCount) 
         {
             //Debug.Log("Double");
             playerAnimator.SetTrigger("DoubleJump");
+            gravity.StopGroundCheck();
 
         }
 
@@ -384,7 +412,7 @@ public class PlayerBehaviour : Character
 
     public void Dash(int moveDirection_Vertical, int moveDirection_Horizontal)
     {
-
+        
         if (moveDirection_Horizontal == 0 && moveDirection_Vertical == 0) 
         {
             Direction_Z = 1;
@@ -392,15 +420,24 @@ public class PlayerBehaviour : Character
         }
         else
         {
+            if (moveDirection_Vertical < 0)
+            {
+                Direction_Z = 0;
+            }
+            else
+            {
+                Direction_Z = moveDirection_Vertical;
+            }
+
             Direction_X = moveDirection_Horizontal;
-            Direction_Z = moveDirection_Vertical;
 
 
         }
 
         if ((playerState & PlayerState.CanDash) != 0)
         {
-           // Debug.Log("jjj");
+            // Debug.Log("jjj");
+            AnimationRotation(Direction_Z, Direction_X);
             playerAnimator.SetTrigger("Dash");
         } 
        
@@ -428,6 +465,8 @@ public class PlayerBehaviour : Character
 
             case (int)PlayerState.DoubleJump:
                 SwitchCollider(2);
+                jumpCount += 1;
+
                 playerState = PlayerState.DoubleJump;                  
                 break;
 
@@ -440,12 +479,14 @@ public class PlayerBehaviour : Character
                 break;
 
             case (int)PlayerState.Falling:             
-                if ((playerState & PlayerState.CanFalling ) != 0)
+                if (((playerState & PlayerState.CanFalling) != 0) && canfall)
                 {
                     playerState = PlayerState.Falling;
                     playerAnimator.ResetTrigger("Falling");
                     StartLandingCheck();
+                   // JumpDoExitGround();
                     SwitchCollider(1);
+                 //   Debug.Log("eee");
                 }
                 break;
 
@@ -459,9 +500,11 @@ public class PlayerBehaviour : Character
                 break;
             case (int)PlayerState.Dash:
                 playerState = PlayerState.Dash;
-                StopRigiBodyMoveWithAniamtionCurve_Y();
-                gravity.StopUseGravity();
-                playerRigidbody.velocity = new Vector3(0, 0, 0);
+              //  gravity.StopGroundCheck();
+
+                canfall = false;
+                StopCoroutine("LandingCheck");
+
                 break;
 
         }
@@ -472,16 +515,6 @@ public class PlayerBehaviour : Character
         ParticlePlay(particleManager.GetParticle(Id));
     }
 
-   /* public void JumpParticle()
-    {
-        ParticlePlay(jumpParticleSytem);
-    }*/
-
-    public void AudioPlay(int Id)
-    {
-      //  AudioPlay(playerParameter.normalAttack[Id].Particle_Attack.GetComponent<AudioSource>(), playerParameter.normalAttack[Id].AudioClip_Attack);
-
-    }
 
     public void SwitchMove(int onOff)
     {
@@ -525,7 +558,20 @@ public class PlayerBehaviour : Character
     {
         if ((int)playerState == curState)
         {
-            ChangePlayerState(1);
+            if (gravity.groundCheck.IsGround)
+            {
+                playerAnimator.ResetTrigger("Falling");
+                playerAnimator.SetTrigger("Idle");
+                playerState = PlayerState.Move;
+            }
+            else
+            {
+                playerAnimator.ResetTrigger("Idle");
+
+                playerAnimator.SetTrigger("Falling");
+
+                //Debug.Log("hhh");
+            }
         }
 
     }
@@ -538,10 +584,12 @@ public class PlayerBehaviour : Character
             case (int)PlayerState.Jump:
                 Keyframe jumpEndKey = playerParameter.jumpParameter.JumpCurve.keys[playerParameter.jumpParameter.JumpCurve.keys.Length - 1];
                 gravity.StopUseGravity();
+
                 StopRigiBodyMoveWithAniamtionCurve_Y();
                 RigiBodyMoveWithAniamtionCurve_Y(playerRigidbody,playerParameter.jumpParameter.JumpCurve, 0, jumpEndKey.time, 12, playerParameter.jumpParameter.JumpPerIntervalTime);
                 StopCoroutine("StartUseGravity");
                 StartCoroutine("StartUseGravity");
+                JumpDoExitGround();
                 break;
 
             case (int)PlayerState.DoubleJump:
@@ -553,59 +601,82 @@ public class PlayerBehaviour : Character
                 StopCoroutine("StartUseGravity");
 
                 StartCoroutine("StartUseGravity");
-
-                StartLandingCheck();
-
+                
+             //   StartLandingCheck();
+                
                 break;
         }
        
     }
 
-    IEnumerator StartUseGravity()
+    IEnumerator OpenGroundedCheck()
     {
+        yield return new WaitUntil(() => (playerRigidbody.velocity.y < 0));
+        gravity.StartGroundCheck();
+       
+    }
 
-        yield return new WaitUntil(() => !RigibodyAnimationCurveIsRunning);
-        gravity.StartUseGravity();
+    IEnumerator DoExitGround()
+    {
+        yield return new WaitUntil(() => !gravity.groundCheck.IsGround);
+
+        gravity.StopGroundCheck();
+        StopCoroutine("OpenGroundedCheck");
+        StartCoroutine("OpenGroundedCheck");
+        StartLandingCheck();
+    }
+
+    public void JumpDoExitGround()
+    {
+        StopCoroutine("DoExitGround");
+        StartCoroutine("DoExitGround");
     }
 
     public void StartLandingCheck()
-    {     
+    {
+       
         StopCoroutine("LandingCheck");
         StartCoroutine("LandingCheck");
+
+
     }
+
+    IEnumerator StartUseGravity()
+    {
+        yield return new WaitUntil(() => !RigibodyAnimationCurveIsRunning);
+       // Debug.Log(playerState);
+        gravity.StartUseGravity();
+    }
+
+    
     IEnumerator LandingCheck()
     {
-        yield return new WaitForSeconds(0.01f);
+        yield return new WaitUntil(() => gravity.groundCheck.IsGround);
         
-        if (gravity.groundCheck.IsGround)
+        if (animationHash.GetCurrentAnimationState("Idle_Run")) 
         {
-            if (animationHash.GetCurrentAnimationState("Idle_Run")) 
-            {
-                //  Debug.Log("Idle");
-                Debug.Log(playerState);
+            //  Debug.Log("Idle");
+            // Debug.Log(playerState);
+            playerAnimator.ResetTrigger("DoubleJump");
+            ChangePlayerState(1);
 
-                playerAnimator.ResetTrigger("Idle");
-                StopRigiBodyMoveWithAniamtionCurve_Y();             
-                FallindAniamtion_Horizontal = 0;
-                StopCoroutine("LandingCheck");
-                ChangePlayerState(1);
-
-            }
-            else
-            {
-                //  Debug.Log("Trigger Idle");
-
-                playerAnimator.SetTrigger("Idle");
-
-                StopCoroutine("LandingCheck");
-                StartCoroutine("LandingCheck");
-                
-            } 
+            playerAnimator.ResetTrigger("Idle");
+            StopRigiBodyMoveWithAniamtionCurve_Y();             
+            FallindAniamtion_Horizontal = 0;
+            jumpCount = 0;
         }
         else
         {
-            StartCoroutine("LandingCheck");                  
+            
+            playerAnimator.SetTrigger("Idle");
+
+            //  Debug.Log(playerState);
+
+            StopCoroutine("LandingCheck");
+            StartCoroutine("LandingCheck");
+            
         }
+    
 
     }
     #endregion
@@ -714,18 +785,25 @@ public class PlayerBehaviour : Character
     #region 衝刺
     public void EndDash()
     {
+
         gravity.StartUseGravity();
+       // gravity.StartGroundCheck();
 
-        if (gravity.groundCheck.IsGround)
-        {
-            ChangeToIdle(16);
+        canfall = true;
 
-        }
 
+        ChangeToIdle(16);
+
+       
     }
 
     public void DashMove()
     {
+        StopCoroutine("StartUseGravity");
+
+        StopRigiBodyMoveWithAniamtionCurve_Y();
+        gravity.StopUseGravity();
+        playerRigidbody.velocity = new Vector3(0, 0, 0);
         Displacement(playerRigidbody, transform.rotation, playerParameter.dashParameter.DashSpeed, playerParameter.dashParameter.DashDistance, Direction_X, 0, Direction_Z);
 
 

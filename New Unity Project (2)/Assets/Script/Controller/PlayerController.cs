@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour {
 
     }
 	
-    private void FixedUpdate()
+    private void Update()
     {
         PlayerDirectionControl();
 
@@ -89,6 +89,8 @@ public class PlayerController : MonoBehaviour {
     {
         if (Input.GetKeyDown(inputSetting.inputKey.Jump))
         {
+            Debug.Log("Trigger Jump");
+            Debug.Log(playerBehaviour.playerState);
             playerBehaviour.Jump(moveDirection_Vertical, moveDirection_Horizontal);
         }
 

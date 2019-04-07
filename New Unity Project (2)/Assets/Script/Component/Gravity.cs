@@ -17,6 +17,7 @@ public class Gravity : MonoBehaviour
     public GroundCheck groundCheck;
     private Rigidbody rigidbody;
 
+   
 
     private void Awake()
     {
@@ -30,7 +31,7 @@ public class Gravity : MonoBehaviour
     {
         if (UseGravity)
         {
-            Debug.Log(rigidbody.velocity.y);
+           // Debug.Log(rigidbody.velocity.y);
             if (!groundCheck.IsGround)
             {
                 /* if (!groundCheck.IsNotStandOnFloor)
@@ -90,6 +91,15 @@ public class Gravity : MonoBehaviour
         UseGravity = false;
     }
 
+    public void StopGroundCheck()
+    {
+        GroundCheckObject.SetActive(false);
+    }
+
+    public void StartGroundCheck()
+    {
+        GroundCheckObject.SetActive(true);
+    }
     //private void 
          
 

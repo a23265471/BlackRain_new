@@ -49,12 +49,12 @@ public class GameStageController : MonoBehaviour {
 
     private void CursorControl()
     {
-        if (Input.GetKeyDown(KeyCode.LeftControl) && Cursor.visible) 
+        if (Input.GetKeyDown(KeyCode.Tab) && Cursor.visible) 
         {
             Cursor.visible = false;
 
         }
-        else if(Input.GetKeyDown(KeyCode.LeftControl) && !Cursor.visible)
+        else if(Input.GetKeyDown(KeyCode.Tab) && !Cursor.visible)
         {
             Cursor.visible = true;
         }
@@ -63,7 +63,7 @@ public class GameStageController : MonoBehaviour {
 
     private void CursorLock()
     {
-        if (Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.Escape))
         {
             if (Screen.lockCursor)
             {

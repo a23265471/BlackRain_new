@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GroundCheck : MonoBehaviour {
+public class GroundCheck : MonoBehaviour
+{
 
     public bool IsGround;
     public bool IsNotStandOnFloor;

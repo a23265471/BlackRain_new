@@ -14,7 +14,6 @@ public abstract class Character : MonoBehaviour
     private Vector3 preTransform;
     float moveDis;
     float moveTime;
-    public bool useGravity;
     private bool StopRigibodyWithAnimationCurve;
     public bool RigibodyAnimationCurveIsRunning;
 
@@ -48,7 +47,6 @@ public abstract class Character : MonoBehaviour
     protected virtual void Displacement(Rigidbody rigidbody, Quaternion rotation, float speed,float maxDistance, int moveDirection_X,int moveDirection_Y, int moveDirection_Z)
     {
         // preTransform = CharactorTransform.position;
-      //  useGravity = isGravity;
 
         moveTime = maxDistance / speed;
 
@@ -119,7 +117,6 @@ public abstract class Character : MonoBehaviour
         if (curAnimationCurvePastLong >= endTime)
         {
             curAnimationCurvePastLong = 0;
-           // useGravity = true;
             RigibodyAnimationCurveIsRunning = false;         
             StopCoroutine(rigibodyWithAnimationCurve);
         }
