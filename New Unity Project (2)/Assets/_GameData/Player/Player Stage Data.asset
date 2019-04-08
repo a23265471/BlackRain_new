@@ -47,9 +47,9 @@ MonoBehaviour:
           m_Curve:
           - serializedVersion: 3
             time: 0
-            value: 17
-            inSlope: -25
-            outSlope: -25
+            value: 20
+            inSlope: -28
+            outSlope: -28
             tangentMode: 34
             weightedMode: 0
             inWeight: 0
@@ -57,8 +57,8 @@ MonoBehaviour:
           - serializedVersion: 3
             time: 1
             value: -8
-            inSlope: -25
-            outSlope: -25
+            inSlope: -28
+            outSlope: -28
             tangentMode: 34
             weightedMode: 0
             inWeight: 0.33333334
@@ -99,7 +99,7 @@ MonoBehaviour:
         Gravity: 17
       avoidParameter:
         AvoidSpeed: 8
-        AvoidDistance: 3
+        AvoidDistance: 4
       dashParameter:
         DashSpeed: 40
         DashDistance: 10

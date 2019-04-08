@@ -187,9 +187,6 @@ public class MainCamera : MonoBehaviour
                 //distence = Mathf.Clamp(distence, 1, playerHit.distance);                
             }
            
-           
-           
-
             cameraIsCollision = true;
             
         }

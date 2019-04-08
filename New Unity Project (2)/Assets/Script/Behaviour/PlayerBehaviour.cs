@@ -58,6 +58,8 @@ public class PlayerBehaviour : Character
     private AnimationHash animationHash;
     private ParticleManager particleManager;
 
+    public GhostShadow PlayerShader;
+
    // public GameObject GroundCheckObject;
     public Gravity gravity;
 
@@ -126,7 +128,8 @@ public class PlayerBehaviour : Character
         particleManager = GetComponent<ParticleManager>();
 
         gravity = GetComponent<Gravity>();
-      //  groundCheck = GroundCheckObject.GetComponent<GroundCheck>();
+        PlayerShader.enabled = false;
+        //  groundCheck = GroundCheckObject.GetComponent<GroundCheck>();
 
         gameStageData = GameFacade.GetInstance().gameStageData;
         playerController = GameFacade.GetInstance().playerController;
@@ -135,7 +138,6 @@ public class PlayerBehaviour : Character
 
         floorMask = LayerMask.GetMask("Floor");
         playerState = PlayerState.Move;
-      //  isNotGraoundStep = false;
         CanTriggerNextAttack = true;
         detectAnimationStateNotAttack = null;
         ForceMove = false;
@@ -500,7 +502,8 @@ public class PlayerBehaviour : Character
                 break;
             case (int)PlayerState.Dash:
                 playerState = PlayerState.Dash;
-              //  gravity.StopGroundCheck();
+                //  gravity.StopGroundCheck();
+                PlayerShader.enabled = true;
 
                 canfall = false;
                 StopCoroutine("LandingCheck");
@@ -785,7 +788,7 @@ public class PlayerBehaviour : Character
     #region 衝刺
     public void EndDash()
     {
-
+        PlayerShader.enabled = false;
         gravity.StartUseGravity();
        // gravity.StartGroundCheck();
 
