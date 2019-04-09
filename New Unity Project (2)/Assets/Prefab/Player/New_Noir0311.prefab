@@ -1205,8 +1205,9 @@ GameObject:
   - component: {fileID: 114161194625199638}
   - component: {fileID: 114976038100174930}
   - component: {fileID: 114052332421362154}
-  - component: {fileID: 82629826815989912}
   - component: {fileID: 114701874218064740}
+  - component: {fileID: 114175662871873086}
+  - component: {fileID: 82629826815989912}
   m_Layer: 0
   m_Name: New_Noir0311
   m_TagString: Player
@@ -2789,6 +2790,18 @@ MonoBehaviour:
   MediumPhysicsCollider: {fileID: 1400834257844268}
   groundedDis: 0.2
   CanTriggerNextAttack: 0
+--- !u!114 &114175662871873086
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1973415817257212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a2607e0f24942f4087f557b8a158c4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillList: {fileID: 11400000, guid: e15f01fa6b1c6424b8647f38471892c1, type: 2}
 --- !u!114 &114474096384312178
 MonoBehaviour:
   m_ObjectHideFlags: 1

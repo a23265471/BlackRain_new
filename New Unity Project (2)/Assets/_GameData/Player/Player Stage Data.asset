@@ -110,7 +110,7 @@ MonoBehaviour:
         AudioClip_Damage: {fileID: 0}
       normalAttack:
       - Name: NormalAttack_1
-        Id: 101
+        Id: 100
         AttackOder: 1
         deputyAttack:
         - Id: 
@@ -123,7 +123,7 @@ MonoBehaviour:
         UseGravity: 1
         AudioClip_Attack: {fileID: 0}
       - Name: NormalAttack_2
-        Id: 102
+        Id: 101
         AttackOder: 2
         deputyAttack: []
         MoveSpeed: 4
@@ -134,7 +134,7 @@ MonoBehaviour:
         UseGravity: 1
         AudioClip_Attack: {fileID: 0}
       - Name: NormalAttack_3
-        Id: 103
+        Id: 102
         AttackOder: 3
         deputyAttack: []
         MoveSpeed: 10
