@@ -11,6 +11,7 @@ public class AttackSystem : MonoBehaviour
 
     private bool CanTriggerNextAttack;
     private bool isTriggerAttack;
+    private SkillList.AttackParameter currentAttackInfo;
 
 
     private void Awake()
@@ -76,43 +77,63 @@ public class AttackSystem : MonoBehaviour
     }
     #endregion
 
-    public void JudgeInputKey(KeyCode input)
+    public void JudgeInputKey(KeyCode input,string animatorTrigger)
     {
+        
+
 
 
     }
 
-
-
-    public void NormalAttack()
+    public void NormalAttack(string animatorTrigger)
     {
         if (CanTriggerNextAttack)
         {
-            // Debug.Log("gggg");
-            animator.SetTrigger("NormalAttack");
+            animator.SetTrigger(animatorTrigger);
+
             CanTriggerNextAttack = false;
             isTriggerAttack = true;
+
         }
 
     }
 
 
+    public void Attack()
+    {
+        if (currentAttackInfo.deputyAttack.Length != 0)
+        {
+            for (int i = 0; i < currentAttackInfo.deputyAttack.Length; i++)
+            {
+                if (Input.GetKeyDown(currentAttackInfo.deputyAttack[i].keyCode))
+                {
+                    animator.SetTrigger(currentAttackInfo.deputyAttack[i].AnimatorTriggerName);
+                }
 
+            }
+        }       
 
-
-
-
+    }
 
     #region 動畫事件
     public void GetAttackInfo(int Id)
     {
+        currentAttackInfo = AttackCollection[Id];
+    }
+
+    public void TriggerNextAttack()
+    {
+        CanTriggerNextAttack = true;
+        isTriggerAttack = false;
 
     }
 
-   
+    public void DoNotTriggerAttack()
+    {
+        CanTriggerNextAttack = false;
+    }
 
-
-    #endregion 
+    #endregion
 
 
 }

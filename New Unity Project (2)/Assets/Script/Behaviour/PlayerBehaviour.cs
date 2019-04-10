@@ -57,6 +57,7 @@ public class PlayerBehaviour : Character
     private PlayerData playerData;
     private AnimationHash animationHash;
     private ParticleManager particleManager;
+    private AttackSystem attackSystem;
 
     public GhostShadow PlayerShader;
 
@@ -126,7 +127,7 @@ public class PlayerBehaviour : Character
         animationHash = GetComponent<AnimationHash>();
         playerRigidbody = GetComponent<Rigidbody>();
         particleManager = GetComponent<ParticleManager>();
-
+        attackSystem = GetComponent<AttackSystem>();
         gravity = GetComponent<Gravity>();
         PlayerShader.enabled = false;
         //  groundCheck = GroundCheckObject.GetComponent<GroundCheck>();
@@ -398,10 +399,12 @@ public class PlayerBehaviour : Character
         {
             if (CanTriggerNextAttack && ((playerState& PlayerState.CanAttack)!=0))
             {
-             // Debug.Log("gggg");
-                playerAnimator.SetTrigger("NormalAttack");
-                CanTriggerNextAttack = false;
-                isTriggerAttack = true;
+                // Debug.Log("gggg");
+                /* playerAnimator.SetTrigger("NormalAttack");
+                 CanTriggerNextAttack = false;
+                 isTriggerAttack = true;*/
+
+                attackSystem.NormalAttack("NormalAttack");
             }
 
         }
@@ -435,7 +438,7 @@ public class PlayerBehaviour : Character
 
 
         }
-
+        if(moveDirection_Vertical>=0)
         if ((playerState & PlayerState.CanDash) != 0)
         {
             // Debug.Log("jjj");

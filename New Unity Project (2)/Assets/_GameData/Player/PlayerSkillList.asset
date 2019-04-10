@@ -15,7 +15,10 @@ MonoBehaviour:
   - Name: NormalAttack_1
     Id: 100
     AttackOder: 1
-    deputyAttack: []
+    deputyAttack:
+    - Id: 
+      keyCode: 0
+      AnimatorTriggerName: 
     MoveSpeed: 6
     MoveDistance: 1
     MoveDirection_X: 0

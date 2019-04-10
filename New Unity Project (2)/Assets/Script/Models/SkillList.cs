@@ -34,6 +34,8 @@ public class SkillList : ScriptableObject
     {
         public string Id;
         public KeyCode keyCode;
+        public string AnimatorTriggerName;
+
     }
 
     public AttackParameter[] normalAttack;  

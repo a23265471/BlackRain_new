@@ -55,13 +55,27 @@ public class PlayerController : MonoBehaviour {
         GroundedMove();
         Falling();
         Jump();
-        NormalAttack();
+        Attack();
         Dash();
         Avoid();
       // Debug.Log(Input.inputString.GetHashCode());
     }
 
-    
+
+  /*  public void GetCurrentKeyCode()
+    {
+       if(Input.anyKeyDown)
+        {
+
+
+
+
+        }
+        
+       // switch 
+
+    }
+    */
 
     public void GroundedMove()
     { 
@@ -96,13 +110,20 @@ public class PlayerController : MonoBehaviour {
 
     }
 
-    public void NormalAttack()
+    public void Attack()
     {
-        if (Input.GetMouseButtonDown(0))
+          
+        if (Input.GetKeyDown(inputSetting.inputKey.NormalAttack))
         {
             playerBehaviour.NormalAttack();
+
         }
+
+
+
     }
+
+
 
     public void Dash()
     {
