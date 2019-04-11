@@ -33,7 +33,7 @@ public class PlayerBehaviour : Character
         CanDashAttack = CanDash,
         CanSkyAttack = Jump | Falling | DoubleJump,
         CanAvoid = Move | Attack | Skill,
-        CanAttack = Attack | Move | Avoid,
+        CanAttack =  Move | Avoid,
         CanSkill = Attack | Move,
         DoNotGroudedMove = Attack | Skill | SkyAttack | Avoid,
         CanDamage = 0xff,
@@ -113,8 +113,8 @@ public class PlayerBehaviour : Character
 
     #region 攻擊
 
-    public bool CanTriggerNextAttack;
-    private bool isTriggerAttack;
+ /*   public bool CanTriggerNextAttack;
+    private bool isTriggerAttack;*/
   
     #endregion
 
@@ -139,10 +139,10 @@ public class PlayerBehaviour : Character
 
         floorMask = LayerMask.GetMask("Floor");
         playerState = PlayerState.Move;
-        CanTriggerNextAttack = true;
+       // CanTriggerNextAttack = true;
         detectAnimationStateNotAttack = null;
         ForceMove = false;
-        isTriggerAttack = false;
+       // isTriggerAttack = false;
         canfall = true;
         canTriggerFallingCoroutine = true;
         CreateWeapon();
@@ -397,14 +397,15 @@ public class PlayerBehaviour : Character
     {
         if (gravity.groundCheck.IsGround)
         {
-            if (CanTriggerNextAttack && ((playerState& PlayerState.CanAttack)!=0))
+            if ((playerState& PlayerState.CanAttack)!=0)
             {
                 // Debug.Log("gggg");
                 /* playerAnimator.SetTrigger("NormalAttack");
                  CanTriggerNextAttack = false;
                  isTriggerAttack = true;*/
+              //  Debug.Log("ggg");
 
-                attackSystem.NormalAttack("NormalAttack");
+                attackSystem.Attack("NormalAttack");
             }
 
         }
@@ -689,14 +690,14 @@ public class PlayerBehaviour : Character
 
     #region 攻擊動畫
 
-    public void CanTriggerAttack()
+    /*public void CanTriggerAttack()
     {
         CanTriggerNextAttack = true;
         isTriggerAttack = false;
         
-    }
+    }*/
 
-    public void CantTriggerAttack()
+  /*  public void CantTriggerAttack()
     {
         StopCoroutine("cantTriggerAttack");
         StartCoroutine("cantTriggerAttack");
@@ -708,52 +709,80 @@ public class PlayerBehaviour : Character
         yield return new WaitForSeconds(0.2f);
         CanTriggerNextAttack = false;
         ResetCanTriggerNextAttack("NormalAttack");
-    }
+    }*/
 
     public void AttackMoveSwitch()
     {
-        if (!isTriggerAttack)
+        if (!attackSystem.isTriggerAttack)
         {
             SwitchMove(1);
         }
     }
 
-    public void ResetCanTriggerNextAttack(string animationTag)
+    public void ResetToIdleState()
     {
-        detectAnimationStateNotAttack = DetectAnimationStateNotAttack(animationTag);
-        StopCoroutine(detectAnimationStateNotAttack);
 
-        StartCoroutine(detectAnimationStateNotAttack);
+        StartCoroutine("resetToIdleState");
+
+    }
+
+    IEnumerator resetToIdleState()
+    {
+        yield return new WaitUntil(() => !attackSystem.IsAttack);
 
     }
 
     IEnumerator DetectAnimationStateNotAttack(string animationTag)
     {
-
-        yield return new WaitForSeconds(0.01f);
-        if (animationHash.GetCurrentAnimationTag(animationTag))
+        yield return new WaitWhile(() => animationHash.GetCurrentAnimationTag(animationTag));
+        ForceMove = false;
+        if (playerState == PlayerState.Attack)
         {
-            
-
-            detectAnimationStateNotAttack = DetectAnimationStateNotAttack(animationTag);
-
-            StartCoroutine(detectAnimationStateNotAttack);
+            ChangePlayerState(1);
 
         }
-        else
-        {
-            isTriggerAttack = false;
-            CanTriggerNextAttack = true;
-            ForceMove = false;
-            if (playerState == PlayerState.Attack)
-            {
-                ChangePlayerState(1);
+        playerAnimator.ResetTrigger("NormalAttack");
 
-            }
-            playerAnimator.ResetTrigger("NormalAttack");
 
-        }
     }
+
+ /*   public void ResetCanTriggerNextAttack(string animationTag)
+    {
+        detectAnimationStateNotAttack = DetectAnimationStateNotAttack(animationTag);
+        StopCoroutine(detectAnimationStateNotAttack);
+
+        StartCoroutine(detectAnimationStateNotAttack);
+        
+    }*/
+
+   /* IEnumerator DetectAnimationStateNotAttack(string animationTag)
+    {
+
+      
+           yield return new WaitForSeconds(0.01f);
+           if (animationHash.GetCurrentAnimationTag(animationTag))
+           {
+
+
+               detectAnimationStateNotAttack = DetectAnimationStateNotAttack(animationTag);
+
+               StartCoroutine(detectAnimationStateNotAttack);
+
+           }
+           else
+           {
+               isTriggerAttack = false;
+               CanTriggerNextAttack = true;
+               ForceMove = false;
+               if (playerState == PlayerState.Attack)
+               {
+                   ChangePlayerState(1);
+
+               }
+               playerAnimator.ResetTrigger("NormalAttack");
+
+           }
+    }*/
 
     public void StopDetectAnimationStateNotAttack()
     {

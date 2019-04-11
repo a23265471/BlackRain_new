@@ -11,7 +11,7 @@ public class SkillList : ScriptableObject
         public string Name;
         public int Id;
         public int AttackOder;
-        public ChangeToDeputyAttack[] deputyAttack;
+        public ChangeToDeputyAttack[] NextAttack;
         public float MoveSpeed;
         public float MoveDistance;
         public int MoveDirection_X;

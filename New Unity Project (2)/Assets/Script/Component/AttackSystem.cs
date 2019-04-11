@@ -10,15 +10,31 @@ public class AttackSystem : MonoBehaviour
     private Dictionary<int, SkillList.AttackParameter> AttackCollection;
 
     private bool CanTriggerNextAttack;
-    private bool isTriggerAttack;
+    public bool isTriggerAttack;
     private SkillList.AttackParameter currentAttackInfo;
 
+    public bool IsAttack;
 
     private void Awake()
     {
         CreateAttackCollection();
         animator = GetComponent<Animator>();
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
     }
+
+    void Start()
+    {
+        CanTriggerNextAttack = true;
+        isTriggerAttack = false;
+        IsAttack = false;
+    }
+
+
+    private void Update()
+    {
+        
+    }
+   
 
     #region 建立攻擊列表
     public void CreateAttackCollection()
@@ -85,7 +101,7 @@ public class AttackSystem : MonoBehaviour
 
     }
 
-    public void NormalAttack(string animatorTrigger)
+    public void Attack(string animatorTrigger)
     {
         if (CanTriggerNextAttack)
         {
@@ -93,27 +109,26 @@ public class AttackSystem : MonoBehaviour
 
             CanTriggerNextAttack = false;
             isTriggerAttack = true;
-
+            IsAttack = true;
         }
 
     }
 
-
-    public void Attack()
+   /* public void Attack()
     {
-        if (currentAttackInfo.deputyAttack.Length != 0)
+        if (currentAttackInfo.NextAttack.Length != 0)
         {
-            for (int i = 0; i < currentAttackInfo.deputyAttack.Length; i++)
+            for (int i = 0; i < currentAttackInfo.NextAttack.Length; i++)
             {
-                if (Input.GetKeyDown(currentAttackInfo.deputyAttack[i].keyCode))
+                if (Input.GetKeyDown(currentAttackInfo.NextAttack[i].keyCode))
                 {
-                    animator.SetTrigger(currentAttackInfo.deputyAttack[i].AnimatorTriggerName);
+                    animator.SetTrigger(currentAttackInfo.NextAttack[i].AnimatorTriggerName);
                 }
 
             }
         }       
-
-    }
+        
+    }*/
 
     #region 動畫事件
     public void GetAttackInfo(int Id)
@@ -126,12 +141,79 @@ public class AttackSystem : MonoBehaviour
         CanTriggerNextAttack = true;
         isTriggerAttack = false;
 
+        StartCoroutine("DetectInput");
     }
 
-    public void DoNotTriggerAttack()
-    {
-        CanTriggerNextAttack = false;
+    IEnumerator DetectInput()
+    {        
+        if (currentAttackInfo.NextAttack.Length != 0)
+        {
+            yield return new WaitUntil(() => DetectTriggerNextAttack());
+            Debug.Log("triggerNext");
+        }
+        else
+        {
+            yield return null;
+        //    Debug.Log("dddd");
+        }
+
+
     }
+
+    private bool DetectTriggerNextAttack()
+    {
+        
+        if (currentAttackInfo.NextAttack != null)
+        {
+            for (int i = 0; i < currentAttackInfo.NextAttack.Length; i++)
+            {
+
+                if (Input.GetKeyDown(currentAttackInfo.NextAttack[i].keyCode))
+                {
+                    Attack(currentAttackInfo.NextAttack[i].AnimatorTriggerName);
+                    return true;
+
+                }
+                
+            }
+            
+
+        }
+        return false;
+
+        
+     
+    }
+
+    public void ResetTriggerAttack()
+    {
+        StopCoroutine("resetTriggerAttack");
+        StartCoroutine("resetTriggerAttack");
+    }
+
+     IEnumerator resetTriggerAttack()
+     {
+
+         yield return new WaitForSeconds(0.5f);
+         if (!isTriggerAttack)
+         {
+             CanTriggerNextAttack = true;
+             isTriggerAttack = false;
+            Debug.Log("reset");
+         }
+        IsAttack = false;
+        StopCoroutine("DetectInput");
+        Debug.Log("stopDetectInput");
+
+    }
+
+
+    /*   IEnumerator resetToIdle()
+       {
+           yield return new WaitUntil(() => );
+
+
+       }*/
 
     #endregion
 

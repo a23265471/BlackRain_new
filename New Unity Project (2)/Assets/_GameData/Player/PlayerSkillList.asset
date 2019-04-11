@@ -15,10 +15,10 @@ MonoBehaviour:
   - Name: NormalAttack_1
     Id: 100
     AttackOder: 1
-    deputyAttack:
-    - Id: 
-      keyCode: 0
-      AnimatorTriggerName: 
+    NextAttack:
+    - Id: NormalAttack_2
+      keyCode: 323
+      AnimatorTriggerName: NormalAttack
     MoveSpeed: 6
     MoveDistance: 1
     MoveDirection_X: 0
@@ -29,7 +29,10 @@ MonoBehaviour:
   - Name: NormalAttack_2
     Id: 101
     AttackOder: 2
-    deputyAttack: []
+    NextAttack:
+    - Id: NormalAttack_3
+      keyCode: 323
+      AnimatorTriggerName: NormalAttack
     MoveSpeed: 4
     MoveDistance: 0.7
     MoveDirection_X: 0
@@ -40,7 +43,7 @@ MonoBehaviour:
   - Name: NormalAttack_3
     Id: 102
     AttackOder: 3
-    deputyAttack: []
+    NextAttack: []
     MoveSpeed: 10
     MoveDistance: 4
     MoveDirection_X: 0
