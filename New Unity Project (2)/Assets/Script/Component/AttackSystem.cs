@@ -140,6 +140,7 @@ public class AttackSystem : MonoBehaviour
 
     public void TriggerNextAttack()
     {
+        Debug.Log("jjjj");
         CanTriggerNextAttack = true;
         isTriggerAttack = false;
 
@@ -195,18 +196,18 @@ public class AttackSystem : MonoBehaviour
 
      IEnumerator resetTriggerAttack()
      {
-
+       // Debug.Log("H");
          yield return new WaitForSeconds(0.2f);
          
-             CanTriggerNextAttack = true;
-             isTriggerAttack = false;
+         CanTriggerNextAttack = true;
+         isTriggerAttack = false;
             //Debug.Log("Reset TriggerAttack");
         
-        IsAttack = false;
-        StopCoroutine("DetectInput");
+         IsAttack = false;
+         StopCoroutine("DetectInput");
        // Debug.Log("stopDetectInput");
 
-    }
+    }    
 
 
     /*   IEnumerator resetToIdle()

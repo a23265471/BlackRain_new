@@ -98,7 +98,7 @@ MonoBehaviour:
         DoubleJumpHigh: 5000
         Gravity: 17
       avoidParameter:
-        AvoidSpeed: 8
+        AvoidSpeed: 10
         AvoidDistance: 4
       dashParameter:
         DashSpeed: 40

@@ -691,32 +691,11 @@ public class PlayerBehaviour : Character
 
     #region 攻擊動畫
 
-    /*public void CanTriggerAttack()
-    {
-        CanTriggerNextAttack = true;
-        isTriggerAttack = false;
-        
-    }*/
-
-  /*  public void CantTriggerAttack()
-    {
-        StopCoroutine("cantTriggerAttack");
-        StartCoroutine("cantTriggerAttack");
-
-    }
-
-    IEnumerator cantTriggerAttack()
-    {
-        yield return new WaitForSeconds(0.2f);
-        CanTriggerNextAttack = false;
-        ResetCanTriggerNextAttack("NormalAttack");
-    }*/
-
     public void AttackMoveSwitch()
     {
         if (!attackSystem.isTriggerAttack)
         {
-            Debug.Log("kkk");
+          //  Debug.Log("kkk");
             SwitchMove(1);
         }
     }
@@ -741,7 +720,7 @@ public class PlayerBehaviour : Character
 
     IEnumerator DetectAnimationStateNotAttack(string animationTag)
     {
-        Debug.Log("Attack => Idle");
+        //Debug.Log("Attack => Idle");
 
         yield return new WaitUntil(() => !attackSystem.IsAttack);
         yield return new WaitWhile(() => animationHash.GetCurrentAnimationTag(animationTag));
@@ -754,56 +733,6 @@ public class PlayerBehaviour : Character
 
 
     }
-
-
-
- /*   public void ResetCanTriggerNextAttack(string animationTag)
-    {
-        detectAnimationStateNotAttack = DetectAnimationStateNotAttack(animationTag);
-        StopCoroutine(detectAnimationStateNotAttack);
-
-        StartCoroutine(detectAnimationStateNotAttack);
-        
-    }*/
-
-   /* IEnumerator DetectAnimationStateNotAttack(string animationTag)
-    {
-
-      
-           yield return new WaitForSeconds(0.01f);
-           if (animationHash.GetCurrentAnimationTag(animationTag))
-           {
-
-
-               detectAnimationStateNotAttack = DetectAnimationStateNotAttack(animationTag);
-
-               StartCoroutine(detectAnimationStateNotAttack);
-
-           }
-           else
-           {
-               isTriggerAttack = false;
-               CanTriggerNextAttack = true;
-               ForceMove = false;
-               if (playerState == PlayerState.Attack)
-               {
-                   ChangePlayerState(1);
-
-               }
-               playerAnimator.ResetTrigger("NormalAttack");
-
-           }
-    }*/
-
-  /*  public void StopDetectAnimationStateNotAttack()
-    {
-        if (detectAnimationStateNotAttack != null)
-        {
-            StopCoroutine(detectAnimationStateNotAttack);
-
-
-        }
-    }*/
 
     public void AttackDisplacement(int AttackId)
     {
