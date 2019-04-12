@@ -165,7 +165,7 @@ ModelImporter:
       name: NormalAttack_1
       takeName: Take 001
       firstFrame: 0
-      lastFrame: 24
+      lastFrame: 13
       wrapMode: 0
       orientationOffsetY: 10
       level: 0
@@ -183,16 +183,51 @@ ModelImporter:
       heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
+      curves:
+      - name: AnimationSpeed
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0.8
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.51476794
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.7151899
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 0.8
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          preInfinity: 3
+          postInfinity: 3
+          rotationOrder: 4
       events:
-      - time: 0
-        functionName: ChangePlayerState
-        data: 
-        objectReferenceParameter: {fileID: 1973415817257212, guid: 2165c8a69503db9488c6eb6775697dfa,
-          type: 2}
-        floatParameter: 0
-        intParameter: 32
-        messageOptions: 0
       - time: 0
         functionName: GetAttackInfo
         data: 
@@ -200,6 +235,14 @@ ModelImporter:
           type: 2}
         floatParameter: 0
         intParameter: 100
+        messageOptions: 0
+      - time: 0
+        functionName: ChangePlayerState
+        data: 
+        objectReferenceParameter: {fileID: 1973415817257212, guid: 2165c8a69503db9488c6eb6775697dfa,
+          type: 2}
+        floatParameter: 0
+        intParameter: 32
         messageOptions: 0
       - time: 0.08294931
         functionName: TriggerNextAttack
@@ -216,6 +259,30 @@ ModelImporter:
           type: 2}
         floatParameter: 0
         intParameter: 0
+        messageOptions: 0
+      - time: 1
+        functionName: ResetToIdleState
+        data: NormalAttack
+        objectReferenceParameter: {fileID: 1973415817257212, guid: 2165c8a69503db9488c6eb6775697dfa,
+          type: 2}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 1
+        functionName: AttackMoveSwitch
+        data: 
+        objectReferenceParameter: {fileID: 1973415817257212, guid: 2165c8a69503db9488c6eb6775697dfa,
+          type: 2}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.34599155
+        functionName: AttackDisplacement
+        data: 
+        objectReferenceParameter: {fileID: 1973415817257212, guid: 2165c8a69503db9488c6eb6775697dfa,
+          type: 2}
+        floatParameter: 0
+        intParameter: 100
         messageOptions: 0
       transformMask: []
       maskType: 3

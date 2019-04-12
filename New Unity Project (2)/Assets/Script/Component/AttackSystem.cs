@@ -7,7 +7,7 @@ public class AttackSystem : MonoBehaviour
 {
     public SkillList skillList;
     private Animator animator;
-    private Dictionary<int, SkillList.AttackParameter> AttackCollection;
+    public Dictionary<int, SkillList.AttackParameter> AttackCollection;
 
     private bool CanTriggerNextAttack;
     public bool isTriggerAttack;
@@ -105,6 +105,8 @@ public class AttackSystem : MonoBehaviour
     {
         if (CanTriggerNextAttack)
         {
+            StopCoroutine("resetTriggerAttack");
+
             animator.SetTrigger(animatorTrigger);
 
             CanTriggerNextAttack = false;
@@ -149,7 +151,7 @@ public class AttackSystem : MonoBehaviour
         if (currentAttackInfo.NextAttack.Length != 0)
         {
             yield return new WaitUntil(() => DetectTriggerNextAttack());
-            Debug.Log("triggerNext");
+        //    Debug.Log("TriggerNext");
         }
         else
         {
@@ -194,16 +196,15 @@ public class AttackSystem : MonoBehaviour
      IEnumerator resetTriggerAttack()
      {
 
-         yield return new WaitForSeconds(0.5f);
-         if (!isTriggerAttack)
-         {
+         yield return new WaitForSeconds(0.2f);
+         
              CanTriggerNextAttack = true;
              isTriggerAttack = false;
-            Debug.Log("reset");
-         }
+            //Debug.Log("Reset TriggerAttack");
+        
         IsAttack = false;
         StopCoroutine("DetectInput");
-        Debug.Log("stopDetectInput");
+       // Debug.Log("stopDetectInput");
 
     }
 

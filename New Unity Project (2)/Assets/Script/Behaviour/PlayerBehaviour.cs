@@ -403,7 +403,7 @@ public class PlayerBehaviour : Character
                 /* playerAnimator.SetTrigger("NormalAttack");
                  CanTriggerNextAttack = false;
                  isTriggerAttack = true;*/
-              //  Debug.Log("ggg");
+             //   Debug.Log("ggg");
 
                 attackSystem.Attack("NormalAttack");
             }
@@ -498,7 +498,8 @@ public class PlayerBehaviour : Character
 
             case (int)PlayerState.Attack:
                 playerState = PlayerState.Attack;
-                StopDetectAnimationStateNotAttack();
+                //      StopDetectAnimationStateNotAttack();
+                StopResetToIdleState();
                 playerRigidbody.velocity = playerRigidbody.velocity*0.1f;
                 SwitchMove(0);
 
@@ -569,7 +570,7 @@ public class PlayerBehaviour : Character
             {
                 playerAnimator.ResetTrigger("Falling");
                 playerAnimator.SetTrigger("Idle");
-                playerState = PlayerState.Move;
+                ChangePlayerState(1);
             }
             else
             {
@@ -715,36 +716,46 @@ public class PlayerBehaviour : Character
     {
         if (!attackSystem.isTriggerAttack)
         {
+            Debug.Log("kkk");
             SwitchMove(1);
         }
     }
 
-    public void ResetToIdleState()
+    public void StopResetToIdleState()
     {
-
-        StartCoroutine("resetToIdleState");
-
+        if (detectAnimationStateNotAttack != null)
+        {
+            StopCoroutine(detectAnimationStateNotAttack);
+        }
+        //  StopCoroutine()
     }
 
-    IEnumerator resetToIdleState()
+    public void ResetToIdleState(string animationTag)
     {
-        yield return new WaitUntil(() => !attackSystem.IsAttack);
-
+        if (!attackSystem.isTriggerAttack)
+        {
+            detectAnimationStateNotAttack = DetectAnimationStateNotAttack(animationTag);
+            StartCoroutine(detectAnimationStateNotAttack);
+        }
     }
 
     IEnumerator DetectAnimationStateNotAttack(string animationTag)
     {
+        Debug.Log("Attack => Idle");
+
+        yield return new WaitUntil(() => !attackSystem.IsAttack);
         yield return new WaitWhile(() => animationHash.GetCurrentAnimationTag(animationTag));
         ForceMove = false;
-        if (playerState == PlayerState.Attack)
-        {
-            ChangePlayerState(1);
+       
+        ChangeToIdle(32);
 
-        }
+        
         playerAnimator.ResetTrigger("NormalAttack");
 
 
     }
+
+
 
  /*   public void ResetCanTriggerNextAttack(string animationTag)
     {
@@ -784,7 +795,7 @@ public class PlayerBehaviour : Character
            }
     }*/
 
-    public void StopDetectAnimationStateNotAttack()
+  /*  public void StopDetectAnimationStateNotAttack()
     {
         if (detectAnimationStateNotAttack != null)
         {
@@ -792,7 +803,7 @@ public class PlayerBehaviour : Character
 
 
         }
-    }
+    }*/
 
     public void AttackDisplacement(int AttackId)
     {
@@ -801,16 +812,16 @@ public class PlayerBehaviour : Character
         {
             Displacement(playerRigidbody,
                transform.rotation,
-               playerParameter.normalAttack[AttackId].MoveSpeed,
-               playerParameter.normalAttack[AttackId].MoveDistance,
-               playerParameter.normalAttack[AttackId].MoveDirection_X,
-               playerParameter.normalAttack[AttackId].MoveDirection_Y,
-               playerParameter.normalAttack[AttackId].MoveDirection_Z
+               attackSystem.AttackCollection[AttackId].moveInfo.MoveSpeed,
+               attackSystem.AttackCollection[AttackId].moveInfo.MoveDistance,
+               attackSystem.AttackCollection[AttackId].moveInfo.MoveDirection_X,
+               attackSystem.AttackCollection[AttackId].moveInfo.MoveDirection_Y,
+               attackSystem.AttackCollection[AttackId].moveInfo.MoveDirection_Z
                );
 
         }
         
-
+        
 
     }
 

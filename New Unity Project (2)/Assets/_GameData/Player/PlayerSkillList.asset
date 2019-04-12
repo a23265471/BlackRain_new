@@ -14,42 +14,59 @@ MonoBehaviour:
   normalAttack:
   - Name: NormalAttack_1
     Id: 100
-    AttackOder: 1
     NextAttack:
-    - Id: NormalAttack_2
-      keyCode: 323
+    - Name: NormalAttack_2
       AnimatorTriggerName: NormalAttack
-    MoveSpeed: 6
-    MoveDistance: 1
-    MoveDirection_X: 0
-    MoveDirection_Y: 0
-    MoveDirection_Z: 1
-    UseGravity: 1
+      keyCode: 323
+    moveInfo:
+      MoveSpeed: 6
+      MoveDistance: 0.5
+      MoveDirection_X: 0
+      MoveDirection_Y: 0
+      MoveDirection_Z: 1
+      UseGravity: 1
     AudioClip_Attack: {fileID: 0}
   - Name: NormalAttack_2
     Id: 101
-    AttackOder: 2
     NextAttack:
-    - Id: NormalAttack_3
-      keyCode: 323
+    - Name: NormalAttack_3
       AnimatorTriggerName: NormalAttack
-    MoveSpeed: 4
-    MoveDistance: 0.7
-    MoveDirection_X: 0
-    MoveDirection_Y: 0
-    MoveDirection_Z: 1
-    UseGravity: 1
+      keyCode: 323
+    moveInfo:
+      MoveSpeed: 6
+      MoveDistance: 0.2
+      MoveDirection_X: 0
+      MoveDirection_Y: 0
+      MoveDirection_Z: 1
+      UseGravity: 1
     AudioClip_Attack: {fileID: 0}
   - Name: NormalAttack_3
     Id: 102
-    AttackOder: 3
-    NextAttack: []
-    MoveSpeed: 10
-    MoveDistance: 4
-    MoveDirection_X: 0
-    MoveDirection_Y: 0
-    MoveDirection_Z: 1
-    UseGravity: 1
+    NextAttack:
+    - Name: NormalAttack_4
+      AnimatorTriggerName: NormalAttack
+      keyCode: 323
+    moveInfo:
+      MoveSpeed: 9
+      MoveDistance: 0.6
+      MoveDirection_X: 0
+      MoveDirection_Y: 0
+      MoveDirection_Z: 1
+      UseGravity: 1
+    AudioClip_Attack: {fileID: 0}
+  - Name: NormalAttack_4
+    Id: 103
+    NextAttack:
+    - Name: NormalAttack_5
+      AnimatorTriggerName: NormalAttack
+      keyCode: 323
+    moveInfo:
+      MoveSpeed: 13
+      MoveDistance: 1.5
+      MoveDirection_X: 0
+      MoveDirection_Y: 0
+      MoveDirection_Z: 1
+      UseGravity: 1
     AudioClip_Attack: {fileID: 0}
   deputyAttackCollections: []
   specialAttack: []

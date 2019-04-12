@@ -164,10 +164,10 @@ ModelImporter:
     - serializedVersion: 16
       name: NormalAttack_3
       takeName: Take 001
-      firstFrame: 0
-      lastFrame: 46
+      firstFrame: 10
+      lastFrame: 30
       wrapMode: 0
-      orientationOffsetY: 0
+      orientationOffsetY: -90
       level: 0
       cycleOffset: 0
       loop: 0
@@ -183,7 +183,59 @@ ModelImporter:
       heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
+      curves:
+      - name: AnimationSpeed
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0.7
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.34599158
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.57081544
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.71926576
+            value: 0.88069713
+            inSlope: -0.9829836
+            outSlope: -0.9829836
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 1
+            value: 0.7
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          preInfinity: 3
+          postInfinity: 3
+          rotationOrder: 4
       events:
       - time: 0
         functionName: GetAttackInfo
@@ -191,9 +243,17 @@ ModelImporter:
         objectReferenceParameter: {fileID: 1973415817257212, guid: 2165c8a69503db9488c6eb6775697dfa,
           type: 2}
         floatParameter: 0
-        intParameter: 103
+        intParameter: 102
         messageOptions: 0
-      - time: 0.11976189
+      - time: 0
+        functionName: ChangePlayerState
+        data: 
+        objectReferenceParameter: {fileID: 1973415817257212, guid: 2165c8a69503db9488c6eb6775697dfa,
+          type: 2}
+        floatParameter: 0
+        intParameter: 32
+        messageOptions: 0
+      - time: 0.25340247
         functionName: TriggerNextAttack
         data: 
         objectReferenceParameter: {fileID: 1973415817257212, guid: 2165c8a69503db9488c6eb6775697dfa,
@@ -202,12 +262,36 @@ ModelImporter:
         intParameter: 0
         messageOptions: 0
       - time: 1
-        functionName: TriggerNextAttack
+        functionName: ResetToIdleState
+        data: NormalAttack
+        objectReferenceParameter: {fileID: 1973415817257212, guid: 2165c8a69503db9488c6eb6775697dfa,
+          type: 2}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 1
+        functionName: AttackMoveSwitch
         data: 
         objectReferenceParameter: {fileID: 1973415817257212, guid: 2165c8a69503db9488c6eb6775697dfa,
           type: 2}
         floatParameter: 0
         intParameter: 0
+        messageOptions: 0
+      - time: 1
+        functionName: ResetTriggerAttack
+        data: 
+        objectReferenceParameter: {fileID: 1973415817257212, guid: 2165c8a69503db9488c6eb6775697dfa,
+          type: 2}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.37341774
+        functionName: AttackDisplacement
+        data: 
+        objectReferenceParameter: {fileID: 1973415817257212, guid: 2165c8a69503db9488c6eb6775697dfa,
+          type: 2}
+        floatParameter: 0
+        intParameter: 102
         messageOptions: 0
       transformMask: []
       maskType: 3
