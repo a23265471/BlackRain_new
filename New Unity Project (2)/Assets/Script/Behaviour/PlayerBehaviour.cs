@@ -12,7 +12,7 @@ public class PlayerBehaviour : Character
     [Flags]
     public enum PlayerState
     {
-        Move = 0x01,//0001
+        Move = 0x01,//0001 
         Jump = 0x02,//0010
         Falling = 0x04,//0100
         DoubleJump = 0x08,//1000

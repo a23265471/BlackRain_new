@@ -82,13 +82,113 @@ MonoBehaviour:
         MoveDirection_Z: 0
         UseGravity: 0
       AudioClip_Attack: {fileID: 0}
-    - Name: DashAttack
+    - Name: Dash=>DashAttack_Right
       Id: 151
+      NextAttack:
+      - Name: DashAttack
+        AnimatorTriggerName: DashAttack
+        keyCode: 323
+      moveInfo:
+        MoveSpeed: 0
+        MoveDistance: 0
+        MoveDirection_X: 0
+        MoveDirection_Y: 0
+        MoveDirection_Z: 0
+        UseGravity: 0
+      AudioClip_Attack: {fileID: 0}
+    - Name: Dash=>DashAttack_Left
+      Id: 152
+      NextAttack:
+      - Name: DashAttack
+        AnimatorTriggerName: DashAttack
+        keyCode: 323
+      moveInfo:
+        MoveSpeed: 0
+        MoveDistance: 0
+        MoveDirection_X: 0
+        MoveDirection_Y: 0
+        MoveDirection_Z: 0
+        UseGravity: 0
+      AudioClip_Attack: {fileID: 0}
+    - Name: Dash=>DashAttack_ForwardRight
+      Id: 153
+      NextAttack:
+      - Name: DashAttack
+        AnimatorTriggerName: DashAttack
+        keyCode: 323
+      moveInfo:
+        MoveSpeed: 0
+        MoveDistance: 0
+        MoveDirection_X: 0
+        MoveDirection_Y: 0
+        MoveDirection_Z: 0
+        UseGravity: 0
+      AudioClip_Attack: {fileID: 0}
+    - Name: Dash=>DashAttack_ForwardLeft
+      Id: 154
+      NextAttack:
+      - Name: DashAttack
+        AnimatorTriggerName: DashAttack
+        keyCode: 323
+      moveInfo:
+        MoveSpeed: 0
+        MoveDistance: 0
+        MoveDirection_X: 0
+        MoveDirection_Y: 0
+        MoveDirection_Z: 0
+        UseGravity: 0
+      AudioClip_Attack: {fileID: 0}
+    - Name: DashAttack
+      Id: 155
       NextAttack: []
       moveInfo:
         MoveSpeed: 45
         MoveDistance: 2
         MoveDirection_X: 0
+        MoveDirection_Y: 0
+        MoveDirection_Z: 1
+        UseGravity: 0
+      AudioClip_Attack: {fileID: 0}
+    - Name: DashAttack_Right
+      Id: 156
+      NextAttack: []
+      moveInfo:
+        MoveSpeed: 45
+        MoveDistance: 2
+        MoveDirection_X: 1
+        MoveDirection_Y: 0
+        MoveDirection_Z: 0
+        UseGravity: 0
+      AudioClip_Attack: {fileID: 0}
+    - Name: DashAttack_Left
+      Id: 157
+      NextAttack: []
+      moveInfo:
+        MoveSpeed: 45
+        MoveDistance: 2
+        MoveDirection_X: -1
+        MoveDirection_Y: 0
+        MoveDirection_Z: 0
+        UseGravity: 0
+      AudioClip_Attack: {fileID: 0}
+    - Name: DashAttack_ForwardRight
+      Id: 158
+      NextAttack: []
+      moveInfo:
+        MoveSpeed: 45
+        MoveDistance: 2
+        MoveDirection_X: 1
+        MoveDirection_Y: 0
+        MoveDirection_Z: 1
+        UseGravity: 0
+      AudioClip_Attack: {fileID: 0}
+    - Name: DashAttack_ForwardLeft
+      Id: 159
+      NextAttack: []
+      moveInfo:
+        MoveSpeed: 45
+        MoveDistance: 2
+        MoveDirection_X: -1
         MoveDirection_Y: 0
         MoveDirection_Z: 1
         UseGravity: 0
