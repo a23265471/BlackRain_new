@@ -21,6 +21,7 @@ public class SkillList : ScriptableObject
     [System.Serializable]
     public struct DeputyAttackCollection
     {
+        public string Name;
         public AttackParameter[] DeputyAttack;
     }
 
@@ -31,6 +32,11 @@ public class SkillList : ScriptableObject
         public string AnimatorTriggerName;
         public KeyCode keyCode;
     }
+
+   
+
+
+
 
     [System.Serializable]
     public struct MoveInfo
@@ -46,4 +52,5 @@ public class SkillList : ScriptableObject
     public AttackParameter[] normalAttack;  
     public DeputyAttackCollection[] deputyAttackCollections;
     public AttackParameter[] specialAttack;
+
 }

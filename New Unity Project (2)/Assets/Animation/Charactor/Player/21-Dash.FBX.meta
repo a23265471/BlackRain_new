@@ -189,27 +189,51 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
+      - time: 0
+        functionName: GetAttackInfo
+        data: 
+        objectReferenceParameter: {fileID: 1973415817257212, guid: 2165c8a69503db9488c6eb6775697dfa,
+          type: 2}
+        floatParameter: 0
+        intParameter: 150
+        messageOptions: 0
       - time: 0.07373272
         functionName: ChangePlayerState
         data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 48984eef8ea34764d8a93b59a73a6109,
-          type: 3}
+        objectReferenceParameter: {fileID: 1973415817257212, guid: 2165c8a69503db9488c6eb6775697dfa,
+          type: 2}
         floatParameter: 0
         intParameter: 16
         messageOptions: 0
       - time: 0.09677419
         functionName: DashMove
         data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 48984eef8ea34764d8a93b59a73a6109,
-          type: 3}
+        objectReferenceParameter: {fileID: 1973415817257212, guid: 2165c8a69503db9488c6eb6775697dfa,
+          type: 2}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.9447004
+      - time: 0.11059909
+        functionName: TriggerNextAttack
+        data: 
+        objectReferenceParameter: {fileID: 1973415817257212, guid: 2165c8a69503db9488c6eb6775697dfa,
+          type: 2}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.6773707
+        functionName: StopTriggerNextAttack
+        data: 
+        objectReferenceParameter: {fileID: 1973415817257212, guid: 2165c8a69503db9488c6eb6775697dfa,
+          type: 2}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.9354839
         functionName: EndDash
         data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 48984eef8ea34764d8a93b59a73a6109,
-          type: 3}
+        objectReferenceParameter: {fileID: 1973415817257212, guid: 2165c8a69503db9488c6eb6775697dfa,
+          type: 2}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0

@@ -12,35 +12,35 @@ public class PlayerBehaviour : Character
     [Flags]
     public enum PlayerState
     {
-        Move = 0x01,
-        Jump = 0x02,
-        Falling = 0x04,
-        DoubleJump = 0x08,
-        Dash = 0x10,
-        Attack = 0x20,
-        DashAttack = 0x30,
-        Skill = 0x40,
-        Avoid = 0x50,
-        SkyAttack = 0x60,
-        Damage = 0xc0,
-        GetDown = 0xe0,
-        Dead = 0xf0,
+        Move = 0x01,//0001
+        Jump = 0x02,//0010
+        Falling = 0x04,//0100
+        DoubleJump = 0x08,//1000
+        Dash = 0x10,//1 0000
+        Attack = 0x20,//10 0000
+     //   DashAttack = 0x30,//11 0000
+        Skill = 0x40,//0100 0000
+        Avoid = 0x80,//101 0000
+//        SkyAttack = 0xf0,//
+        Damage = 0xff,
+        GetDown = 0xff,
+        Dead = 0xff,
 
-        CanFalling = Move | Attack | Dash | SkyAttack ,
-        FallingMove = Falling | Jump | DoubleJump | SkyAttack,
+        CanFalling = Move | Attack | Dash/* | SkyAttack*/ ,
+        FallingMove = Falling | Jump | DoubleJump /*| SkyAttack*/,
         CanDoubleJump = Jump | Falling | Dash,
-        CanDash = Move | Attack | Jump | DoubleJump | SkyAttack | Falling,
-        CanDashAttack = CanDash,
+        CanDash = Move | Attack | Jump | DoubleJump /*| SkyAttack */| Falling,
+ //       CanDashAttack = CanDash,
         CanSkyAttack = Jump | Falling | DoubleJump,
         CanAvoid = Move | Attack | Skill,
         CanAttack =  Move | Avoid,
         CanSkill = Attack | Move,
-        DoNotGroudedMove = Attack | Skill | SkyAttack | Avoid,
+        DoNotGroudedMove = Attack | Skill /*| SkyAttack*/ | Avoid,
         CanDamage = 0xff,
         CaGetDown = 0xff,
         CanDead = 0xff,
 
-        LandingChecking = Jump | Falling | DoubleJump | SkyAttack,
+        LandingChecking = Jump | Falling | DoubleJump /*| SkyAttack*/,
 
     }
 
@@ -397,13 +397,13 @@ public class PlayerBehaviour : Character
     {
         if (gravity.groundCheck.IsGround)
         {
-            if ((playerState& PlayerState.CanAttack)!=0)
+            if ((playerState & PlayerState.CanAttack)!=0)
             {
                 // Debug.Log("gggg");
                 /* playerAnimator.SetTrigger("NormalAttack");
                  CanTriggerNextAttack = false;
                  isTriggerAttack = true;*/
-             //   Debug.Log("ggg");
+                Debug.Log(playerState);
 
                 attackSystem.Attack("NormalAttack");
             }
@@ -509,8 +509,8 @@ public class PlayerBehaviour : Character
                 playerState = PlayerState.Dash;
                 //  gravity.StopGroundCheck();
                 PlayerShader.enabled = true;
-
                 canfall = false;
+                StartCoroutine("DetcetExitDash");
                 StopCoroutine("LandingCheck");
 
                 break;
@@ -720,13 +720,15 @@ public class PlayerBehaviour : Character
 
     IEnumerator DetectAnimationStateNotAttack(string animationTag)
     {
-        //Debug.Log("Attack => Idle");
 
         yield return new WaitUntil(() => !attackSystem.IsAttack);
-        yield return new WaitWhile(() => animationHash.GetCurrentAnimationTag(animationTag));
-        ForceMove = false;
-       
+
+       // yield return new WaitWhile(() => animationHash.GetCurrentAnimationTag(animationTag));
+        Debug.Log("Attack => Idle");
         ChangeToIdle(32);
+
+        ForceMove = false;
+
 
         
         playerAnimator.ResetTrigger("NormalAttack");
@@ -760,17 +762,33 @@ public class PlayerBehaviour : Character
     #region 衝刺
     public void EndDash()
     {
+        StopCoroutine("DetcetExitDash");
         PlayerShader.enabled = false;
-        gravity.StartUseGravity();
-       // gravity.StartGroundCheck();
-
-        canfall = true;
-
-
-        ChangeToIdle(16);
-
        
+        Debug.Log("Start");
+        gravity.StartUseGravity();
+        
+        // gravity.StartGroundCheck();
+        canfall = true;
+        ChangeToIdle(16);     
     }
+
+    IEnumerator DetcetExitDash()
+    {
+      //  Debug.Log(animationHash.GetCurrentAnimationState("Dash"));
+
+        yield return new WaitUntil(() => (playerState!=PlayerState.Dash));
+
+    //    Debug.Log("StopExitDash");
+
+        PlayerShader.enabled = false;
+        if (!attackSystem.isTriggerAttack)
+        {
+            gravity.StartUseGravity();
+        }
+        canfall = true;
+    }
+
 
     public void DashMove()
     {

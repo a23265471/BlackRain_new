@@ -56,10 +56,7 @@ MonoBehaviour:
     AudioClip_Attack: {fileID: 0}
   - Name: NormalAttack_4
     Id: 103
-    NextAttack:
-    - Name: NormalAttack_5
-      AnimatorTriggerName: NormalAttack
-      keyCode: 323
+    NextAttack: []
     moveInfo:
       MoveSpeed: 13
       MoveDistance: 1.5
@@ -68,5 +65,36 @@ MonoBehaviour:
       MoveDirection_Z: 1
       UseGravity: 1
     AudioClip_Attack: {fileID: 0}
-  deputyAttackCollections: []
+  deputyAttackCollections:
+  - Name: Dash=>DashAttack
+    DeputyAttack:
+    - Name: Dash=>DashAttack
+      Id: 150
+      NextAttack:
+      - Name: DashAttack
+        AnimatorTriggerName: DashAttack
+        keyCode: 323
+      moveInfo:
+        MoveSpeed: 0
+        MoveDistance: 0
+        MoveDirection_X: 0
+        MoveDirection_Y: 0
+        MoveDirection_Z: 0
+        UseGravity: 0
+      AudioClip_Attack: {fileID: 0}
+    - Name: DashAttack
+      Id: 151
+      NextAttack: []
+      moveInfo:
+        MoveSpeed: 45
+        MoveDistance: 2
+        MoveDirection_X: 0
+        MoveDirection_Y: 0
+        MoveDirection_Z: 1
+        UseGravity: 0
+      AudioClip_Attack: {fileID: 0}
+  - Name: 
+    DeputyAttack: []
+  - Name: 
+    DeputyAttack: []
   specialAttack: []

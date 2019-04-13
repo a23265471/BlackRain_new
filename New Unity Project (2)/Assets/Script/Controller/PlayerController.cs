@@ -103,8 +103,8 @@ public class PlayerController : MonoBehaviour {
     {
         if (Input.GetKeyDown(inputSetting.inputKey.Jump))
         {
-            Debug.Log("Trigger Jump");
-            Debug.Log(playerBehaviour.playerState);
+           // Debug.Log("Trigger Jump");
+           // Debug.Log(playerBehaviour.playerState);
             playerBehaviour.Jump(moveDirection_Vertical, moveDirection_Horizontal);
         }
 

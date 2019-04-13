@@ -32,13 +32,13 @@ MonoBehaviour:
   - AvoidBack
   - AvoidBackLeft
   - AvoidBackRight
-  - ShortAttack1
-  - ShortAttack2
-  - ShortAttack3
   - Dash
-  - 
-  - 
-  - 
-  - 
-  - 
+  - DashForwardRight
+  - DashForwardLeft
+  - DashRight
+  - DashLeft
+  - NormalAttack_1
+  - NormalAttack_2
+  - NormalAttack_3
+  - NormalAttack_4
   - 

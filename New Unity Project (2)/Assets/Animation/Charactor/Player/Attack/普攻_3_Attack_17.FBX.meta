@@ -238,6 +238,14 @@ ModelImporter:
           rotationOrder: 4
       events:
       - time: 0
+        functionName: DetectForceExitAttack
+        data: NormalAttack
+        objectReferenceParameter: {fileID: 1973415817257212, guid: 2165c8a69503db9488c6eb6775697dfa,
+          type: 2}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0
         functionName: GetAttackInfo
         data: 
         objectReferenceParameter: {fileID: 1973415817257212, guid: 2165c8a69503db9488c6eb6775697dfa,
@@ -261,30 +269,6 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 1
-        functionName: ResetToIdleState
-        data: NormalAttack
-        objectReferenceParameter: {fileID: 1973415817257212, guid: 2165c8a69503db9488c6eb6775697dfa,
-          type: 2}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 1
-        functionName: AttackMoveSwitch
-        data: 
-        objectReferenceParameter: {fileID: 1973415817257212, guid: 2165c8a69503db9488c6eb6775697dfa,
-          type: 2}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 1
-        functionName: ResetTriggerAttack
-        data: 
-        objectReferenceParameter: {fileID: 1973415817257212, guid: 2165c8a69503db9488c6eb6775697dfa,
-          type: 2}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
       - time: 0.37341774
         functionName: AttackDisplacement
         data: 
@@ -292,6 +276,30 @@ ModelImporter:
           type: 2}
         floatParameter: 0
         intParameter: 102
+        messageOptions: 0
+      - time: 0.94009215
+        functionName: ResetTriggerAttack
+        data: 
+        objectReferenceParameter: {fileID: 1973415817257212, guid: 2165c8a69503db9488c6eb6775697dfa,
+          type: 2}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.94009215
+        functionName: ResetToIdleState
+        data: NormalAttack
+        objectReferenceParameter: {fileID: 1973415817257212, guid: 2165c8a69503db9488c6eb6775697dfa,
+          type: 2}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.94009215
+        functionName: AttackMoveSwitch
+        data: 
+        objectReferenceParameter: {fileID: 1973415817257212, guid: 2165c8a69503db9488c6eb6775697dfa,
+          type: 2}
+        floatParameter: 0
+        intParameter: 0
         messageOptions: 0
       transformMask: []
       maskType: 3

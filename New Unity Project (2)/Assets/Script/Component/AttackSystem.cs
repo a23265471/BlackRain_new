@@ -2,12 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Gravity))]
+[RequireComponent(typeof(AnimationHash))]
 [RequireComponent(typeof(Animator))]
 public class AttackSystem : MonoBehaviour
 {
     public SkillList skillList;
     private Animator animator;
+    private AnimationHash animationHash;
+    private Gravity gravity;
     public Dictionary<int, SkillList.AttackParameter> AttackCollection;
+
 
     private bool CanTriggerNextAttack;
     public bool isTriggerAttack;
@@ -15,15 +20,19 @@ public class AttackSystem : MonoBehaviour
 
     public bool IsAttack;
 
+    IEnumerator detectAttackStateForceExit;
+
     private void Awake()
     {
         CreateAttackCollection();
         animator = GetComponent<Animator>();
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+        animationHash = GetComponent<AnimationHash>();
+        gravity = GetComponent<Gravity>();
     }
 
     void Start()
     {
+        detectAttackStateForceExit = null;
         CanTriggerNextAttack = true;
         isTriggerAttack = false;
         IsAttack = false;
@@ -105,6 +114,11 @@ public class AttackSystem : MonoBehaviour
     {
         if (CanTriggerNextAttack)
         {
+            if (detectAttackStateForceExit != null)
+            {
+                StopCoroutine(detectAttackStateForceExit);
+            }
+
             StopCoroutine("resetTriggerAttack");
 
             animator.SetTrigger(animatorTrigger);
@@ -136,11 +150,27 @@ public class AttackSystem : MonoBehaviour
     public void GetAttackInfo(int Id)
     {
         currentAttackInfo = AttackCollection[Id];
+
+        if (!currentAttackInfo.moveInfo.UseGravity)
+        {
+           // Debug.Log("Stop Use Gravity");
+            gravity.StopUseGravity();
+        }
+    }
+
+    public void StopTriggerNextAttack()
+    {
+        Debug.Log(isTriggerAttack);
+        if (!isTriggerAttack)
+        {
+            CanTriggerNextAttack = false;
+
+        }
     }
 
     public void TriggerNextAttack()
     {
-        Debug.Log("jjjj");
+     //   Debug.Log("jjjj");
         CanTriggerNextAttack = true;
         isTriggerAttack = false;
 
@@ -164,8 +194,7 @@ public class AttackSystem : MonoBehaviour
     }
 
     private bool DetectTriggerNextAttack()
-    {
-        
+    {       
         if (currentAttackInfo.NextAttack != null)
         {
             for (int i = 0; i < currentAttackInfo.NextAttack.Length; i++)
@@ -175,47 +204,68 @@ public class AttackSystem : MonoBehaviour
                 {
                     Attack(currentAttackInfo.NextAttack[i].AnimatorTriggerName);
                     return true;
-
-                }
-                
-            }
-            
-
+                }              
+            }            
         }
-        return false;
-
-        
-     
+        return false;         
     }
 
     public void ResetTriggerAttack()
     {
+      //  Debug.Log(isTriggerAttack);
+        if (!isTriggerAttack)
+        {
+            if (detectAttackStateForceExit != null)
+            {
+                StopCoroutine(detectAttackStateForceExit);
+                Debug.Log("3. Reset Detect Attack State Force Exit");
+
+            }
+        }
+        gravity.StartUseGravity();
         StopCoroutine("resetTriggerAttack");
         StartCoroutine("resetTriggerAttack");
     }
 
-     IEnumerator resetTriggerAttack()
-     {
-       // Debug.Log("H");
-         yield return new WaitForSeconds(0.2f);
+    IEnumerator resetTriggerAttack()
+    {
+        yield return new WaitForSeconds(0.2f);
          
          CanTriggerNextAttack = true;
          isTriggerAttack = false;
-            //Debug.Log("Reset TriggerAttack");
+         //Debug.Log("Reset TriggerAttack");
         
          IsAttack = false;
          StopCoroutine("DetectInput");
        // Debug.Log("stopDetectInput");
 
-    }    
+    }
+
+    public void DetectForceExitAttack(string animationTag)
+    {
+        if (detectAttackStateForceExit != null)
+        {
+            StopCoroutine(detectAttackStateForceExit);
+        }
 
 
-    /*   IEnumerator resetToIdle()
-       {
-           yield return new WaitUntil(() => );
+        detectAttackStateForceExit = DetectAttackStateForceExit(animationTag);
 
+        StartCoroutine(detectAttackStateForceExit);
+    }
 
-       }*/
+    IEnumerator DetectAttackStateForceExit(string animationTag)
+    {
+        Debug.Log("1.Detect Attack State Force Exit");
+        yield return new WaitUntil(() => !animationHash.GetCurrentAnimationTag(animationTag));
+        Debug.Log("2.  Attack is State Force Exit");
+       CanTriggerNextAttack = true;
+        isTriggerAttack = false;
+        //Debug.Log("Reset TriggerAttack");
+
+        IsAttack = false;
+        StopCoroutine("DetectInput");
+    }
 
     #endregion
 
