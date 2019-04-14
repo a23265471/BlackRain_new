@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MainCamera : MonoBehaviour
+public class MainCamera_New : MonoBehaviour
 {
 
     // public GameObject target;
     //  public PlayerController playerController;
-    public static MainCamera mainCamera;
+    public static MainCamera_New mainCamera;
     private PlayerBehaviour playerBehavior;
     private GameStageController gameStageController;
     private GameStageData gameStageData;

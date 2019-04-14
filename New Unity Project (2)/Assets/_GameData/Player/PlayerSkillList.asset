@@ -32,6 +32,9 @@ MonoBehaviour:
     - Name: NormalAttack_3
       AnimatorTriggerName: NormalAttack
       keyCode: 323
+    - Name: Combo1_1
+      AnimatorTriggerName: Combo1
+      keyCode: 324
     moveInfo:
       MoveSpeed: 6
       MoveDistance: 0.2
@@ -193,8 +196,33 @@ MonoBehaviour:
         MoveDirection_Z: 1
         UseGravity: 0
       AudioClip_Attack: {fileID: 0}
-  - Name: 
-    DeputyAttack: []
+  - Name: Combo1
+    DeputyAttack:
+    - Name: Combo1_1
+      Id: 111
+      NextAttack:
+      - Name: Combo1_2
+        AnimatorTriggerName: Combo1
+        keyCode: 323
+      moveInfo:
+        MoveSpeed: 20
+        MoveDistance: 1
+        MoveDirection_X: 0
+        MoveDirection_Y: 0
+        MoveDirection_Z: 1
+        UseGravity: 1
+      AudioClip_Attack: {fileID: 0}
+    - Name: Combo1_2
+      Id: 112
+      NextAttack: []
+      moveInfo:
+        MoveSpeed: 0
+        MoveDistance: 0
+        MoveDirection_X: 0
+        MoveDirection_Y: 0
+        MoveDirection_Z: 0
+        UseGravity: 0
+      AudioClip_Attack: {fileID: 0}
   - Name: 
     DeputyAttack: []
   specialAttack: []

@@ -24,7 +24,7 @@ public class GameFacade : MonoBehaviour {
 
 
     #region Controller
-    public PlayerController playerController;
+    public PlayerController_New playerController;
     public GameStageController gameStageController;
    
 
@@ -41,7 +41,7 @@ public class GameFacade : MonoBehaviour {
 
     private void Initialize()
     {
-        playerController = GetComponent<PlayerController>();
+        playerController = GetComponent<PlayerController_New>();
         gameStageController = GetComponent<GameStageController>();
 
         

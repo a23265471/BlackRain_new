@@ -49,7 +49,7 @@ public class PlayerBehaviour : Character
     public static PlayerBehaviour playerBehaviour;
 
     private GameStageData gameStageData;
-    private PlayerController playerController;
+    private PlayerController_New playerController;
     private Animator playerAnimator;
    
     private AudioSource playerAudioSource;
@@ -285,12 +285,9 @@ public class PlayerBehaviour : Character
         {
             playerAnimator.SetTrigger("Falling");         
             // playerState = PlayerState.Falling;
-            Debug.Log("Start Falling");
+           // Debug.Log("Start Falling");
         }
-        else
-        {           
-            Debug.Log("Stop Falling");
-        }
+        
         canTriggerFallingCoroutine = true;
 
     }
@@ -403,7 +400,7 @@ public class PlayerBehaviour : Character
                 /* playerAnimator.SetTrigger("NormalAttack");
                  CanTriggerNextAttack = false;
                  isTriggerAttack = true;*/
-                Debug.Log(playerState);
+               // Debug.Log(playerState);
 
                 attackSystem.Attack("NormalAttack");
             }
@@ -720,6 +717,8 @@ public class PlayerBehaviour : Character
 
     IEnumerator DetectAnimationStateNotAttack(string animationTag)
     {
+        
+
 
         yield return new WaitUntil(() => !attackSystem.IsAttack);
 
@@ -765,7 +764,7 @@ public class PlayerBehaviour : Character
         StopCoroutine("DetcetExitDash");
         PlayerShader.enabled = false;
        
-        Debug.Log("Start");
+      //  Debug.Log("Start");
         gravity.StartUseGravity();
         
         // gravity.StartGroundCheck();

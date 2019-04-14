@@ -179,7 +179,7 @@ ModelImporter:
         objectReferenceParameter: {fileID: 11500000, guid: 48984eef8ea34764d8a93b59a73a6109,
           type: 3}
         floatParameter: 0
-        intParameter: 80
+        intParameter: 128
         messageOptions: 0
       - time: 1
         functionName: ChangeToIdle
@@ -187,7 +187,7 @@ ModelImporter:
         objectReferenceParameter: {fileID: 11500000, guid: 48984eef8ea34764d8a93b59a73a6109,
           type: 3}
         floatParameter: 0
-        intParameter: 80
+        intParameter: 128
         messageOptions: 0
       transformMask: []
       maskType: 3
@@ -223,7 +223,7 @@ ModelImporter:
         objectReferenceParameter: {fileID: 11500000, guid: 48984eef8ea34764d8a93b59a73a6109,
           type: 3}
         floatParameter: 0
-        intParameter: 80
+        intParameter: 128
         messageOptions: 0
       - time: 1
         functionName: ChangeToIdle
@@ -231,7 +231,7 @@ ModelImporter:
         objectReferenceParameter: {fileID: 11500000, guid: 48984eef8ea34764d8a93b59a73a6109,
           type: 3}
         floatParameter: 0
-        intParameter: 80
+        intParameter: 128
         messageOptions: 0
       transformMask: []
       maskType: 3
@@ -267,7 +267,7 @@ ModelImporter:
         objectReferenceParameter: {fileID: 11500000, guid: 48984eef8ea34764d8a93b59a73a6109,
           type: 3}
         floatParameter: 0
-        intParameter: 80
+        intParameter: 128
         messageOptions: 0
       - time: 1
         functionName: ChangeToIdle
@@ -275,7 +275,7 @@ ModelImporter:
         objectReferenceParameter: {fileID: 11500000, guid: 48984eef8ea34764d8a93b59a73a6109,
           type: 3}
         floatParameter: 0
-        intParameter: 80
+        intParameter: 128
         messageOptions: 0
       transformMask: []
       maskType: 3

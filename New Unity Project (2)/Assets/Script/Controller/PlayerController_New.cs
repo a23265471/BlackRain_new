@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController_New : MonoBehaviour {
 
    // private GameStageController gameStageController;
     private PlayerBehaviour playerBehaviour;

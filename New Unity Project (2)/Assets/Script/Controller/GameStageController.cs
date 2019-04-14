@@ -10,7 +10,7 @@ public class GameStageController : MonoBehaviour {
   //  public GameObject player;
     public PlayerBehaviour playerBehaviour;
 
-    public MainCamera mainCameraBehaviour;
+    public MainCamera_New mainCameraBehaviour;
 
 
     private bool CursorLocked;
@@ -27,7 +27,7 @@ public class GameStageController : MonoBehaviour {
 
      //   Weapon.transform.parent=
 
-        mainCameraBehaviour = mainCamera.GetComponent<MainCamera>();
+        mainCameraBehaviour = mainCamera.GetComponent<MainCamera_New>();
         playerBehaviour = player.GetComponent<PlayerBehaviour>();
         
     }

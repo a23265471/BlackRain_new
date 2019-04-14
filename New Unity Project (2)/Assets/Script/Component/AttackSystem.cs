@@ -114,13 +114,14 @@ public class AttackSystem : MonoBehaviour
     {
         if (CanTriggerNextAttack)
         {
+          //  Debug.Log("fff");
             if (detectAttackStateForceExit != null)
             {
                 StopCoroutine(detectAttackStateForceExit);
             }
 
             StopCoroutine("resetTriggerAttack");
-
+            StopCoroutine("DetectInput");
             animator.SetTrigger(animatorTrigger);
 
             CanTriggerNextAttack = false;
@@ -212,7 +213,7 @@ public class AttackSystem : MonoBehaviour
 
     public void ResetTriggerAttack()
     {
-      //  Debug.Log(isTriggerAttack);
+       // Debug.Log(isTriggerAttack);
         if (!isTriggerAttack)
         {
             if (detectAttackStateForceExit != null)
@@ -229,14 +230,18 @@ public class AttackSystem : MonoBehaviour
 
     IEnumerator resetTriggerAttack()
     {
-        yield return new WaitForSeconds(0.2f);
-         
-         CanTriggerNextAttack = true;
-         isTriggerAttack = false;
-         //Debug.Log("Reset TriggerAttack");
-        
-         IsAttack = false;
-         StopCoroutine("DetectInput");
+        IsAttack = false;
+
+        yield return new WaitForSeconds(0.3f);
+        Debug.Log(IsAttack);
+
+      /*  CanTriggerNextAttack = true;
+         isTriggerAttack = false;*/
+        //Debug.Log("Reset TriggerAttack");
+
+        StopCoroutine("DetectInput");
+        CanTriggerNextAttack = true;
+        isTriggerAttack = false; 
        // Debug.Log("stopDetectInput");
 
     }
@@ -256,10 +261,14 @@ public class AttackSystem : MonoBehaviour
 
     IEnumerator DetectAttackStateForceExit(string animationTag)
     {
-        Debug.Log("1.Detect Attack State Force Exit");
+        //Debug.Log("1.Detect Attack State Force Exit");
+
+        yield return new WaitUntil(() => animationHash.GetCurrentAnimationTag(animationTag));
+       // Debug.Log(animationHash.GetCurrentAnimationTag(animationTag));
+
         yield return new WaitUntil(() => !animationHash.GetCurrentAnimationTag(animationTag));
         Debug.Log("2.  Attack is State Force Exit");
-       CanTriggerNextAttack = true;
+        CanTriggerNextAttack = true;
         isTriggerAttack = false;
         //Debug.Log("Reset TriggerAttack");
 
