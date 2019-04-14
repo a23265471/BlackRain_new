@@ -232,7 +232,7 @@ public class AttackSystem : MonoBehaviour
     {
         IsAttack = false;
 
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.5f);
         Debug.Log(IsAttack);
 
       /*  CanTriggerNextAttack = true;
@@ -240,8 +240,8 @@ public class AttackSystem : MonoBehaviour
         //Debug.Log("Reset TriggerAttack");
 
         StopCoroutine("DetectInput");
-        CanTriggerNextAttack = true;
-        isTriggerAttack = false; 
+       /* CanTriggerNextAttack = true;
+        isTriggerAttack = false; */
        // Debug.Log("stopDetectInput");
 
     }
@@ -263,7 +263,7 @@ public class AttackSystem : MonoBehaviour
     {
         //Debug.Log("1.Detect Attack State Force Exit");
 
-        yield return new WaitUntil(() => animationHash.GetCurrentAnimationTag(animationTag));
+       // yield return new WaitUntil(() => animationHash.GetCurrentAnimationTag(animationTag));
        // Debug.Log(animationHash.GetCurrentAnimationTag(animationTag));
 
         yield return new WaitUntil(() => !animationHash.GetCurrentAnimationTag(animationTag));

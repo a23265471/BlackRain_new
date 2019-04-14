@@ -56,6 +56,7 @@ public class PlayerController_New : MonoBehaviour {
         Falling();
         Jump();
         Attack();
+        Skill();
         Dash();
         Avoid();
       // Debug.Log(Input.inputString.GetHashCode());
@@ -123,6 +124,14 @@ public class PlayerController_New : MonoBehaviour {
 
     }
 
+    public void Skill()
+    {
+        if (Input.GetKeyDown(inputSetting.inputKey.BigSkill))
+        {
+            playerBehaviour.Skill();
+        }
+
+    }
 
 
     public void Dash()

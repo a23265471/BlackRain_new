@@ -225,4 +225,26 @@ MonoBehaviour:
       AudioClip_Attack: {fileID: 0}
   - Name: 
     DeputyAttack: []
-  specialAttack: []
+  specialAttack:
+  - Name: Electric
+    Id: 200
+    NextAttack: []
+    moveInfo:
+      MoveSpeed: 0
+      MoveDistance: 0
+      MoveDirection_X: 0
+      MoveDirection_Y: 0
+      MoveDirection_Z: 0
+      UseGravity: 0
+    AudioClip_Attack: {fileID: 0}
+  - Name: 
+    Id: 0
+    NextAttack: []
+    moveInfo:
+      MoveSpeed: 0
+      MoveDistance: 0
+      MoveDirection_X: 0
+      MoveDirection_Y: 0
+      MoveDirection_Z: 0
+      UseGravity: 0
+    AudioClip_Attack: {fileID: 0}

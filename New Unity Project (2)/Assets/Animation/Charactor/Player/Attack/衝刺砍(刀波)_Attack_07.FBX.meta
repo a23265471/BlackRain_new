@@ -194,7 +194,7 @@ ModelImporter:
           curve:
           - serializedVersion: 3
             time: 0
-            value: 0.8
+            value: 0.9
             inSlope: 0
             outSlope: 0
             tangentMode: 0
@@ -203,7 +203,7 @@ ModelImporter:
             outWeight: 0
           - serializedVersion: 3
             time: 0.16621982
-            value: 1
+            value: 1.5
             inSlope: 0
             outSlope: 0
             tangentMode: 0
@@ -212,7 +212,7 @@ ModelImporter:
             outWeight: 0
           - serializedVersion: 3
             time: 0.40482575
-            value: 1
+            value: 1.5
             inSlope: 0
             outSlope: 0
             tangentMode: 0
@@ -221,7 +221,7 @@ ModelImporter:
             outWeight: 0
           - serializedVersion: 3
             time: 1
-            value: 0.9
+            value: 1
             inSlope: 0
             outSlope: 0
             tangentMode: 0
@@ -282,6 +282,14 @@ ModelImporter:
         messageOptions: 0
       - time: 0.9584487
         functionName: ResetTriggerAttack
+        data: 
+        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
+          type: 2}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.20675102
+        functionName: TriggerNextAttack
         data: 
         objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
           type: 2}
@@ -321,7 +329,7 @@ ModelImporter:
           curve:
           - serializedVersion: 3
             time: 0
-            value: 0.8
+            value: 0.9
             inSlope: 0
             outSlope: 0
             tangentMode: 0
@@ -330,7 +338,7 @@ ModelImporter:
             outWeight: 0
           - serializedVersion: 3
             time: 0.16621982
-            value: 1
+            value: 1.5
             inSlope: 0
             outSlope: 0
             tangentMode: 0
@@ -339,7 +347,7 @@ ModelImporter:
             outWeight: 0
           - serializedVersion: 3
             time: 0.40482575
-            value: 1
+            value: 1.5
             inSlope: 0
             outSlope: 0
             tangentMode: 0
@@ -348,7 +356,7 @@ ModelImporter:
             outWeight: 0
           - serializedVersion: 3
             time: 1
-            value: 0.9
+            value: 1
             inSlope: 0
             outSlope: 0
             tangentMode: 0
@@ -409,6 +417,14 @@ ModelImporter:
         messageOptions: 0
       - time: 0.957806
         functionName: ResetTriggerAttack
+        data: 
+        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
+          type: 2}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.26160336
+        functionName: TriggerNextAttack
         data: 
         objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
           type: 2}
@@ -448,7 +464,7 @@ ModelImporter:
           curve:
           - serializedVersion: 3
             time: 0
-            value: 0.8
+            value: 0.9
             inSlope: 0
             outSlope: 0
             tangentMode: 0
@@ -457,7 +473,7 @@ ModelImporter:
             outWeight: 0
           - serializedVersion: 3
             time: 0.16621982
-            value: 1
+            value: 1.5
             inSlope: 0
             outSlope: 0
             tangentMode: 0
@@ -466,7 +482,7 @@ ModelImporter:
             outWeight: 0
           - serializedVersion: 3
             time: 0.40482575
-            value: 1
+            value: 1.5
             inSlope: 0
             outSlope: 0
             tangentMode: 0
@@ -475,7 +491,7 @@ ModelImporter:
             outWeight: 0
           - serializedVersion: 3
             time: 1
-            value: 0.9
+            value: 1
             inSlope: 0
             outSlope: 0
             tangentMode: 0
@@ -536,6 +552,14 @@ ModelImporter:
         messageOptions: 0
       - time: 0.957806
         functionName: ResetTriggerAttack
+        data: 
+        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
+          type: 2}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.2531646
+        functionName: TriggerNextAttack
         data: 
         objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
           type: 2}
@@ -575,7 +599,7 @@ ModelImporter:
           curve:
           - serializedVersion: 3
             time: 0
-            value: 0.8
+            value: 0.9
             inSlope: 0
             outSlope: 0
             tangentMode: 0
@@ -584,7 +608,7 @@ ModelImporter:
             outWeight: 0
           - serializedVersion: 3
             time: 0.16621982
-            value: 1
+            value: 1.5
             inSlope: 0
             outSlope: 0
             tangentMode: 0
@@ -593,7 +617,7 @@ ModelImporter:
             outWeight: 0
           - serializedVersion: 3
             time: 0.40482575
-            value: 1
+            value: 1.5
             inSlope: 0
             outSlope: 0
             tangentMode: 0
@@ -602,7 +626,7 @@ ModelImporter:
             outWeight: 0
           - serializedVersion: 3
             time: 1
-            value: 0.9
+            value: 1
             inSlope: 0
             outSlope: 0
             tangentMode: 0
@@ -663,6 +687,14 @@ ModelImporter:
         messageOptions: 0
       - time: 0.957806
         functionName: ResetTriggerAttack
+        data: 
+        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
+          type: 2}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.26160336
+        functionName: TriggerNextAttack
         data: 
         objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
           type: 2}
@@ -702,7 +734,7 @@ ModelImporter:
           curve:
           - serializedVersion: 3
             time: 0
-            value: 0.8
+            value: 0.9
             inSlope: 0
             outSlope: 0
             tangentMode: 0
@@ -711,7 +743,7 @@ ModelImporter:
             outWeight: 0
           - serializedVersion: 3
             time: 0.16621982
-            value: 1
+            value: 1.5
             inSlope: 0
             outSlope: 0
             tangentMode: 0
@@ -720,7 +752,7 @@ ModelImporter:
             outWeight: 0
           - serializedVersion: 3
             time: 0.40482575
-            value: 1
+            value: 1.5
             inSlope: 0
             outSlope: 0
             tangentMode: 0
@@ -729,7 +761,7 @@ ModelImporter:
             outWeight: 0
           - serializedVersion: 3
             time: 1
-            value: 0.9
+            value: 1
             inSlope: 0
             outSlope: 0
             tangentMode: 0
@@ -790,6 +822,14 @@ ModelImporter:
         messageOptions: 0
       - time: 0.94936705
         functionName: ResetTriggerAttack
+        data: 
+        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
+          type: 2}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.24472573
+        functionName: TriggerNextAttack
         data: 
         objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
           type: 2}

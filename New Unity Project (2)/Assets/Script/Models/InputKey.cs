@@ -15,5 +15,7 @@ public class InputKey
     
     public KeyCode NormalAttack;
     public KeyCode Aim_Shoot;
+    public KeyCode BigSkill;
+
 
 }

@@ -409,6 +409,25 @@ public class PlayerBehaviour : Character
 
     }
 
+    public void Skill()
+    {
+        if (gravity.groundCheck.IsGround)
+        {
+            if ((playerState & PlayerState.CanSkill) != 0)
+            {
+                // Debug.Log("gggg");
+                /* playerAnimator.SetTrigger("NormalAttack");
+                 CanTriggerNextAttack = false;
+                 isTriggerAttack = true;*/
+                // Debug.Log(playerState);
+
+                attackSystem.Attack("Skill");
+            }
+
+        }
+
+    }
+
     #endregion
 
     #region 衝刺
@@ -511,6 +530,15 @@ public class PlayerBehaviour : Character
                 StopCoroutine("LandingCheck");
 
                 break;
+            case (int)PlayerState.Skill:
+                playerState = PlayerState.Skill;
+                StopResetToIdleState();
+                playerRigidbody.velocity = new Vector3(0,0,0);
+
+                SwitchMove(0);
+                break;
+
+           
 
         }
     }
@@ -710,6 +738,8 @@ public class PlayerBehaviour : Character
     {
         if (!attackSystem.isTriggerAttack)
         {
+            Debug.Log("Attack => Idle");
+
             detectAnimationStateNotAttack = DetectAnimationStateNotAttack(animationTag);
             StartCoroutine(detectAnimationStateNotAttack);
         }
@@ -723,14 +753,15 @@ public class PlayerBehaviour : Character
         yield return new WaitUntil(() => !attackSystem.IsAttack);
 
        // yield return new WaitWhile(() => animationHash.GetCurrentAnimationTag(animationTag));
-        Debug.Log("Attack => Idle");
+      // if(animationTag)
+
         ChangeToIdle(32);
 
         ForceMove = false;
 
 
         
-        playerAnimator.ResetTrigger("NormalAttack");
+     //   playerAnimator.ResetTrigger("NormalAttack");
 
 
     }

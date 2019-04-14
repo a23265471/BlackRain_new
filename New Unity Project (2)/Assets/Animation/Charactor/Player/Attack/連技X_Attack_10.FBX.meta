@@ -227,7 +227,63 @@ ModelImporter:
           preInfinity: 3
           postInfinity: 3
           rotationOrder: 4
-      events: []
+      events:
+      - time: 0
+        functionName: ChangePlayerState
+        data: 
+        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
+          type: 2}
+        floatParameter: 0
+        intParameter: 32
+        messageOptions: 0
+      - time: 0
+        functionName: DetectForceExitAttack
+        data: Combo1
+        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
+          type: 2}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0
+        functionName: GetAttackInfo
+        data: 
+        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
+          type: 2}
+        floatParameter: 0
+        intParameter: 111
+        messageOptions: 0
+      - time: 0.9479282
+        functionName: AttackMoveSwitch
+        data: 
+        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
+          type: 2}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.9479282
+        functionName: ResetToIdleState
+        data: Combo
+        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
+          type: 2}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.9479282
+        functionName: ResetTriggerAttack
+        data: 
+        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
+          type: 2}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.13924052
+        functionName: TriggerNextAttack
+        data: 
+        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
+          type: 2}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}

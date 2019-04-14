@@ -154,6 +154,7 @@ ModelImporter:
     4300006: Paladin_J_Nordstrom_Shield
     7400000: Take 001
     7400002: BigSkill
+    7400004: BigSkill_New
     9500000: //RootNode
     13700000: Paladin_J_Nordstrom
     13700002: Paladin_J_Nordstrom_Helmet
@@ -284,6 +285,133 @@ ModelImporter:
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 23103c895a28c934f8bd1c4600195f95,
           type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: BigSkill_New
+      takeName: mixamo.com
+      firstFrame: 0
+      lastFrame: 89
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves:
+      - name: AnimationSpeed
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1.5
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.19831225
+            value: 2.5
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.62447256
+            value: 2.5
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.9999882
+            value: 1.5
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          preInfinity: 3
+          postInfinity: 3
+          rotationOrder: 4
+      events:
+      - time: 0
+        functionName: ChangePlayerState
+        data: 
+        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
+          type: 2}
+        floatParameter: 0
+        intParameter: 32
+        messageOptions: 0
+      - time: 0
+        functionName: DetectForceExitAttack
+        data: Skill
+        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
+          type: 2}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0
+        functionName: GetAttackInfo
+        data: 
+        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
+          type: 2}
+        floatParameter: 0
+        intParameter: 200
+        messageOptions: 0
+      - time: 0.21940927
+        functionName: TriggerNextAttack
+        data: 
+        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
+          type: 2}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.9535865
+        functionName: AttackMoveSwitch
+        data: 
+        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
+          type: 2}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.9535865
+        functionName: ResetToIdleState
+        data: Skill
+        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
+          type: 2}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.9535865
+        functionName: ResetTriggerAttack
+        data: 
+        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
+          type: 2}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
